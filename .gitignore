@@ -1,0 +1,8 @@
+node_modules/
+
+.env
+
+.next/
+.idea/
+
+yarn-error.log

@@ -1,0 +1,20 @@
+{
+  "restartable": "rs",
+  "verbose": true,
+  "execMap": {
+    "js": "babel-node",
+    "ts": "babel-node"
+  },
+  "runOnChangeOnly": false,
+  "watch": ["*"],
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules",
+    "dist",
+    "pages"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js,json,ts,graphql"
+}

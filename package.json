@@ -1,0 +1,43 @@
+{
+  "name": "eletronica-2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@material-ui/core": "^4.0.0",
+    "@material-ui/icons": "^4.0.0",
+    "@zeit/next-typescript": "^1.1.1",
+    "dotenv-safe": "^6.1.0",
+    "johnny-five": "^1.1.0",
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "next": "^8.1.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0",
+    "styled-components": "^4.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/next": "^8.0.5",
+    "@types/react": "^16.8.18",
+    "@types/socket.io": "^2.1.2",
+    "nodemon": "^1.19.1",
+    "source-map-loader": "^0.2.4",
+    "typescript": "^3.4.5"
+  },
+  "scripts": {
+    "dev": "nodemon --extensions \".es6,.js,.es,.jsx,.mjs,.ts\" index.js",
+    "build": "next build",
+    "start": "next start"
+  }
+}
