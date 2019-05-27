@@ -1,7 +1,12 @@
 module.exports = {
   presets: [
     '@babel/react',
-    '@babel/typescript',
+    [
+      '@babel/typescript',
+      {
+        allExtensions: true
+      }
+    ],
     '@zeit/next-typescript/babel',
     [
       '@babel/env',
