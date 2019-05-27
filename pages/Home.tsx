@@ -6,12 +6,12 @@ const Home = () => {
   const [message, setMessage] = React.useState('');
   const { socket } = useSocket();
   React.useEffect(() => {
-    socket.on('lamp1', data => setMessage(data.checked))
+    socket.on('Relé Gabriel', data => setMessage(data.value))
   }, [socket])
 
   const onClick = (e) => {
-    socket.emit('lamp1', {
-      checked: e.target.checked
+    socket.emit('Relé Gabriel', {
+      value: e.target.checked
     })
   }
 

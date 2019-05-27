@@ -1,15 +1,21 @@
+import * as five from 'johnny-five';
 import { Server } from 'socket.io';
 
-const setup = (io: Server, board) => {
-  const { pins } = board;
+export const initSocket = (io: Server, boards) => {
   io.on('connect', socket => {
-    const sendValue = () => socket.emit('lamp1', { checked: pins.lamp1.isOn })
-    sendValue()
-    socket.on('lamp1', data => {
-      data.checked ? pins.lamp1.on() : pins.lamp1.off();
-      sendValue();
-    })
+    for (const board of boards) {
+      const { pins } = board;
+      for (const [name, pin] of Object.entries(pins)) {
+        //@TODO add more io types
+        if (pin instanceof five.Relay) {
+          socket.emit(name, { value: pin.isOn })
+          socket.on(name, data => {
+            data.value ? pin.on() : pin.off();
+            socket.emit(name, { value: pin.isOn })
+          })
+        }
+      }
+    }
   })
 }
 
-export default setup;

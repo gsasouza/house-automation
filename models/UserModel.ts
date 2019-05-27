@@ -6,11 +6,6 @@ export interface IUser extends Document {
   email: string
   password: string
   isAdmin: boolean
-  setting: {
-    theme: string
-    notifications: string
-    compactMode: string
-  }
   authenticate: (plainTextPassword: string) => boolean
   encryptPassword: (password: string | undefined) => Promise<string>
 }

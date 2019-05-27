@@ -6,7 +6,9 @@ import next from 'next';
 import http from 'http';
 import Socket from 'socket.io'
 
-import socketSetup from '../interface/SocketSetup';
+import { initSocket } from '../interface/SocketSetup';
+import { initBoards } from '../interface/BoardSetup';
+import { connect } from '../config/db'
 
 // Initialize KoaJs server and router
 const app = new Koa();
@@ -20,10 +22,11 @@ const handler = nextApp.getRequestHandler();
 
 app.use(statics(path.join(__dirname, "public")));
 
-const setup = async (board) => {
+const setup = async () => {
   try {
+    await connect();
+    await initSocket(io, await initBoards());
     await nextApp.prepare();
-    socketSetup(io, board);
     router.get('/', async ctx => {
       await nextApp.render(ctx.req, ctx.res, '/Home', ctx.query);
       ctx.respond = false;
