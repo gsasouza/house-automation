@@ -6,9 +6,9 @@ import next from 'next';
 import http from 'http';
 import Socket from 'socket.io'
 
-import { initSocket } from '../interface/SocketSetup';
-import { initBoards } from '../interface/BoardSetup';
-import { connect } from '../config/db'
+import { initSocket } from './SocketSetup';
+import { initBoards } from './BoardSetup';
+import { connect } from '../shared/config/db'
 
 // Initialize KoaJs server and router
 const app = new Koa();

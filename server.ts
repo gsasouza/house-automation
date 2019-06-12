@@ -1,4 +1,4 @@
-import app from './controllers/App';
+import app from './packages/interface/App';
 
 export const start = async () => {
   await app()
