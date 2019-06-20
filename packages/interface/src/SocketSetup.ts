@@ -1,7 +1,7 @@
 import * as five from 'johnny-five';
 import { Server } from 'socket.io';
 
-export const initSocket = (io: Server, boards) => {
+export const initSocket = (io: Server, boards: Array<five.Board>) => {
   io.on('connect', socket => {
     for (const board of boards) {
       const { pins } = board;

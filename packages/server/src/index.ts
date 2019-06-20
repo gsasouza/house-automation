@@ -1,4 +1,3 @@
-// import '@babel/polyfill';
 import app from './app';
 import { connectDatabase, SERVER_PORT } from '@gsasouza/shared';
 

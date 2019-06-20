@@ -26,6 +26,7 @@
     "build:packages": "lerna exec --parallel -- babel src -d lib --extensions \".ts,.tsx\" --ignore **/*.story.js,**/*.spec.js",
     "web:start": "yarn workspace @gsasouza/web start",
     "server:start": "yarn workspace @gsasouza/server start",
+    "interface:start": "yarn workspace @gsasouza/interface start",
     "repl": "yarn workspace @gsasouza/shared repl"
   }
 }

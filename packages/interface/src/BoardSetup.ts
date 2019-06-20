@@ -1,9 +1,16 @@
 import * as five from 'johnny-five'
 import { Board as BoardType } from 'johnny-five'
+import { EtherPortClient } from 'etherport-client';
 
-import { SERIAL_PORT } from '../../shared/src/config'
-import { Board } from '../../shared/src/models/BoardModel';
+
+import { SERIAL_PORT, Board } from '@gsasouza/shared'
 import { initIO } from './IOSetup'
+
+export enum BoardsEnum {
+  RASPBERRY = 'RASPBERRY',
+  ARDUINO = 'ARDUINO',
+  ESP8266 = 'ESP8266'
+}
 
 const configDefault = SERIAL_PORT ? { port: SERIAL_PORT } : {}
 
@@ -19,7 +26,18 @@ export const createBoards = async (): Promise<Array<BoardType>> => {
   const boards = await Board.find({});
   return new Promise((resolve) => {
     new five.Boards(
-      boards.map(({ _id, port}) => ({ id: _id, port }))
+      boards.map(({ _id, port, type }) => {
+        if (type === BoardsEnum.ESP8266) {
+          return {
+            id: _id,
+            port: new EtherPortClient({
+              host: '192.168.15.23',
+              port: 3030
+            })
+          };
+        }
+        return { id: _id, port };
+      })
     ).on('ready', function () {
       resolve(Array.from(this))
     })

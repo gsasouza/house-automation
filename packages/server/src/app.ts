@@ -2,8 +2,6 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import graphqlHTTP from 'koa-graphql';
 
-
-
 const app = new Koa();
 const router = new Router();
 

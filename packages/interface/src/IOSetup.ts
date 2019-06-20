@@ -1,6 +1,10 @@
 import five from 'johnny-five';
 
-import { BoardIO, BoardIOEnum } from '../../shared/src/models/BoardIOModel';
+import { BoardIO } from '@gsasouza/shared'
+
+export enum BoardIOEnum {
+  'RELAY' = 'RELAY',
+}
 
 export const initIO = async (board) => {
   const ios = await BoardIO.find({ board: board.id });

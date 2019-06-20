@@ -29,7 +29,7 @@ const schema = new mongoose.Schema(
     },
     board: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'Board'
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
