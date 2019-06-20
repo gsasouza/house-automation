@@ -8,16 +8,6 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.5",
-    "@babel/node": "^7.4.5",
-    "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
-    "@babel/plugin-transform-runtime": "^7.4.4",
-    "@babel/preset-env": "^7.4.5",
-    "@babel/preset-react": "^7.0.0",
-    "@babel/preset-typescript": "^7.3.3",
-    "@types/next": "^8.0.5",
     "@types/react": "^16.8.18",
     "@types/react-dom": "^16.8.4",
     "@types/socket.io": "^2.1.2",
@@ -30,6 +20,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap --use-workspaces",
     "build:packages": "lerna exec --parallel -- babel --root-mode upward src -d lib --ignore **/*.story.js,**/*.spec.js",
-    "admin:start": "yarn workspace @gsasouza/admin start"
+    "web:start": "yarn workspace @gsasouza/web start",
+    "repl": "yarn workspace @gsasouza/shared repl"
   }
 }

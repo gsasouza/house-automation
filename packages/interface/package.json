@@ -2,5 +2,9 @@
   "name": "@gsasouza/interface",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "etherport-client": "^0.1.4",
+    "johnny-five": "^1.1.0"
+  }
 }

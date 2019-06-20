@@ -2,5 +2,13 @@
   "name": "@gsasouza/shared",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "repl": "babel-node --extensions \".ts\" repl/data"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "dotenv-safe": "^6.1.0",
+    "mongoose": "^5.6.0"
+  }
 }
