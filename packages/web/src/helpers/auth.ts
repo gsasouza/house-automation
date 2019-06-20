@@ -1,9 +1,9 @@
 import { navigate } from '@reach/router'
 
-export const ACCESS_TOKEN = 'go-backlog-login-storage'
+export const ACCESS_TOKEN = 'GSASOUZA_HOUSE_AUTOMATION'
 
-export const login = async (accessToken, remember) => remember ?
-  await localStorage.setItem(ACCESS_TOKEN, accessToken) :
+export const login = (accessToken, remember) => remember ?
+  localStorage.setItem(ACCESS_TOKEN, accessToken) :
   sessionStorage.setItem(ACCESS_TOKEN, accessToken);
 
 
@@ -13,7 +13,7 @@ export const logout = () => {
   navigate('/');
 }
 
-export const getAccessToken = async () => await localStorage.getItem(ACCESS_TOKEN) || sessionStorage.getItem(ACCESS_TOKEN)
+export const getAccessToken = () => localStorage.getItem(ACCESS_TOKEN) || sessionStorage.getItem(ACCESS_TOKEN)
 
 export const isLoggedIn = async () => {
   const token = await getAccessToken()

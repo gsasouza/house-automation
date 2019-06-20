@@ -3,32 +3,39 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@atlaskit/button": "^13.0.8",
-    "@atlaskit/form": "^6.0.7",
-    "@atlaskit/spinner": "^12.0.3",
-    "@atlaskit/textfield": "^2.0.2",
+    "@babel/core": "7.4.3",
+    "@elastic/datemath": "^5.0.2",
+    "@elastic/eui": "^12.0.0",
+    "@jetbrains/ring-ui": "^2.0.12",
     "@reach/router": "^1.2.1",
+    "@svgr/webpack": "4.1.0",
     "@types/jest": "24.0.15",
     "@types/node": "12.0.8",
     "@types/react": "16.8.21",
     "@types/react-dom": "16.8.4",
-    "babel-plugin-relay": "^2.0.0-rc.2",
+    "babel-plugin-relay": "^5.0.0",
+    "carbon-components": "^10.3.1",
+    "carbon-icons": "^7.0.7",
     "formik": "^1.5.7",
+    "moment": "^2.24.0",
+    "parcel-bundler": "^1.12.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-intl": "^2.9.0",
     "react-pose": "^4.0.8",
-    "react-scripts": "3.0.1",
+    "react-relay": "^5.0.0",
+    "relay-compiler": "^5.0.0",
+    "relay-compiler-language-typescript": "^4.3.0",
+    "relay-hooks": "^1.2.0",
+    "relay-runtime": "^5.0.0",
     "styled-components": "^4.3.2",
-    "typescript": "3.5.2"
+    "webpack-dev-server": "^3.7.2",
+    "yup": "^0.27.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "start": "cross-env NODE_ENV=development webpack-dev-server -d",
+    "build": "cross-env NODE_ENV=production webpack -p",
+    "relay": "relay-compiler --watchman false --src ./src --schema data/schema.graphql --language typescript"
   },
   "browserslist": {
     "production": [
@@ -41,5 +48,19 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
+    "cross-env": "^5.2.0",
+    "graphql": "^14.3.1",
+    "graphql-compiler": "^1.7.0",
+    "html-webpack-plugin": "^3.2.0",
+    "react-hot-loader": "^4.11.1",
+    "relay-compiler-language-typescript": "^4.3.0",
+    "source-map-loader": "^0.2.4",
+    "typescript": "^3.5.2",
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.4"
   }
 }

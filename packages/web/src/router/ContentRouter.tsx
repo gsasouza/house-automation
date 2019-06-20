@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { navigate } from '@reach/router'
-import Spinner from '@atlaskit/spinner';
 import styled from 'styled-components';
 
 import Content from '../components/common/content/Content'
@@ -35,7 +34,7 @@ const ContentRouter = () => {
 
   if (isLoading) return (
     <LoadingWrapper>
-      <Spinner size="medium"/>
+      LOADING
     </LoadingWrapper>
   )
   return (

@@ -1,10 +1,13 @@
-import React from 'react';
-import logo from './logo.svg';
+import * as React from 'react';
+import ReactDOM from 'react-dom'
 
-const App: React.FC = () => {
-  return (
-    <div> HELLO WORLD </div>
-  );
-}
+import AppRouter from './router/AppRouter';
+import Providers from './components/utils/Providers';
 
-export default App;
+const App = () => (
+  <Providers>
+    <AppRouter />
+  </Providers>
+)
+
+ReactDOM.render(<App />, document.getElementById('root'))

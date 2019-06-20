@@ -1,6 +1,7 @@
 import Koa from 'koa';
 import Router from 'koa-router';
 import graphqlHTTP from 'koa-graphql';
+import cors from 'kcors';
 
 import koaPlayground from 'graphql-playground-middleware-koa';
 
@@ -18,6 +19,7 @@ router.all('/graphql', graphqlHTTP({
   graphiql: false
 }))
 
+app.use(cors());
 export default app;
 
 app.use(router.routes()).use(router.allowedMethods());

@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon --extensions \".es6,.js,.es,.jsx,.mjs,.ts\" src/index.ts",
-    "update-schema": "babel-node ./scripts/updateSchema.ts",
+    "update-schema": "nodemon --extensions \".es6,.js,.es,.jsx,.mjs,.ts\" ./scripts/updateSchema.ts",
     "test": "jest"
   },
   "dependencies": {

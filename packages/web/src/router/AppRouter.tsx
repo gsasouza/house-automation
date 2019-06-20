@@ -3,7 +3,7 @@ import { Router } from '@reach/router'
 
 import PublicRouter from './PublicRouter'
 
-import Auth from './../auth/Auth'
+import Auth from '../components/auth/Auth'
 
 const AppRouter = () => (
   <Router>

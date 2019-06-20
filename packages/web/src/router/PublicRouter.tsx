@@ -1,9 +1,8 @@
 import * as React from 'react'
 import { navigate } from '@reach/router'
-import Spinner from '@atlaskit/spinner';
 import styled from 'styled-components';
 
-import { isLoggedIn } from '../../helpers/auth'
+import { isLoggedIn } from '../helpers/auth'
 
 const LoadingWrapper = styled.div`
   display: flex;
@@ -26,7 +25,7 @@ const PublicRouter = ({ component: Component, ...props }) => {
 
   if (isLoading) return (
     <LoadingWrapper>
-      <Spinner size="medium"/>
+      LOADING
     </LoadingWrapper>
   )
 

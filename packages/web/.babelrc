@@ -1,1 +1,9 @@
-{ "presets": ["babel-preset-gsasouza"] }
+{
+  "presets": ["babel-preset-gsasouza", "@babel/react"],
+  "plugins": [
+    [
+      "relay",
+      { "schema": "data/schema.graphql" }
+    ]
+  ]
+}

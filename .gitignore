@@ -8,3 +8,5 @@ node_modules/
 yarn-error.log
 
 packages/**/lib
+packages/**/dist
+__generated__/
