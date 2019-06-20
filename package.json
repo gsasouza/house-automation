@@ -8,10 +8,14 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@types/dotenv-safe": "^5.0.3",
+    "@types/johnny-five": "^0.0.40",
+    "@types/koa": "^2.0.48",
+    "@types/koa-router": "^7.0.41",
+    "@types/mongoose": "^5.5.6",
     "@types/react": "^16.8.18",
     "@types/react-dom": "^16.8.4",
     "@types/socket.io": "^2.1.2",
-    "@types/johnny-five": "^0.0.40",
     "lerna": "^3.15.0",
     "nodemon": "^1.19.1",
     "source-map-loader": "^0.2.4",
@@ -19,8 +23,9 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap --use-workspaces",
-    "build:packages": "lerna exec --parallel -- babel --root-mode upward src -d lib --ignore **/*.story.js,**/*.spec.js",
+    "build:packages": "lerna exec --parallel -- babel src -d lib --extensions \".ts,.tsx\" --ignore **/*.story.js,**/*.spec.js",
     "web:start": "yarn workspace @gsasouza/web start",
+    "server:start": "yarn workspace @gsasouza/server start",
     "repl": "yarn workspace @gsasouza/shared repl"
   }
 }

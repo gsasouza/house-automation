@@ -1,13 +1,15 @@
 {
-  "name": "@gsasouza/monorepo",
+  "name": "@gsasouza/server",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/index.ts",
+    "start": "nodemon --extensions \".es6,.js,.es,.jsx,.mjs,.ts\" src/index.ts",
     "test": "jest"
   },
   "dependencies": {
+    "@gsasouza/shared": "^1.0.0",
+    "babel-preset-gsasouza": "^1.0.0",
     "bcrypt": "^3.0.6",
     "dataloader": "^1.4.0",
     "dotenv-safe": "^6.1.0",
@@ -15,6 +17,8 @@
     "kcors": "^2.2.2",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
-    "koa-graphql": "^0.8.0"
+    "koa-graphql": "^0.8.0",
+    "koa-router": "^7.4.0",
+    "ts-node": "^8.3.0"
   }
 }

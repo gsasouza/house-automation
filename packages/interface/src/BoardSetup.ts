@@ -1,8 +1,8 @@
 import * as five from 'johnny-five'
 import { Board as BoardType } from 'johnny-five'
 
-import { SERIAL_PORT } from '../shared/config'
-import { Board } from '../shared/models/BoardModel';
+import { SERIAL_PORT } from '../../shared/src/config'
+import { Board } from '../../shared/src/models/BoardModel';
 import { initIO } from './IOSetup'
 
 const configDefault = SERIAL_PORT ? { port: SERIAL_PORT } : {}

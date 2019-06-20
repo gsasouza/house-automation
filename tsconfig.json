@@ -13,6 +13,6 @@
     "target": "es6",
     "lib": ["es7", "dom"]
   },
-  "include": ["./src/**/*"],
+  "include": ["packages"],
   "exclude": ["node_modules"]
 }

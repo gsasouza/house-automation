@@ -4,7 +4,7 @@ import Socket from 'socket.io'
 
 import { initSocket } from './SocketSetup';
 import { initBoards } from './BoardSetup';
-import { connect } from '../shared/config/db'
+import { connect } from '../../shared/src/config/db'
 
 // Initialize KoaJs server and router
 const app = new Koa();
