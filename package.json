@@ -9,7 +9,10 @@
   ],
   "devDependencies": {
     "@types/dotenv-safe": "^5.0.3",
+    "@types/graphql": "^14.2.1",
+    "@types/graphql-relay": "^0.4.9",
     "@types/johnny-five": "^0.0.40",
+    "@types/jsonwebtoken": "^8.3.2",
     "@types/koa": "^2.0.48",
     "@types/koa-router": "^7.0.41",
     "@types/mongoose": "^5.5.6",
@@ -26,6 +29,7 @@
     "build:packages": "lerna exec --parallel -- babel src -d lib --extensions \".ts,.tsx\" --ignore **/*.story.js,**/*.spec.js",
     "web:start": "yarn workspace @gsasouza/web start",
     "server:start": "yarn workspace @gsasouza/server start",
+    "server:update-schema": "yarn workspace @gsasouza/server update-schema",
     "interface:start": "yarn workspace @gsasouza/interface start",
     "repl": "yarn workspace @gsasouza/shared repl"
   }

@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 
 export interface IUser extends Document {
   name: string
-  email: string
+  username: string
   password: string
   isAdmin: boolean
   authenticate: (plainTextPassword: string) => boolean

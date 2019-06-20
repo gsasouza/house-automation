@@ -3,8 +3,7 @@ import { connectDatabase, SERVER_PORT } from '@gsasouza/shared';
 
 (async () => {
   try {
-    const info = await connectDatabase();
-    console.log(`Connected to ${info.host}:${info.port}/${info.name}`);
+    await connectDatabase();
   } catch (error) {
     console.error('Unable to connect to database');
     process.exit(1);
