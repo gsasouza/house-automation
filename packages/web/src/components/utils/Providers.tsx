@@ -8,11 +8,7 @@ import environment from '../../relay/enviroment';
 const GlobalStyle = createGlobalStyle`
   body {
     background-color: #F5F6F8;
-    font-family: 'Poppins', sans-serif;
     margin: 0;
-  }
-  * {
-    font-family: 'Poppins', sans-serif;
   }
 `
 
