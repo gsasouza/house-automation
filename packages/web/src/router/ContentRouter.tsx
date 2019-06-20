@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { navigate } from '@reach/router'
 import styled from 'styled-components';
+import {
+  EuiLoadingSpinner,
+} from '@elastic/eui';
 
 import Content from '../components/common/content/Content'
 import PosedRouter from './PosedRouter';
@@ -25,16 +28,13 @@ const ContentRouter = () => {
   const [isLoading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
-    (async () => {
-      !await isLoggedIn() && navigate('/login')
-      setLoading(false);
-      return null;
-    })();
+    !isLoggedIn() && navigate('/login')
+    setLoading(false);
   }, [])
 
   if (isLoading) return (
     <LoadingWrapper>
-      LOADING
+      <EuiLoadingSpinner size={'m'} />
     </LoadingWrapper>
   )
   return (

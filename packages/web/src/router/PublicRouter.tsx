@@ -3,6 +3,7 @@ import { navigate } from '@reach/router'
 import styled from 'styled-components';
 
 import { isLoggedIn } from '../helpers/auth'
+import {EuiLoadingSpinner} from "@elastic/eui"
 
 const LoadingWrapper = styled.div`
   display: flex;
@@ -25,7 +26,7 @@ const PublicRouter = ({ component: Component, ...props }) => {
 
   if (isLoading) return (
     <LoadingWrapper>
-      LOADING
+      <EuiLoadingSpinner size={'m'} />
     </LoadingWrapper>
   )
 

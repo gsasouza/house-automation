@@ -15,7 +15,7 @@ export const logout = () => {
 
 export const getAccessToken = () => localStorage.getItem(ACCESS_TOKEN) || sessionStorage.getItem(ACCESS_TOKEN)
 
-export const isLoggedIn = async () => {
-  const token = await getAccessToken()
+export const isLoggedIn = () => {
+  const token = getAccessToken()
   return token !== 'null' && !!token
 }
