@@ -1,0 +1,15 @@
+{
+  "name": "@gsasouza/interface",
+  "version": "1.0.0",
+  "main": "lib/app.js",
+  "license": "MIT",
+  "dependencies": {
+    "@gsasouza/shared": "^1.0.0",
+    "etherport-client": "^0.1.4",
+    "johnny-five": "^1.1.0",
+    "socket.io": "^2.2.0"
+  },
+  "scripts": {
+    "start": "nodemon --extensions \".es6,.js,.es,.jsx,.mjs,.ts\" src/index.ts"
+  }
+}

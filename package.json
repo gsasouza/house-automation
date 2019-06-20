@@ -3,46 +3,30 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "dependencies": {
-    "@material-ui/core": "^4.0.0",
-    "@material-ui/icons": "^4.0.0",
-    "@types/johnny-five": "^0.0.40",
-    "@zeit/next-typescript": "^1.1.1",
-    "bcrypt": "^3.0.6",
-    "dotenv-safe": "^6.1.0",
-    "johnny-five": "^1.1.0",
-    "koa": "^2.7.0",
-    "koa-router": "^7.4.0",
-    "koa-static": "^5.0.0",
-    "mongoose": "^5.5.11",
-    "next": "^8.1.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "socket.io": "^2.2.0",
-    "socket.io-client": "^2.2.0",
-    "styled-components": "^4.2.0"
-  },
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.5",
-    "@babel/node": "^7.4.5",
-    "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
-    "@babel/plugin-transform-runtime": "^7.4.4",
-    "@babel/preset-env": "^7.4.5",
-    "@babel/preset-react": "^7.0.0",
-    "@babel/preset-typescript": "^7.3.3",
-    "@types/next": "^8.0.5",
+    "@types/dotenv-safe": "^5.0.3",
+    "@types/johnny-five": "^0.0.40",
+    "@types/koa": "^2.0.48",
+    "@types/koa-router": "^7.0.41",
+    "@types/mongoose": "^5.5.6",
     "@types/react": "^16.8.18",
+    "@types/react-dom": "^16.8.4",
     "@types/socket.io": "^2.1.2",
+    "lerna": "^3.15.0",
     "nodemon": "^1.19.1",
     "source-map-loader": "^0.2.4",
     "typescript": "^3.4.5"
   },
   "scripts": {
-    "dev": "nodemon --extensions \".es6,.js,.es,.jsx,.mjs,.ts\" index.js",
-    "build": "next build",
-    "start": "next start",
-    "repl": "babel-node --extensions \".ts\" repl/Repl"
+    "bootstrap": "lerna bootstrap --use-workspaces",
+    "build:packages": "lerna exec --parallel -- babel src -d lib --extensions \".ts,.tsx\" --ignore **/*.story.js,**/*.spec.js",
+    "web:start": "yarn workspace @gsasouza/web start",
+    "server:start": "yarn workspace @gsasouza/server start",
+    "interface:start": "yarn workspace @gsasouza/interface start",
+    "repl": "yarn workspace @gsasouza/shared repl"
   }
 }
