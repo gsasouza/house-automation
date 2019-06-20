@@ -4,6 +4,7 @@ import { withFormik } from 'formik';
 import { navigate } from '@reach/router'
 import {
   EuiButton,
+  EuiButtonEmpty,
   EuiFieldPassword,
   EuiFieldText,
   EuiForm,
@@ -11,6 +12,8 @@ import {
   EuiPanel,
   EuiTitle,
   EuiSpacer,
+  EuiFlexGroup,
+  EuiFlexItem,
 } from '@elastic/eui';
 
 import LoginMutation from './mutation/LoginMutation'
@@ -24,13 +27,9 @@ const LoginSchema = Yup.object().shape({
     .required('Preencha o campo de senha'),
 });
 
-const LoginInnerForm = ({ handleSubmit, values, handleChange, isValid, errors }) => {
-  console.log(isValid, errors)
+const LoginInnerForm = ({ handleSubmit, values, handleChange }) => {
   return (
-    <EuiPanel style={{ width: 300, maxHeight: 300 }}>
-      <EuiTitle>
-        <h2> Login </h2>
-      </EuiTitle>
+    <EuiPanel style={{ width: 400, maxHeight: 270 }}>
       <EuiSpacer size="s" />
       <EuiForm>
         <EuiFormRow
@@ -51,12 +50,18 @@ const LoginInnerForm = ({ handleSubmit, values, handleChange, isValid, errors })
           />
         </EuiFormRow>
         <EuiSpacer size="s" />
-        <EuiButton type="submit" fill onClick={e => {
-          console.log('here', e)
-          handleSubmit(e)
-        }}>
-          Login
-        </EuiButton>
+        <EuiFlexGroup>
+          <EuiFlexItem>
+            <EuiButton type="submit" fill onClick={handleSubmit} >
+              Login
+            </EuiButton>
+          </EuiFlexItem>
+          <EuiFlexItem>
+            <EuiButtonEmpty>
+              Esqueceu a Senha?
+            </EuiButtonEmpty>
+          </EuiFlexItem>
+        </EuiFlexGroup>
       </EuiForm>
     </EuiPanel>
   )
@@ -66,7 +71,6 @@ export default withFormik({
   mapPropsToValues: () => ({ username: '', password: '' }),
   validationSchema: LoginSchema,
   handleSubmit: async (values, { setSubmitting, setStatus }) => {
-    console.log('heeere');
     const onCompleted = ({ Login: { token } }) => {
       navigate('/dashboard');
       login(token, true);

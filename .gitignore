@@ -10,3 +10,4 @@ yarn-error.log
 packages/**/lib
 packages/**/dist
 __generated__/
+.cache/
