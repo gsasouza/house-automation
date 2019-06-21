@@ -37,6 +37,6 @@
     "server:update-schema": "yarn workspace @gsasouza/server update-schema",
     "interface:start": "yarn workspace @gsasouza/interface start",
     "repl": "yarn workspace @gsasouza/shared repl",
-    "heroku-postbuild": "yarn build:packages && yarn bootstrap && yarn web:build && yarn web:relay"
+    "heroku-postbuild": "yarn build:packages && yarn web:build && yarn web:relay"
   }
 }
