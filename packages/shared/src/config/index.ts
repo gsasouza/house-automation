@@ -4,6 +4,7 @@ import dotenvSafe from 'dotenv-safe'
 const root = path.join.bind(this, __dirname, '../../../../')
 
 dotenvSafe.load({
+  allowEmptyValues: true,
   path: root('.env'),
   sample: root('.env.example')
 })
