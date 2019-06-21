@@ -2,7 +2,7 @@ import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 import { getAccessToken } from '../helpers/auth';
 
 //@TODO fix this
-const GRAPHQL_URL = 'http://localhost:8080/graphql'
+const GRAPHQL_URL =  process.env.GRAPHQL_URL || 'http://localhost:8080/graphql'
 
 
 const fetchQuery = async (operation, variables, cacheConfig, uploadables) => {
