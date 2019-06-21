@@ -29,12 +29,15 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap --use-workspaces",
-    "build:packages": "lerna exec --parallel -- babel src -d lib --extensions \".ts,.tsx\" --ignore **/*.story.js,**/*.spec.js",
+    "build:packages": "lerna exec --parallel -- babel src -d build --extensions \".ts,.tsx\" --ignore **/*.story.js,**/*.spec.js",
     "web:start": "yarn workspace @gsasouza/web start",
+    "web:build": "yarn workspace @gsasouza/web start",
     "web:relay": "yarn workspace @gsasouza/web relay",
     "server:start": "yarn workspace @gsasouza/server start",
     "server:update-schema": "yarn workspace @gsasouza/server update-schema",
     "interface:start": "yarn workspace @gsasouza/interface start",
-    "repl": "yarn workspace @gsasouza/shared repl"
+    "repl": "yarn workspace @gsasouza/shared repl",
+    "heroku-prebuild": "npm run build:packages",
+    "heroku-postbuild": "npm run web:build"
   }
 }

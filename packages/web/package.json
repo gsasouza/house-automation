@@ -16,6 +16,7 @@
     "babel-plugin-relay": "^5.0.0",
     "carbon-components": "^10.3.1",
     "carbon-icons": "^7.0.7",
+    "express": "^4.17.1",
     "formik": "^1.5.7",
     "moment": "^2.24.0",
     "parcel-bundler": "^1.12.3",

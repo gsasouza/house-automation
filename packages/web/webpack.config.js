@@ -63,4 +63,7 @@ module.exports = {
   plugins: dev
     ? [HTMLWebpackPluginConfig, new webpack.HotModuleReplacementPlugin()]
     : [HTMLWebpackPluginConfig, DefinePluginConfig],
+  node: {
+    '*': 'empty'
+  }
 };
