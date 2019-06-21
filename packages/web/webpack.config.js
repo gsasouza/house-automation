@@ -62,8 +62,8 @@ module.exports = {
   },
   mode: dev ? 'development' : 'production',
   plugins: dev
-    ? [HTMLWebpackPluginConfig, new webpack.HotModuleReplacementPlugin(), new Dotenv()]
-    : [HTMLWebpackPluginConfig, DefinePluginConfig, new Dotenv()],
+    ? [HTMLWebpackPluginConfig, new webpack.HotModuleReplacementPlugin(), new Dotenv({ systemvars: true })]
+    : [HTMLWebpackPluginConfig, DefinePluginConfig, new Dotenv({ systemvars: true })],
   node: {
     '*': 'empty'
   }
