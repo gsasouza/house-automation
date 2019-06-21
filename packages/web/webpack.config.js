@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const dev = process.env.NODE_ENV !== 'production';
 
@@ -61,8 +62,8 @@ module.exports = {
   },
   mode: dev ? 'development' : 'production',
   plugins: dev
-    ? [HTMLWebpackPluginConfig, new webpack.HotModuleReplacementPlugin()]
-    : [HTMLWebpackPluginConfig, DefinePluginConfig],
+    ? [HTMLWebpackPluginConfig, new webpack.HotModuleReplacementPlugin(), new Dotenv()]
+    : [HTMLWebpackPluginConfig, DefinePluginConfig, new Dotenv()],
   node: {
     '*': 'empty'
   }
