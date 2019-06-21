@@ -11,3 +11,4 @@ packages/**/lib
 packages/**/dist
 __generated__/
 .cache/
+build/
