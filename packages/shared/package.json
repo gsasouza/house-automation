@@ -1,7 +1,7 @@
 {
   "name": "@gsasouza/shared",
   "version": "1.0.0",
-  "main": "lib/index.js",
+  "main": "build/index.js",
   "license": "MIT",
   "scripts": {
     "repl": "babel-node --extensions \".ts\" src/repl/Repl"

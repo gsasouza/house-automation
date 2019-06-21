@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.GRAPHQL_URL = exports.SERIAL_PORT = exports.JWT_SECRET = exports.NODE_ENV = exports.SERVER_PORT = exports.DB_URL = void 0;
+exports.JWT_SECRET = exports.NODE_ENV = exports.SERVER_PORT = exports.DB_URL = void 0;
 
 var path = _interopRequireWildcard(require("path"));
 
@@ -16,6 +16,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var root = path.join.bind(void 0, __dirname, '../../../../');
 
 _dotenvSafe["default"].load({
+  allowEmptyValues: true,
   path: root('.env'),
   sample: root('.env.example')
 });
@@ -28,7 +29,3 @@ var NODE_ENV = process.env.NODE_ENV;
 exports.NODE_ENV = NODE_ENV;
 var JWT_SECRET = process.env.JWT_SECRET;
 exports.JWT_SECRET = JWT_SECRET;
-var SERIAL_PORT = process.env.SERIAL_PORT;
-exports.SERIAL_PORT = SERIAL_PORT;
-var GRAPHQL_URL = process.env.GRAPHQL_URL;
-exports.GRAPHQL_URL = GRAPHQL_URL;
