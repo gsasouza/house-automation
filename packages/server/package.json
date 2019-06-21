@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon --extensions \".es6,.js,.es,.jsx,.mjs,.ts\" src/index.ts",
     "update-schema": "nodemon --extensions \".es6,.js,.es,.jsx,.mjs,.ts\" ./scripts/updateSchema.ts",
-    "test": "jest"
+    "test": "jest",
+    "serve": "node build/index"
   },
   "dependencies": {
     "@entria/graphql-mongoose-loader": "^3.0.3",

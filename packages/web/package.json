@@ -36,6 +36,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server -d",
     "build": "cross-env NODE_ENV=production webpack -p",
+    "serve": "node server.js",
     "relay": "relay-compiler --watchman false --src ./src --schema data/schema.graphql --language typescript"
   },
   "browserslist": {
