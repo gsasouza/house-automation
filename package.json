@@ -19,6 +19,7 @@
     "@types/reach__router": "^1.2.4",
     "@types/react": "^16.8.18",
     "@types/react-dom": "^16.8.4",
+    "@types/react-relay": "^5.0.0",
     "@types/socket.io": "^2.1.2",
     "@types/styled-components": "^4.1.16",
     "@types/yup": "^0.26.16",

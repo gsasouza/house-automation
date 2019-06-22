@@ -6,9 +6,15 @@ import {
   EuiHeaderLogo
 } from '@elastic/eui'
 import { navigate } from '@reach/router'
+import styled from 'styled-components';
+
+const FixedHeader = styled(EuiHeader)`
+  position: fixed !important;
+  width: 100%;
+`;
 
 const Header = () => (
-  <EuiHeader>
+  <FixedHeader>
     <EuiHeaderSection grow={false}>
       <EuiHeaderSectionItem border="right">
         <EuiHeaderLogo
@@ -19,7 +25,7 @@ const Header = () => (
       </EuiHeaderSectionItem>
     </EuiHeaderSection>
 
-  </EuiHeader>
+  </FixedHeader>
 )
 
 export default Header;

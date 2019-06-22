@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getUser = getUser;
 exports.generateToken = generateToken;
+exports.authenticatedMiddleware = void 0;
 
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
@@ -23,51 +24,88 @@ function getUser(_x) {
 function _getUser() {
   _getUser = _asyncToGenerator(
   /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee(token) {
+  regeneratorRuntime.mark(function _callee2(token) {
     var decodedToken, user;
-    return regeneratorRuntime.wrap(function _callee$(_context) {
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
-        switch (_context.prev = _context.next) {
+        switch (_context2.prev = _context2.next) {
           case 0:
             if (token) {
-              _context.next = 2;
+              _context2.next = 2;
               break;
             }
 
-            return _context.abrupt("return", {
+            return _context2.abrupt("return", {
               user: null
             });
 
           case 2:
-            _context.prev = 2;
+            _context2.prev = 2;
             decodedToken = _jsonwebtoken["default"].verify(token.substring(4), _shared.JWT_SECRET);
-            _context.next = 6;
+            _context2.next = 6;
             return _shared.User.findOne({
               _id: decodedToken.id
             });
 
           case 6:
-            user = _context.sent;
-            return _context.abrupt("return", {
+            user = _context2.sent;
+            return _context2.abrupt("return", {
               user: user
             });
 
           case 10:
-            _context.prev = 10;
-            _context.t0 = _context["catch"](2);
-            return _context.abrupt("return", {
+            _context2.prev = 10;
+            _context2.t0 = _context2["catch"](2);
+            return _context2.abrupt("return", {
               user: null
             });
 
           case 13:
           case "end":
-            return _context.stop();
+            return _context2.stop();
         }
       }
-    }, _callee, null, [[2, 10]]);
+    }, _callee2, null, [[2, 10]]);
   }));
   return _getUser.apply(this, arguments);
 }
+
+var authenticatedMiddleware =
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee(ctx, next) {
+    var authorization, _ref2, user;
+
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            authorization = ctx.request.headers.authorization;
+            _context.next = 3;
+            return getUser(authorization);
+
+          case 3:
+            _ref2 = _context.sent;
+            user = _ref2.user;
+            ctx.user = user;
+            next();
+
+          case 7:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function authenticatedMiddleware(_x2, _x3) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+exports.authenticatedMiddleware = authenticatedMiddleware;
 
 function generateToken(user) {
   return "JWT ".concat(_jsonwebtoken["default"].sign({

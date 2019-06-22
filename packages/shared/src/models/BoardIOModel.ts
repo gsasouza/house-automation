@@ -31,6 +31,14 @@ const schema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Board'
     },
+    room: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Room'
+    },
+    state: {
+      type: Boolean,
+      default: false,
+    },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'

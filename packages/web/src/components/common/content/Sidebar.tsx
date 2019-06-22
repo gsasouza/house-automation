@@ -18,7 +18,7 @@ const Sidebar = () => {
     },
     {
       label: 'Cômodos',
-      onClick: () => navigate('/rooms'),
+      onClick: () => navigate('/dashboard/rooms'),
       iconType: 'spacesApp',
     },
   ];

@@ -17,10 +17,13 @@ var _graphqlPlaygroundMiddlewareKoa = _interopRequireDefault(require("graphql-pl
 
 var _schema = _interopRequireDefault(require("./schema/schema"));
 
+var _auth = require("./auth");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var app = new _koa["default"]();
 var router = new _koaRouter["default"]();
+app.use(_auth.authenticatedMiddleware);
 router.get('/', function (ctx) {
   return ctx.body = 'Hello World';
 });

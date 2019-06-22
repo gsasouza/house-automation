@@ -35,6 +35,7 @@ module.exports = {
         test: /\.(tsx|ts)$/,
         loader: 'babel-loader',
       },
+
       {
         enforce: 'pre',
         test: /\.js$/,
@@ -45,12 +46,10 @@ module.exports = {
         loader: 'style-loader!css-loader',
       },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
+        test: /\.(jpeg|jpg|png|gif|svg)$/i,
         loader: 'url-loader',
-        options: {
-          limit: 10000,
-        },
       },
+
     ],
   },
   resolve: {

@@ -17,6 +17,12 @@ export async function getUser(token: string) {
   }
 }
 
+export const authenticatedMiddleware = async (ctx, next) => {
+  const { authorization } = ctx.header;
+  const { user } = await getUser(authorization);
+  ctx.user = user;
+  await next();
+}
 type UserType = {
   _id: string,
 };

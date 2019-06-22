@@ -15,6 +15,10 @@ var _UserConnection = _interopRequireDefault(require("../modules/user/UserConnec
 
 var UserLoader = _interopRequireWildcard(require("../modules/user/UserLoader"));
 
+var _RoomConnection = _interopRequireDefault(require("../modules/room/RoomConnection"));
+
+var RoomLoader = _interopRequireWildcard(require("../modules/room/RoomLoader"));
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -38,6 +42,17 @@ var _default = new _graphql.GraphQLObjectType({
         }),
         resolve: function resolve(_, args, context) {
           return UserLoader.loadUsers(context, args);
+        }
+      },
+      rooms: {
+        type: _RoomConnection["default"].connectionType,
+        args: _objectSpread({}, _graphqlRelay.connectionArgs, {
+          search: {
+            type: _graphql.GraphQLString
+          }
+        }),
+        resolve: function resolve(_, args, context) {
+          return RoomLoader.loadRooms(context, args);
         }
       }
     };

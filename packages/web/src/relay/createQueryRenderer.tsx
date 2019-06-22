@@ -1,27 +1,54 @@
 import * as React from 'react';
-import { useQuery } from 'relay-hooks'
+import { QueryRenderer } from 'react-relay';
+import {
+  EuiLoadingSpinner
+} from '@elastic/eui';
+import styled from 'styled-components';
 
-import { EuiLoadingSpinner } from '@elastic/eui'
+import environment from './environment';
 
-export const createQueryRenderer = (
+const LoadingWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+`;
+
+export function createQueryRenderer(
   FragmentComponent,
   config
-) => {
+) {
   const { query, queriesParams } = config;
 
-  return (componentProps) => {
-    const variables = queriesParams ? queriesParams(componentProps) : config.variables;
-    const { props, error } = useQuery({
-      query,
-      variables
-    });
-    if (props) {
-      return <FragmentComponent {...componentProps} query={props} />;
-    }
-    if (error) {
-      return <div> error </div>
-    }
-    return <EuiLoadingSpinner/>
+  class QueryRendererWrapper extends React.Component {
 
+    render() {
+      const variables = queriesParams ? queriesParams(this.props) : config.variables;
+
+      return (
+        <QueryRenderer
+          environment={environment}
+          query={query}
+          variables={variables}
+          render={({ error, props }) => {
+            if (props) {
+              return <FragmentComponent {...this.props} query={props} />;
+            }
+            if (error) {
+              return <div> error </div>
+            }
+            return (
+              <LoadingWrapper>
+                <EuiLoadingSpinner size={'l'}/>
+              </LoadingWrapper>
+            )
+
+          }}
+        />
+      );
+    }
   }
+
+  return QueryRendererWrapper;
 }

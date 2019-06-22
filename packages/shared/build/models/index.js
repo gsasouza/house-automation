@@ -21,9 +21,17 @@ Object.defineProperty(exports, "User", {
     return _UserModel.User;
   }
 });
+Object.defineProperty(exports, "Room", {
+  enumerable: true,
+  get: function get() {
+    return _RoomModel.Room;
+  }
+});
 
 var _BoardIOModel = require("./BoardIOModel");
 
 var _BoardModel = require("./BoardModel");
 
 var _UserModel = require("./UserModel");
+
+var _RoomModel = require("./RoomModel");

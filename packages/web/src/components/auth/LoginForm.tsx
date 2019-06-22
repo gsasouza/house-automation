@@ -10,7 +10,6 @@ import {
   EuiForm,
   EuiFormRow,
   EuiPanel,
-  EuiTitle,
   EuiSpacer,
   EuiFlexGroup,
   EuiFlexItem,
@@ -21,7 +20,7 @@ import { login } from '../../helpers/auth'
 
 const LoginSchema = Yup.object().shape({
   username: Yup.string()
-    .required('Preencha o campo de e-mail'),
+    .required('Preencha o campo de usuário'),
   password: Yup.string()
     .min(6, 'A senha deve ter no minímo 6 caracteres')
     .required('Preencha o campo de senha'),
