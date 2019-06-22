@@ -1,6 +1,6 @@
 import { GraphQLObjectType, GraphQLString, GraphQLBoolean } from 'graphql';
 import { globalIdField } from 'graphql-relay';
-import { NodeInterface } from '../../interface/NodeInterface';
+import { NodeInterface } from '../../schema/NodeInterface';
 
 const UserType: GraphQLObjectType = new GraphQLObjectType({
   name: 'User',

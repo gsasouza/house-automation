@@ -1,6 +1,6 @@
 import {GraphQLBoolean, GraphQLObjectType, GraphQLString} from 'graphql';
 import { globalIdField } from 'graphql-relay';
-import { NodeInterface } from '../../interface/NodeInterface';
+import { NodeInterface } from '../../schema/NodeInterface';
 
 import * as UserLoader from '../user/UserLoader';
 import UserType from '../user/UserType'
