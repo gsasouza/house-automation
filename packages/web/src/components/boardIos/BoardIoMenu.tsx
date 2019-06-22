@@ -21,6 +21,9 @@ const BoardIoMenu = (props) => {
         button={<EuiButton onClick={() => setOpen(true)}> Opções </EuiButton>}
         isOpen={isOpen}
         closePopover={() => setOpen(false)}
+        style={{
+          zIndex: 4,
+        }}
       >
         <EuiKeyPadMenu>
           <EuiKeyPadMenuItem label="Adicionar Dispositivo" onClick={() => {

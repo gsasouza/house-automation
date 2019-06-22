@@ -12,3 +12,4 @@ packages/**/dist
 __generated__/
 .cache/
 build/
+dist/
