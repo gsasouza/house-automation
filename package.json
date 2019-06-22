@@ -25,7 +25,6 @@
     "@types/yup": "^0.26.16",
     "lerna": "^3.15.0",
     "nodemon": "^1.19.1",
-    "parcel-bundler": "^1.12.3",
     "relay-compiler-language-typescript": "^4.3.0",
     "source-map-loader": "^0.2.4",
     "typescript": "^3.4.5"

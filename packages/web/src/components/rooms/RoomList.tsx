@@ -14,6 +14,10 @@ import { createQueryRenderer } from '../../relay/createQueryRenderer'
 import RoomMenu from './RoomMenu';
 
 const RoomList = (props) => {
+  const [ isDetailOpen, setDetailOpen ] = React.useState('');
+  const isOpen = (id: string) => isDetailOpen === id;
+  console.log('detail', isDetailOpen);
+
   const { rooms } = props.query;
   return (
     <EuiPageBody>
@@ -29,7 +33,15 @@ const RoomList = (props) => {
       </EuiPageHeader>
       <EuiPageContent>
         <EuiFlexGroup gutterSize="l" wrap>
-          {rooms.edges.map(({ node }) => <RoomCard key={node.id} room={node}/>)}
+          {rooms.edges.map(({ node }) => (
+            <RoomCard
+              key={node.id}
+              room={node}
+              isDetailOpen={isOpen(node.id)}
+              handleOpenDetail={() => setDetailOpen(node.id)}
+              handleCloseDetail={() => setDetailOpen('')}
+            />
+          ))}
         </EuiFlexGroup>
       </EuiPageContent>
     </EuiPageBody>
@@ -44,6 +56,7 @@ const fragment = createFragmentContainer(RoomList, {
         count
         edges {
           node {
+            id
             ...RoomCard_room
           }
         }

@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
-import { EuiCard, EuiIcon, EuiFlexItem, EuiButtonEmpty, EuiPopover, EuiContextMenu } from '@elastic/eui';
+import { EuiCard, EuiFlexItem } from '@elastic/eui';
 import styled from 'styled-components';
+
+import RoomDetail from './RoomDetail'
 
 const KITCHEN = require('../../images/kitchen.jpg');
 const BEDROOM = require('../../images/bedroom.jpg');
@@ -27,19 +29,22 @@ const Wrapper = styled(EuiFlexItem)`
   min-width: 300px;
 `
 
-const RoomCard = ({ room }) => {
+const RoomCard = ({ room, isDetailOpen, handleOpenDetail, handleCloseDetail }) => {
 
   return (
-    <Wrapper>
-      <EuiCard
-        textAlign="left"
-        image={IMAGES[room.type]}
-        betaBadgeLabel={FRIENDLY_NAMES[room.type]}
-        title={room.name}
-        description={"Dispositivos Conectados: 1"}
-        onClick={() => window.alert('Card clicked')}
-      />
-    </Wrapper>
+    <>
+      <Wrapper>
+        <EuiCard
+          textAlign="left"
+          image={IMAGES[room.type]}
+          betaBadgeLabel={FRIENDLY_NAMES[room.type]}
+          title={room.name}
+          description={"Dispositivos Conectados: 1"}
+          onClick={handleOpenDetail}
+        />
+      </Wrapper>
+      { isDetailOpen && <RoomDetail name={room.name} roomId={room.id} handleCloseFlyout={handleCloseDetail}/>}
+    </>
   )
 }
 
