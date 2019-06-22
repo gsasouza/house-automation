@@ -36,7 +36,6 @@ const BoardIoList = (props) => {
     }
   ]
   const { boardIos } = props.query;
-  console.log(boardIos);
   return (
     <EuiPageBody>
       <EuiPageHeader>
@@ -78,10 +77,9 @@ const fragment = createRefetchContainer(
         before: { type: String }
         after: { type: String }
         search: { type: String }
-      ) {
-        ...BoardIoMenu_query
+      ) {     
         boardIos(first: $first, last: $last, after: $after, before: $before, search: $search)
-        @connection(key: "BoardIoList_boardIos") {
+          @connection(key: "BoardIoList_boardIos", filters: []){
           count
           pageInfo {
             hasNextPage
@@ -105,6 +103,7 @@ const fragment = createRefetchContainer(
             }
           }
         }
+        ...BoardIoMenu_query
       }
     `
   },
@@ -136,7 +135,7 @@ export default createQueryRenderer(fragment, {
     }
   `,
   variables: {
-    first: 10,
+    first: 1000,
     cursor: null,
     search: '',
   },

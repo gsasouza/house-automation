@@ -30,7 +30,6 @@ const Wrapper = styled(EuiFlexItem)`
 `
 
 const RoomCard = ({ room, isDetailOpen, handleOpenDetail, handleCloseDetail }) => {
-
   return (
     <>
       <Wrapper>
@@ -39,11 +38,11 @@ const RoomCard = ({ room, isDetailOpen, handleOpenDetail, handleCloseDetail }) =
           image={IMAGES[room.type]}
           betaBadgeLabel={FRIENDLY_NAMES[room.type]}
           title={room.name}
-          description={"Dispositivos Conectados: 1"}
+          description={`Dispositivos Conectados: ${room.boardIosConnectedCount}`}
           onClick={handleOpenDetail}
         />
       </Wrapper>
-      { isDetailOpen && <RoomDetail name={room.name} roomId={room.id} handleCloseFlyout={handleCloseDetail}/>}
+      { isDetailOpen && <RoomDetail room={room} handleCloseFlyout={handleCloseDetail}/>}
     </>
   )
 }
@@ -54,6 +53,8 @@ export default createFragmentContainer(RoomCard, {
       id
       name
       type
+      boardIosConnectedCount
+      ...RoomDetail_room
     }
   `
 });

@@ -50,7 +50,7 @@ export const clearCache = ({ dataloaders }: any, id: string) => {
 
 export const loadRooms = async (context: any, args: ConnectionArguments & { search?: string }) => {
   const where = args.search ? { name: { $regex: new RegExp(`^${args.search}`, 'ig') } } : {};
-  const rooms = RoomModel.find(where, { _id: 1 }).sort({ createdAt: -1 });
+  const rooms = RoomModel.find(where, { _id: 1 }).sort({ type: -1 });
 
   return connectionFromMongoCursor({
     cursor: rooms,

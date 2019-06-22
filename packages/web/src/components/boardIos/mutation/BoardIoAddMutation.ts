@@ -1,5 +1,4 @@
 import { graphql, commitMutation } from 'react-relay';
-import { ConnectionHandler } from 'relay-runtime';
 import environment from '../../../relay/environment';
 
 
@@ -11,6 +10,8 @@ const mutation = graphql`
         node {
           id
           name
+          pin
+          type
           board {
             name
           }
@@ -37,13 +38,15 @@ function commit({ name, board, room, pin, type }, onCompleted, onError) {
     },
     onCompleted,
     onError,
-    updater: store => {
-      const rootField = store.getRootField('AddBoardIo');
-      const newEdge = rootField.getLinkedRecord('boardIoEdge');
-      const proxy = store.get('client:root');
-      const connection = ConnectionHandler.getConnection(proxy, 'BoardIoList_boardIos');
-      ConnectionHandler.insertEdgeBefore(connection, newEdge);
-    }
+    configs: [{
+      type: 'RANGE_ADD',
+      parentID: 'client:root',
+      connectionInfo: [{
+        key: 'BoardIoList_boardIos',
+        rangeBehavior: 'prepend',
+      }],
+      edgeName: 'boardIoEdge',
+    }],
   });
 }
 

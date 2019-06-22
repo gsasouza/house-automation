@@ -12,7 +12,7 @@ import { dataloadersMiddleware } from './loaders/dataloadersMiddleware';
 const app = new Koa();
 const router = new Router();
 
-app.use(morgan('tiny'))
+// app.use(morgan('tiny'))
 app.use(dataloadersMiddleware)
 app.use(authenticatedMiddleware)
 router.get('/', ctx => ctx.body = 'Hello World')

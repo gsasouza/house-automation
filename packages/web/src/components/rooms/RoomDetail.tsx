@@ -4,31 +4,79 @@ import {
   EuiFlyout,
   EuiFlyoutBody,
   EuiFlyoutHeader,
-  EuiButton,
   EuiText,
   EuiTitle,
+  EuiSpacer,
+  EuiForm,
+  EuiFormRow,
+  EuiSwitch,
 } from '@elastic/eui';
+import { createFragmentContainer, graphql } from 'react-relay'
 
+import BoardIoChangeState from './mutation/BoardIoChangeStateMutation';
 
-const RoomDetail = ({ handleCloseFlyout, name }) => {
+const BoardIoInput = ({ state, id, pin, name }) => {
+  return (
+    <EuiFormRow label={`${pin} - ${name}`}>
+      <EuiSwitch
+        name={id}
+        label={state ? 'Ligado' : 'Desligado'}
+        checked={state}
+        onChange={() => BoardIoChangeState.commit({ id, state: !state }, () => {}, () => {})}
+      />
+    </EuiFormRow>
+  )
+}
+
+const RoomDetail = ({ handleCloseFlyout, room }) => {
   return (
     <EuiFlyout
       onClose={handleCloseFlyout}
+      maxWidth={250}
+      style={{
+        minWidth: 0
+      }}
     >
       <EuiFlyoutHeader hasBorder>
         <EuiTitle size="m">
-          <h2>{name}</h2>
+          <h2>{room.name}</h2>
         </EuiTitle>
       </EuiFlyoutHeader>
       <EuiFlyoutBody>
         <EuiText>
-          <p>
-            DISPOSITIVOS
+          <p>yar
+            Dispositivos
           </p>
         </EuiText>
+        <EuiSpacer size="m"/>
+        <EuiForm>
+        {room.boardIosConnected.edges.map(({ node }, index) => <BoardIoInput key={index} {...node}/>)}
+        </EuiForm>
       </EuiFlyoutBody>
     </EuiFlyout>
   )
 }
 
-export default RoomDetail;
+export default createFragmentContainer(RoomDetail, {
+  room: graphql`
+    fragment RoomDetail_room on Room {
+      name
+      id
+      boardIosConnected(first: 1000) {
+        edges {
+          cursor
+          node {
+            id
+            state
+            name
+            pin
+            board {
+              name
+            }
+          }
+        }
+       
+      }
+    }
+  `
+})

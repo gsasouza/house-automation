@@ -37,7 +37,7 @@ export default mutationWithClientMutationId({
     if (boardIo) {
       return {
         id: null,
-        error: 'ROOM_ALREADY_EXISTS',
+        error: 'BOARD_IO_ALREADY_EXISTS',
       };
     }
 

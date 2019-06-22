@@ -1,6 +1,6 @@
 import DataLoader from 'dataloader';
 import { connectionFromMongoCursor, mongooseLoader } from '@entria/graphql-mongoose-loader';
-import { ConnectionArguments } from 'graphql-relay';
+import {ConnectionArguments, fromGlobalId} from 'graphql-relay';
 import { BoardIo as BoardIoModel } from '@gsasouza/shared';
 
 type BoardIoType = {
@@ -62,6 +62,23 @@ export const clearCache = ({ dataloaders }: any, id: string) => {
 
 export const loadBoardIos = async (context: any, args: ConnectionArguments & { search?: string }) => {
   const where = args.search ? { name: { $regex: new RegExp(`^${args.search}`, 'ig') } } : {};
+  const boardIos = BoardIoModel.find(where, { _id: 1 }).sort({ createdAt: -1 });
+
+  return connectionFromMongoCursor({
+    cursor: boardIos,
+    context,
+    args,
+    loader: load,
+  });
+};
+
+export const loadBoardIosByRoomCount = async (id: string) => {
+  const where = { room: id }
+  return BoardIoModel.countDocuments(where);
+};
+
+export const loadBoardIosByRoom = async (context: any, args: ConnectionArguments & { search?: string }, id: string) => {
+  const where = { room: id }
   const boardIos = BoardIoModel.find(where, { _id: 1 }).sort({ createdAt: -1 });
 
   return connectionFromMongoCursor({

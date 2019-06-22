@@ -75,7 +75,7 @@ const BoardIoAdd = ({ setOpenModal, handleSubmit, values, errors, handleChange, 
               />
             </EuiFormRow>
             <EuiFormRow label="A qual pino está conectado">
-              <EuiFieldNumber min={0} />
+              <EuiFieldNumber min={0} name="pin" onChange={handleChange}/>
             </EuiFormRow>
           </EuiForm>
 

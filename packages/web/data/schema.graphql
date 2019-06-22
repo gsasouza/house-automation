@@ -9,7 +9,7 @@ input AddBoardInput {
 input AddBoardIoInput {
   name: String!
   type: String!
-  pin: String!
+  pin: Int!
   board: ID!
   room: ID!
   clientMutationId: String
@@ -84,6 +84,18 @@ type BoardIo implements Node {
   createdBy: User
 }
 
+input BoardIoChangeStateInput {
+  id: ID!
+  state: Boolean!
+  clientMutationId: String
+}
+
+type BoardIoChangeStatePayload {
+  boardIoEdge: BoardIoEdge
+  error: String
+  clientMutationId: String
+}
+
 """A connection to a list of items."""
 type BoardIoConnection {
   """Information to aid in pagination."""
@@ -120,6 +132,7 @@ type Mutation {
   AddRoom(input: AddRoomInput!): AddRoomPayload
   AddBoard(input: AddBoardInput!): AddBoardPayload
   AddBoardIo(input: AddBoardIoInput!): AddBoardIoPayload
+  BoardIoChangeState(input: BoardIoChangeStateInput!): BoardIoChangeStatePayload
 }
 
 """An object with an ID"""
@@ -164,6 +177,8 @@ type Room implements Node {
   name: String
   type: String
   createdBy: User
+  boardIosConnectedCount: Int
+  boardIosConnected(after: String, first: Int, before: String, last: Int, search: String): BoardIoConnection
 }
 
 """A connection to a list of items."""
