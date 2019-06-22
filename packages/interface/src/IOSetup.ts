@@ -1,19 +1,21 @@
 import five from 'johnny-five';
 
-import { BoardIO } from '@gsasouza/shared'
+import { BoardIo } from '@gsasouza/shared'
 
 export enum BoardIOEnum {
   'RELAY' = 'RELAY',
 }
 
 export const initIO = async (board) => {
-  const ios = await BoardIO.find({ board: board.id });
-  return ios.reduce((acc, { name, type, pin }) => {
+  const ios = await BoardIo.find({ board: board.id });
+  return ios.reduce((acc, { _id, type, pin, state }) => {
     //@TODO add more IO types
     switch (type) {
       case BoardIOEnum.RELAY: {
         const relay = new five.Relay({ pin, type: 'NC', board });
-        return { ...acc, [name]: relay };
+        if(state) relay.on();
+        else relay.off();
+        return { ...acc, [_id]: relay };
       }
       default: return acc;
     }

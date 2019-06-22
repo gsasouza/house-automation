@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.JWT_SECRET = exports.NODE_ENV = exports.SERVER_PORT = exports.DB_URL = void 0;
+exports.LOCAL_PORT = exports.SECRET_KEY = exports.SUBSCRIBE_KEY = exports.PUBLISH_KEY = exports.JWT_SECRET = exports.NODE_ENV = exports.SERVER_PORT = exports.DB_URL = void 0;
 
 var path = _interopRequireWildcard(require("path"));
 
@@ -29,3 +29,11 @@ var NODE_ENV = process.env.NODE_ENV;
 exports.NODE_ENV = NODE_ENV;
 var JWT_SECRET = process.env.JWT_SECRET;
 exports.JWT_SECRET = JWT_SECRET;
+var PUBLISH_KEY = process.env.PUBLISH_KEY;
+exports.PUBLISH_KEY = PUBLISH_KEY;
+var SUBSCRIBE_KEY = process.env.SUBSCRIBE_KEY;
+exports.SUBSCRIBE_KEY = SUBSCRIBE_KEY;
+var SECRET_KEY = process.env.SECRET_KEY;
+exports.SECRET_KEY = SECRET_KEY;
+var LOCAL_PORT = process.env.LOCAL_PORT || 5000;
+exports.LOCAL_PORT = LOCAL_PORT;

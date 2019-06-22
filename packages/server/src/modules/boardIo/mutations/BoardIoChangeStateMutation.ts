@@ -1,6 +1,6 @@
 import {GraphQLString, GraphQLNonNull, GraphQLID, GraphQLBoolean} from 'graphql';
 import {mutationWithClientMutationId, fromGlobalId, toGlobalId} from 'graphql-relay';
-import { BoardIo } from '@gsasouza/shared';
+import { BoardIo, publishMessage } from '@gsasouza/shared';
 import * as BoardIoLoader from '../BoardIoLoader'
 import BoardIoConnection from '../BoardIoConnection'
 
@@ -16,7 +16,6 @@ export default mutationWithClientMutationId({
   },
   mutateAndGetPayload: async ({ id, state }, context ) => {
     const { user } = context;
-
     if (!user) {
       return {
         id: null,
@@ -25,10 +24,7 @@ export default mutationWithClientMutationId({
     }
 
     try {
-      const boardIo = await BoardIo.findOneAndUpdate(
-        { _id: fromGlobalId(id).id },
-        { state }
-        );
+      const boardIo = await BoardIo.findOne({ _id: fromGlobalId(id).id });
 
       if (!boardIo) {
         return {
@@ -36,9 +32,12 @@ export default mutationWithClientMutationId({
           error: 'BOARD_IO_NOT_FOUND',
         };
       }
+      //@TODO handleError
+      const { status, response } = await publishMessage(context.pubnub, 'cloud', { id: boardIo._id, state })
 
       return {
         id: boardIo.id,
+        state,
         error: null,
       }
     } catch (error) {
@@ -51,14 +50,17 @@ export default mutationWithClientMutationId({
   outputFields: {
     boardIoEdge: {
       type: BoardIoConnection.edgeType,
-      resolve: async ({ id }, _, context) => {
+      resolve: async ({ id, state }, _, context) => {
         const boardIo = await BoardIoLoader.load(context, id)
         if (!boardIo) {
           return null;
         }
         return {
           cursor: toGlobalId('BoardIo', boardIo.id),
-          node: boardIo,
+          node: {
+            ...boardIo,
+            state,
+          },
         };
       },
     },

@@ -13,9 +13,9 @@ var _koaGraphql = _interopRequireDefault(require("koa-graphql"));
 
 var _kcors = _interopRequireDefault(require("kcors"));
 
-var _koaMorgan = _interopRequireDefault(require("koa-morgan"));
-
 var _graphqlPlaygroundMiddlewareKoa = _interopRequireDefault(require("graphql-playground-middleware-koa"));
+
+var _shared = require("@gsasouza/shared");
 
 var _schema = _interopRequireDefault(require("./schema/schema"));
 
@@ -27,7 +27,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var app = new _koa["default"]();
 var router = new _koaRouter["default"]();
-app.use((0, _koaMorgan["default"])('tiny'));
+app.context.pubnub = (0, _shared.createPubNubInstance)();
+app.context.pubnub.addListener({
+  message: function message(msg) {
+    console.log(msg);
+  }
+});
+app.context.pubnub.subscribe({
+  channels: ['local']
+}); // app.use(morgan('tiny'))
+
 app.use(_dataloadersMiddleware.dataloadersMiddleware);
 app.use(_auth.authenticatedMiddleware);
 router.get('/', function (ctx) {

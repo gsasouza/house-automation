@@ -38,14 +38,14 @@ function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return _shared.BoardIO.find({
+            return _shared.BoardIo.find({
               board: board.id
             });
 
           case 2:
             ios = _context.sent;
             return _context.abrupt("return", ios.reduce(function (acc, _ref2) {
-              var name = _ref2.name,
+              var _id = _ref2._id,
                   type = _ref2.type,
                   pin = _ref2.pin;
 
@@ -58,7 +58,7 @@ function () {
                       type: 'NC',
                       board: board
                     });
-                    return _objectSpread({}, acc, _defineProperty({}, name, relay));
+                    return _objectSpread({}, acc, _defineProperty({}, _id, relay));
                   }
 
                 default:

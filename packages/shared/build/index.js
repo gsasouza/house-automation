@@ -40,3 +40,16 @@ Object.keys(_models).forEach(function (key) {
     }
   });
 });
+
+var _pubnub = require("./config/pubnub");
+
+Object.keys(_pubnub).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _pubnub[key];
+    }
+  });
+});

@@ -44,7 +44,7 @@ const RoomDetail = ({ handleCloseFlyout, room }) => {
       </EuiFlyoutHeader>
       <EuiFlyoutBody>
         <EuiText>
-          <p>yar
+          <p>
             Dispositivos
           </p>
         </EuiText>
