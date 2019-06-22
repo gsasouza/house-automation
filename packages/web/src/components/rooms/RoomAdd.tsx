@@ -18,7 +18,7 @@ import {
 import RoomAddMutation from './mutation/RoomAddMutation'
 
 const RoomAddSchema = Yup.object().shape({
-  name: Yup.string().required('Preencha o campo de e-mail'),
+  name: Yup.string().required('Preencha o campo de nome'),
   type: Yup.string().required(),
 });
 

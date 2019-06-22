@@ -1,3 +1,32 @@
+input AddBoardInput {
+  name: String!
+  type: String!
+  port: String
+  host: String
+  clientMutationId: String
+}
+
+input AddBoardIoInput {
+  name: String!
+  type: String!
+  pin: String!
+  board: ID!
+  room: ID!
+  clientMutationId: String
+}
+
+type AddBoardIoPayload {
+  boardIoEdge: BoardIoEdge
+  error: String
+  clientMutationId: String
+}
+
+type AddBoardPayload {
+  boardEdge: BoardEdge
+  error: String
+  clientMutationId: String
+}
+
 input AddRoomInput {
   name: String!
   type: String!
@@ -8,6 +37,70 @@ type AddRoomPayload {
   roomEdge: RoomEdge
   error: String
   clientMutationId: String
+}
+
+"""Board data"""
+type Board implements Node {
+  """The ID of an object"""
+  id: ID!
+  _id: String
+  name: String
+  type: String
+  host: String
+  port: String
+  createdBy: User
+}
+
+"""A connection to a list of items."""
+type BoardConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [BoardEdge]
+  count: Int
+}
+
+"""An edge in a connection."""
+type BoardEdge {
+  """The item at the end of the edge"""
+  node: Board
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""BoardIo data"""
+type BoardIo implements Node {
+  """The ID of an object"""
+  id: ID!
+  _id: String
+  name: String
+  type: String
+  board: Board
+  pin: String
+  state: Boolean
+  room: BoardIo
+  createdBy: User
+}
+
+"""A connection to a list of items."""
+type BoardIoConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [BoardIoEdge]
+  count: Int
+}
+
+"""An edge in a connection."""
+type BoardIoEdge {
+  """The item at the end of the edge"""
+  node: BoardIo
+
+  """A cursor for use in pagination"""
+  cursor: String!
 }
 
 input LoginInput {
@@ -25,6 +118,8 @@ type LoginPayload {
 type Mutation {
   Login(input: LoginInput!): LoginPayload
   AddRoom(input: AddRoomInput!): AddRoomPayload
+  AddBoard(input: AddBoardInput!): AddBoardPayload
+  AddBoardIo(input: AddBoardIoInput!): AddBoardIoPayload
 }
 
 """An object with an ID"""
@@ -57,6 +152,8 @@ type Query {
   ): Node
   users(after: String, first: Int, before: String, last: Int, search: String): UserConnection
   rooms(after: String, first: Int, before: String, last: Int, search: String): RoomConnection
+  boards(after: String, first: Int, before: String, last: Int, search: String): BoardConnection
+  boardIos(after: String, first: Int, before: String, last: Int, search: String): BoardIoConnection
 }
 
 """Room data"""

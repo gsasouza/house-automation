@@ -26,17 +26,17 @@ const Sidebar = () => {
   const adminLinks = [
     {
       label: 'Usuários',
-      onClick: () => navigate('/users'),
+      onClick: () => navigate('/dashboard/users'),
       iconType: 'usersRolesApp',
     },
     {
       label: 'Placas',
-      onClick: () => navigate('/boards'),
+      onClick: () => navigate('/dashboard/boards'),
       iconType: 'managementApp',
     },
     {
       label: 'Dispositivos',
-      onClick: () => navigate('/boardIos'),
+      onClick: () => navigate('/dashboard/boardIos'),
       iconType: 'graphApp',
     },
   ];

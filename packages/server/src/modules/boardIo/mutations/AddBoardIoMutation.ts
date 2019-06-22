@@ -1,4 +1,4 @@
-import { GraphQLString, GraphQLNonNull, GraphQLID } from 'graphql';
+import { GraphQLString, GraphQLNonNull, GraphQLID, GraphQLInt } from 'graphql';
 import { mutationWithClientMutationId, toGlobalId, fromGlobalId } from 'graphql-relay';
 import { BoardIo } from '@gsasouza/shared';
 import BoardIoConnection from '../BoardIoConnection'
@@ -14,7 +14,7 @@ export default mutationWithClientMutationId({
       type: new GraphQLNonNull(GraphQLString),
     },
     pin: {
-      type: new GraphQLNonNull(GraphQLString),
+      type: new GraphQLNonNull(GraphQLInt),
     },
     board: {
       type: new GraphQLNonNull(GraphQLID),

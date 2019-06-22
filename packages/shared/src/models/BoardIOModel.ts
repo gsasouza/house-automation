@@ -1,12 +1,12 @@
 import mongoose, { Document, Model } from 'mongoose'
 
-export enum BoardIOEnum {
+export enum BoardIoEnum {
   'RELAY' = 'RELAY',
 }
 
-export interface IBoardIO extends Document {
+export interface IBoardIo extends Document {
   name: string
-  type: BoardIOEnum
+  type: BoardIoEnum
   pin: string
   board: string,
 }
@@ -21,7 +21,7 @@ const schema = new mongoose.Schema(
     type: {
       type: String,
       required: true,
-      enum: Object.keys(BoardIOEnum),
+      enum: Object.keys(BoardIoEnum),
     },
     pin: {
       type: String,
@@ -46,4 +46,4 @@ const schema = new mongoose.Schema(
   },
   { timestamps: true }
 )
-export const BoardIO: Model<IBoardIO> = mongoose.model('boardIO', schema)
+export const BoardIo: Model<IBoardIo> = mongoose.model('boardIo', schema)

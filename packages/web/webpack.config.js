@@ -28,7 +28,7 @@ module.exports = {
     },
     historyApiFallback: true,
   },
-  entry: ['react-hot-loader/patch', './src/App.tsx'],
+  entry: ['./src/App.tsx'],
   module: {
     rules: [
       {
@@ -56,7 +56,8 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js'],
   },
   output: {
-    filename: 'index.js',
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].bundle.js',
     path: path.join(cwd, '/build'),
   },
   mode: dev ? 'development' : 'production',

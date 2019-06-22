@@ -9,6 +9,7 @@ import Content from '../components/common/content/Content'
 import PosedRouter from './PosedRouter';
 import Dashboard from '../components/dashboard/Dashboard'
 import RoomList from '../components/rooms/RoomList'
+import BoardIosList from '../components/boardIos/BoardIoList'
 import { isLoggedIn } from '../helpers/auth'
 
 const NotFound = () => (
@@ -43,6 +44,7 @@ const ContentRouter = () => {
       <PosedRouter>
         <Dashboard path={'/'}/>
         <RoomList path={'/rooms'}/>
+        <BoardIosList path={'/boardIos'}/>
         <NotFound default />
       </PosedRouter>
     </Content>

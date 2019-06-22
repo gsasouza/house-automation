@@ -3,10 +3,10 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-Object.defineProperty(exports, "BoardIO", {
+Object.defineProperty(exports, "BoardIo", {
   enumerable: true,
   get: function get() {
-    return _BoardIOModel.BoardIO;
+    return _BoardIOModel.BoardIo;
   }
 });
 Object.defineProperty(exports, "Board", {

@@ -3,18 +3,18 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.BoardIO = exports.BoardIOEnum = void 0;
+exports.BoardIo = exports.BoardIoEnum = void 0;
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var BoardIOEnum;
-exports.BoardIOEnum = BoardIOEnum;
+var BoardIoEnum;
+exports.BoardIoEnum = BoardIoEnum;
 
-(function (BoardIOEnum) {
-  BoardIOEnum["RELAY"] = "RELAY";
-})(BoardIOEnum || (exports.BoardIOEnum = BoardIOEnum = {}));
+(function (BoardIoEnum) {
+  BoardIoEnum["RELAY"] = "RELAY";
+})(BoardIoEnum || (exports.BoardIoEnum = BoardIoEnum = {}));
 
 var schema = new _mongoose["default"].Schema({
   name: {
@@ -25,7 +25,7 @@ var schema = new _mongoose["default"].Schema({
   type: {
     type: String,
     required: true,
-    "enum": Object.keys(BoardIOEnum)
+    "enum": Object.keys(BoardIoEnum)
   },
   pin: {
     type: String,
@@ -35,6 +35,14 @@ var schema = new _mongoose["default"].Schema({
     type: _mongoose["default"].Schema.Types.ObjectId,
     ref: 'Board'
   },
+  room: {
+    type: _mongoose["default"].Schema.Types.ObjectId,
+    ref: 'Room'
+  },
+  state: {
+    type: Boolean,
+    "default": false
+  },
   createdBy: {
     type: _mongoose["default"].Schema.Types.ObjectId,
     ref: 'User'
@@ -43,6 +51,6 @@ var schema = new _mongoose["default"].Schema({
   timestamps: true
 });
 
-var BoardIO = _mongoose["default"].model('boardIO', schema);
+var BoardIo = _mongoose["default"].model('boardIo', schema);
 
-exports.BoardIO = BoardIO;
+exports.BoardIo = BoardIo;

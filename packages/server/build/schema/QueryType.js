@@ -9,7 +9,7 @@ var _graphql = require("graphql");
 
 var _graphqlRelay = require("graphql-relay");
 
-var _NodeInterface = require("../interface/NodeInterface");
+var _NodeInterface = require("./NodeInterface");
 
 var _UserConnection = _interopRequireDefault(require("../modules/user/UserConnection"));
 
@@ -18,6 +18,14 @@ var UserLoader = _interopRequireWildcard(require("../modules/user/UserLoader"));
 var _RoomConnection = _interopRequireDefault(require("../modules/room/RoomConnection"));
 
 var RoomLoader = _interopRequireWildcard(require("../modules/room/RoomLoader"));
+
+var BoardLoader = _interopRequireWildcard(require("../modules/board/BoardLoader"));
+
+var _BoardConnection = _interopRequireDefault(require("../modules/board/BoardConnection"));
+
+var BoardIoLoader = _interopRequireWildcard(require("../modules/boardIo/BoardIoLoader"));
+
+var _BoardIoConnection = _interopRequireDefault(require("../modules/boardIo/BoardIoConnection"));
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
 
@@ -53,6 +61,28 @@ var _default = new _graphql.GraphQLObjectType({
         }),
         resolve: function resolve(_, args, context) {
           return RoomLoader.loadRooms(context, args);
+        }
+      },
+      boards: {
+        type: _BoardConnection["default"].connectionType,
+        args: _objectSpread({}, _graphqlRelay.connectionArgs, {
+          search: {
+            type: _graphql.GraphQLString
+          }
+        }),
+        resolve: function resolve(_, args, context) {
+          return BoardLoader.loadBoards(context, args);
+        }
+      },
+      boardIos: {
+        type: _BoardIoConnection["default"].connectionType,
+        args: _objectSpread({}, _graphqlRelay.connectionArgs, {
+          search: {
+            type: _graphql.GraphQLString
+          }
+        }),
+        resolve: function resolve(_, args, context) {
+          return BoardIoLoader.loadBoardIos(context, args);
         }
       }
     };

@@ -9,7 +9,7 @@ var _graphql = require("graphql");
 
 var _graphqlRelay = require("graphql-relay");
 
-var _NodeInterface = require("../../interface/NodeInterface");
+var _NodeInterface = require("../../schema/NodeInterface");
 
 var UserType = new _graphql.GraphQLObjectType({
   name: 'User',

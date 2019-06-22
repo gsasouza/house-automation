@@ -82,7 +82,7 @@ function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            authorization = ctx.request.headers.authorization;
+            authorization = ctx.header.authorization;
             _context.next = 3;
             return getUser(authorization);
 
@@ -90,9 +90,10 @@ function () {
             _ref2 = _context.sent;
             user = _ref2.user;
             ctx.user = user;
-            next();
+            _context.next = 8;
+            return next();
 
-          case 7:
+          case 8:
           case "end":
             return _context.stop();
         }
