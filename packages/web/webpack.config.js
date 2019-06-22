@@ -9,7 +9,6 @@ const cwd = process.cwd();
 
 const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   template: 'src/index.html',
-  filename: 'index.html',
   inject: true,
 });
 
@@ -28,7 +27,7 @@ module.exports = {
     },
     historyApiFallback: true,
   },
-  entry: ['./src/App.tsx'],
+  entry: ['react-hot-loader/patch', './src/App.tsx'],
   module: {
     rules: [
       {
@@ -56,14 +55,14 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js'],
   },
   output: {
-    filename: '[name].bundle.js',
-    chunkFilename: '[name].bundle.js',
-    path: path.join(cwd, '/build'),
+    filename: 'static/js/bundle.js',
+    chunkFilename: 'static/js/[name].chunk.js',
+    publicPath: '/',
   },
   mode: dev ? 'development' : 'production',
   plugins: dev
-    ? [HTMLWebpackPluginConfig, new webpack.HotModuleReplacementPlugin(), new Dotenv({ systemvars: true })]
-    : [HTMLWebpackPluginConfig, DefinePluginConfig, new Dotenv({ systemvars: true })],
+    ? [new Dotenv({ systemvars: true }), HTMLWebpackPluginConfig, new webpack.HotModuleReplacementPlugin()]
+    : [new Dotenv({ systemvars: true }), HTMLWebpackPluginConfig, DefinePluginConfig, ],
   node: {
     '*': 'empty'
   }

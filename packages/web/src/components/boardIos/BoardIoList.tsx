@@ -57,14 +57,14 @@ const BoardIoList = (props) => {
         <EuiBasicTable
           items={boardIos.edges.map(({ node }) => node)}
           columns={columns}
-          pagination={{
-            pageIndex: 1,
-            pageSize: 20,
-            totalItemCount: 30,
-            pageSizeOptions: [3, 5, 8],
-            showPerPageOptions: true,
-          }}
-          onChange={(props) => console.log(props)}
+          // pagination={{
+          //   pageIndex: 1,
+          //   pageSize: 20,
+          //   totalItemCount: 30,
+          //   pageSizeOptions: [3, 5, 8],
+          //   showPerPageOptions: true,
+          // }}
+          // onChange={(props) => console.log(props)}
         />
       </EuiPageContent>
     </EuiPageBody>
