@@ -16,7 +16,6 @@ import RoomMenu from './RoomMenu';
 const RoomList = (props) => {
   const [ isDetailOpen, setDetailOpen ] = React.useState('');
   const isOpen = (id: string) => isDetailOpen === id;
-  console.log('detail', isDetailOpen);
 
   const { rooms } = props.query;
   return (
