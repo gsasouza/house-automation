@@ -5,13 +5,9 @@ import {
   EuiPageHeader,
   EuiPageHeaderSection,
   EuiTitle,
-  EuiFlexGroup
-} from '@elastic/eui';
-import { createRefetchContainer, graphql } from 'react-relay'
-
-import {
   EuiBasicTable,
 } from '@elastic/eui';
+import { createRefetchContainer, graphql } from 'react-relay'
 
 import { createQueryRenderer } from '../../relay/createQueryRenderer'
 import BoardIoMenu from './BoardIoMenu';
