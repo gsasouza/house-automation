@@ -47,7 +47,8 @@ function () {
             return _context.abrupt("return", ios.reduce(function (acc, _ref2) {
               var _id = _ref2._id,
                   type = _ref2.type,
-                  pin = _ref2.pin;
+                  pin = _ref2.pin,
+                  state = _ref2.state;
 
               //@TODO add more IO types
               switch (type) {
@@ -58,6 +59,7 @@ function () {
                       type: 'NC',
                       board: board
                     });
+                    if (state) relay.on();else relay.off();
                     return _objectSpread({}, acc, _defineProperty({}, _id, relay));
                   }
 

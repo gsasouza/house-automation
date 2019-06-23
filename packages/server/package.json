@@ -22,6 +22,7 @@
     "graphql": "^14.3.1",
     "graphql-playground-middleware-koa": "^1.6.12",
     "graphql-relay": "^0.6.0",
+    "graphql-subscriptions": "^1.1.0",
     "jsonwebtoken": "^8.5.1",
     "kcors": "^2.2.2",
     "koa": "^2.7.0",
@@ -30,6 +31,7 @@
     "koa-morgan": "^1.0.1",
     "koa-router": "^7.4.0",
     "pubnub": "^4.24.3",
+    "subscriptions-transport-ws": "^0.9.16",
     "ts-node": "^8.3.0"
   }
 }

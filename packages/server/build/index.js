@@ -2,9 +2,17 @@
 
 require("@babel/polyfill");
 
-var _app = _interopRequireDefault(require("./app"));
+var _http = require("http");
+
+var _subscriptionsTransportWs = require("subscriptions-transport-ws");
+
+var _graphql = require("graphql");
 
 var _shared = require("@gsasouza/shared");
+
+var _schema = _interopRequireDefault(require("./schema/schema"));
+
+var _app = _interopRequireDefault(require("./app"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -15,6 +23,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 _asyncToGenerator(
 /*#__PURE__*/
 regeneratorRuntime.mark(function _callee() {
+  var server;
   return regeneratorRuntime.wrap(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
@@ -34,13 +43,27 @@ regeneratorRuntime.mark(function _callee() {
           process.exit(1);
 
         case 9:
-          _context.next = 11;
-          return _app["default"].listen(_shared.SERVER_PORT);
+          server = (0, _http.createServer)(_app["default"].callback());
+          server.listen(_shared.SERVER_PORT, function () {
+            console.log("Server started on port ".concat(_shared.SERVER_PORT));
+
+            _subscriptionsTransportWs.SubscriptionServer.create({
+              onConnect: function onConnect(connectionParams) {
+                return console.log('Client subscription connected!', connectionParams);
+              },
+              onDisconnect: function onDisconnect() {
+                return console.log('Client subscription disconnected!');
+              },
+              execute: _graphql.execute,
+              subscribe: _graphql.subscribe,
+              schema: _schema["default"]
+            }, {
+              server: server,
+              path: '/subscriptions'
+            });
+          });
 
         case 11:
-          console.log("Server started on port ".concat(_shared.SERVER_PORT));
-
-        case 12:
         case "end":
           return _context.stop();
       }
