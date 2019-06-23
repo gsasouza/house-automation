@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import LoginForm from './LoginForm';
 
-const backgroundImage = require('../../images/background-login.jpg')
+const backgroundImage = require('../../images/background-login.png')
 
 const WrapperImage = styled.div`
   width: 100%;
