@@ -42,7 +42,6 @@ const BoardIoType: GraphQLObjectType = new GraphQLObjectType({
       type: GraphQLBoolean,
       resolve: async (boardIo, _, context) => {
         const board = await BoardLoader.load(context, boardIo.board);
-        console.log('type', board);
         return board.connected;
       },
     },

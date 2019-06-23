@@ -33,9 +33,7 @@ export const createBoards = async (pubnub): Promise<Array<BoardType>> => {
       const connectedBoard = await createBoard(config)
       const disconnectCallback = async () => {
         publishMessage(pubnub, 'local:board', { id: _id })
-        console.log('here');
         await Board.findOneAndUpdate({ _id }, { connected: false });
-        console.log('here2')
       }
       connectedBoard.on('exit', disconnectCallback)
       connectedBoard.on('close', disconnectCallback)
