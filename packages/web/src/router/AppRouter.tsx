@@ -1,10 +1,11 @@
 import * as React from 'react'
 import { Router } from '@reach/router'
 
-import PublicRouter from './PublicRouter'
-import ContentRouter from './ContentRouter'
+import createLoadable from './createLoadable';
 
 import Auth from '../components/auth/Auth'
+const ContentRouter = createLoadable(() => import('./ContentRouter'));
+const PublicRouter = createLoadable(() => import('./PublicRouter'))
 
 const AppRouter = () => (
   <Router>

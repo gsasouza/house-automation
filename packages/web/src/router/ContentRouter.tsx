@@ -7,10 +7,13 @@ import {
 
 import Content from '../components/common/content/Content'
 import PosedRouter from './PosedRouter';
-import Dashboard from '../components/dashboard/Dashboard'
-import RoomList from '../components/rooms/RoomList'
-import BoardIosList from '../components/boardIos/BoardIoList'
+
 import { isLoggedIn } from '../helpers/auth'
+import createLoadable from './createLoadable';
+
+const Dashboard = createLoadable(() => import('../components/dashboard/Dashboard'));
+const RoomList = createLoadable(() => import('../components/rooms/RoomList'));
+const BoardIosList = createLoadable(()=> import('../components/boardIos/BoardIoList'));
 
 const NotFound = () => (
   <div>

@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { navigate } from '@reach/router'
 import styled from 'styled-components';
+import {EuiLoadingSpinner} from "@elastic/eui"
 
 import { isLoggedIn } from '../helpers/auth'
-import {EuiLoadingSpinner} from "@elastic/eui"
 
 const LoadingWrapper = styled.div`
   display: flex;
