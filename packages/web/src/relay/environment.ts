@@ -4,7 +4,7 @@ import RelayNetworkLogger from 'relay-runtime/lib/RelayNetworkLogger'
 import { SubscriptionClient } from 'subscriptions-transport-ws'
 //@TODO fix this
 const GRAPHQL_URL = process.env.GRAPHQL_URL || 'http://localhost:8080/graphql'
-const SUBSCRIPTION_URL = process.env.SUBSCRIPTION_URL || 'ws://localhost:8080/subscriptions'
+const SUBSCRIPTION_URL = process.env.SUBSCRIPTION_URL || 'wss://house-automation-api.herokuapp.com/subscriptions'
 
 const setupSubscription = (config, variables, cacheConfig, observer) => {
   const query = config.text
