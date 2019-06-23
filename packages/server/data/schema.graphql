@@ -84,6 +84,10 @@ type BoardIo implements Node {
   createdBy: User
 }
 
+type BoardIoChangedPayload {
+  boardIoEdge: BoardIoEdge
+}
+
 input BoardIoChangeStateInput {
   id: ID!
   state: Boolean!
@@ -198,6 +202,10 @@ type RoomEdge {
 
   """A cursor for use in pagination"""
   cursor: String!
+}
+
+type Subscription {
+  BoardIoChanged: BoardIoChangedPayload
 }
 
 """User data"""

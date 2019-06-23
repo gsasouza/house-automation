@@ -2,7 +2,7 @@ import {
   graphql,
   requestSubscription
 } from 'react-relay'
-import environment from '../relay/environment';
+import environment from '../../../relay/environment';
 
 const boardIoSubscription = graphql`
   subscription BoardIoChangedSubscription{

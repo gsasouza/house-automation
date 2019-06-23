@@ -9,11 +9,15 @@ import {
 } from '@elastic/eui';
 import { createFragmentContainer, graphql } from 'react-relay'
 
+import BoardIoChangedSubscription from './subscriptions/BoardIoChangedSubscription';
 import RoomCard from './RoomCard';
 import { createQueryRenderer } from '../../relay/createQueryRenderer'
 import RoomMenu from './RoomMenu';
 
 const RoomList = (props) => {
+  React.useEffect(() => {
+    BoardIoChangedSubscription();
+  }, [])
   const [ isDetailOpen, setDetailOpen ] = React.useState('');
   const isOpen = (id: string) => isDetailOpen === id;
 
