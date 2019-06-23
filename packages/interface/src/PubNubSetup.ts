@@ -1,9 +1,8 @@
 import { createPubNubInstance, publishMessage, BoardIo, Board } from '@gsasouza/shared';
 
-export const pubNubSetup = (boards) => {
-  const pubnub = createPubNubInstance();
+export const pubNubSetup = (pubnub, boards) => {
   pubnub.subscribe({
-    channels: ['cloud']
+    channels: ['cloud:board_io']
   });
 
   pubnub.addListener({
@@ -12,18 +11,19 @@ export const pubNubSetup = (boards) => {
       try {
         const boardIo = await BoardIo.findOne({ _id: id });
         if (!boardIo) return;
-        const { pins }= boards.filter(b => b.id.toString() === boardIo.board.toString())[0];
+        const board = boards.filter(b => b.id.toString() === boardIo.board.toString())[0];
+        if (!board) return;
+        const { pins } = board;
         const pin = pins[boardIo._id.toString()];
+        if (!pin) return;
         if (state) pin.on();
         else pin.off();
-        const updatedBoardIo = await BoardIo.findOneAndUpdate({ _id: id }, { state }, { new: true});
-        publishMessage(pubnub, 'local', { id, state: updatedBoardIo.state })
+        await BoardIo.findOneAndUpdate({ _id: id }, { state }, { new: true});
+        publishMessage(pubnub, 'local:board_io', { id })
       } catch (e) {
         console.log(e);
         return;
       }
-
-
     },
   })
 }

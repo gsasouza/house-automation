@@ -33,7 +33,7 @@ export default mutationWithClientMutationId({
         };
       }
       //@TODO handleError
-      const { status, response } = await publishMessage(context.pubnub, 'cloud', { id: boardIo._id, state })
+      const { status, response } = await publishMessage(context.pubnub, 'cloud:board_io', { id: boardIo._id, state })
 
       return {
         id: boardIo.id,

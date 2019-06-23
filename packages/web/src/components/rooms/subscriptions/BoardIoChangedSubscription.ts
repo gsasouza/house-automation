@@ -9,6 +9,7 @@ const boardIoSubscription = graphql`
     BoardIoChanged {
       boardIoEdge {
         node {
+          connected
           state
           id
         }
@@ -28,9 +29,11 @@ export default () => {
       const node = boardIoEdge.getLinkedRecord('node')
       const nodeId = node.getValue('id')
       const newState = node.getValue('state')
+      const newConnected = node.getValue('connected')
 
       const nodeProxy = store.get(nodeId);
       nodeProxy.setValue(newState, 'state');
+      nodeProxy.setValue(newConnected, 'connected');
     },
     onError: error => console.log(`An error occured:`, error)
   }

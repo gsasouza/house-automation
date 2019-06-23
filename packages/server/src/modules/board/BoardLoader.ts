@@ -44,13 +44,16 @@ export const load = async (context: any, id: string): Promise<any> => {
   if (!id) {
     return null;
   }
-  let data;
+  const loader = context.dataloaders ? context.dataloaders.BoardLoader : getLoader();
   try {
-    data = await context.dataloaders.BoardLoader.load(id);
+    const data = await loader.load(id);
+    //Bypass if its an event
+    return viewerCanSee(context.dataloaders ? context : { user: true }) ? new Board(data) : null;
+
   } catch (err) {
+    console.log(err);
     return null;
   }
-  return viewerCanSee(context) ? new Board(data) : null;
 };
 
 export const clearCache = ({ dataloaders }: any, id: string) => {

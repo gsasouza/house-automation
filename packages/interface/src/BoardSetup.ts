@@ -3,7 +3,7 @@ import { Board as BoardType } from 'johnny-five'
 import { EtherPortClient } from 'etherport-client';
 
 
-import { SERIAL_PORT, Board } from '@gsasouza/shared'
+import { publishMessage, Board } from '@gsasouza/shared'
 import { initIO } from './IOSetup'
 
 export enum BoardsEnum {
@@ -12,50 +12,50 @@ export enum BoardsEnum {
   ESP8266 = 'ESP8266'
 }
 
-export const createBoard = (config) => new Promise(
+export const createBoard = (config: {}): Promise<BoardType> => new Promise(
   (resolve, reject) => {
     const board = new five.Board({ ...config, repl: false });
     board.on('ready', () => resolve(board))
     board.on('error', () => reject('Error on init board'))
-    board.on('fail', () =>  reject('Failed to init board'));
   }
 );
 
-export const createBoards = async (): Promise<Array<BoardType>> => {
+export const createBoards = async (pubnub): Promise<Array<BoardType>> => {
   const boards = await Board.find({});
   const connectedBoards = [];
   for (const board of boards) {
     const {_id, port, type, host} = board;
     try {
+      let config = { id: _id, port };
       if (type === BoardsEnum.ESP8266) {
-        connectedBoards.push(await createBoard({
-          id: _id,
-          port: new EtherPortClient({
-            host,
-            port: 3030
-          })
-        }));
-      } else {
-        connectedBoards.push(await createBoard({id: _id, port}));
+        config = { id: _id, port: new EtherPortClient({ host, port: 3030 }) }
       }
+      const connectedBoard = await createBoard(config)
+      const disconnectCallback = async () => {
+        publishMessage(pubnub, 'local:board', { id: _id })
+        console.log('here');
+        await Board.findOneAndUpdate({ _id }, { connected: false });
+        console.log('here2')
+      }
+      connectedBoard.on('exit', disconnectCallback)
+      connectedBoard.on('close', disconnectCallback)
+      connectedBoard.on('message', message => console.log(`Message on board ${_id}: `, message));
+      connectedBoards.push(connectedBoard);
+      await Board.findOneAndUpdate({ _id }, { connected: true });
     } catch (e) {
       console.log(`error when connecting board ${_id}`)
+      await Board.findOneAndUpdate({ _id }, { connected: false });
     }
   }
   return connectedBoards;
 }
 
-export const initBoards = async () => {
-  const boards = await createBoards();
+export const initBoards = async (pubnub) => {
+  const boards = await createBoards(pubnub);
   const boardsWithPins = [];
   for (const board of boards) {
-    try {
-      const pins = await initIO(board);
-      boardsWithPins.push({ ...board, pins });
-    } catch(e) {
-      console.log(e);
-    }
-
+    const pins = await initIO(board);
+    boardsWithPins.push({ ...board, pins });
   }
   return boardsWithPins;
 

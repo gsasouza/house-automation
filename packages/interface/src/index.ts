@@ -1,5 +1,5 @@
 import app from './app';
-import { connectDatabase, LOCAL_PORT } from '@gsasouza/shared';
+import { connectDatabase, LOCAL_PORT, createPubNubInstance } from '@gsasouza/shared';
 import http from 'http';
 
 import { pubNubSetup } from './PubNubSetup'
@@ -15,6 +15,7 @@ const server = http.createServer(app.callback());
     console.error('Unable to connect to database', error);
     process.exit(1);
   }
-  pubNubSetup(await initBoards());
+  const pubnub = createPubNubInstance();
+  pubNubSetup(pubnub, await initBoards(pubnub));
   server.listen(LOCAL_PORT, () => console.log('App running on port 3000'));
 })();
