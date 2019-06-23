@@ -30,10 +30,6 @@ import BoardMenu from './BoardMenu';
         return '-';
       }
     },
-    {
-      field: 'host',
-      name: 'Host',
-    }
   ]
   const { boards } = props.query;
   return (

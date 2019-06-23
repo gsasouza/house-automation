@@ -7,8 +7,7 @@ import {
   EuiKeyPadMenuItem,
 } from '@elastic/eui';
 
-// import BoardAdd from './BoardAdd'
-import {createFragmentContainer, graphql} from 'react-relay'
+import BoardAdd from './BoardAdd'
 
 const BoardMenu = (props) => {
   const [isOpen, setOpen] = React.useState(false);
@@ -34,17 +33,10 @@ const BoardMenu = (props) => {
           </EuiKeyPadMenuItem>
         </EuiKeyPadMenu>
       </EuiPopover>
-      {/*{ isOpenModal && <BoardAdd query={props.query} setOpenModal={setOpenModal}/>}*/}
+      { isOpenModal && <BoardAdd query={props.query} setOpenModal={setOpenModal}/>}
     </>
   )
 }
 
 export default BoardMenu;
-// export default createFragmentContainer(BoardMenu, {
-//   query: graphql`
-//     fragment BoardMenu_query on Query {
-//       ...BoardAdd_query
-//     }
-//   `
-// })
 

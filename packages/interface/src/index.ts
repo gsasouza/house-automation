@@ -10,11 +10,11 @@ const server = http.createServer(app.callback());
 (async () => {
   try {
     await connectDatabase();
-    pubNubSetup(await initBoards());
   } catch (error) {
     console.log(error);
     console.error('Unable to connect to database', error);
     process.exit(1);
   }
+  pubNubSetup(await initBoards());
   server.listen(LOCAL_PORT, () => console.log('App running on port 3000'));
 })();

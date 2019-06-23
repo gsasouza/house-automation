@@ -12,44 +12,51 @@ export enum BoardsEnum {
   ESP8266 = 'ESP8266'
 }
 
-const configDefault = SERIAL_PORT ? { port: SERIAL_PORT } : {}
-
-export const createBoard = (config = configDefault) => new Promise(
+export const createBoard = (config) => new Promise(
   (resolve, reject) => {
     const board = new five.Board({ ...config, repl: false });
     board.on('ready', () => resolve(board))
-    board.on('fail', () =>  reject('Failed to init board') );
+    board.on('error', () => reject('Error on init board'))
+    board.on('fail', () =>  reject('Failed to init board'));
   }
 );
 
 export const createBoards = async (): Promise<Array<BoardType>> => {
   const boards = await Board.find({});
-  return new Promise((resolve) => {
-    new five.Boards(
-      boards.map(({ _id, port, type }) => {
-        if (type === BoardsEnum.ESP8266) {
-          return {
-            id: _id,
-            port: new EtherPortClient({
-              host: '192.168.15.23',
-              port: 3030
-            })
-          };
-        }
-        return { id: _id, port };
-      })
-    ).on('ready', function () {
-      resolve(Array.from(this))
-    })
-  })
+  const connectedBoards = [];
+  for (const board of boards) {
+    const {_id, port, type, host} = board;
+    try {
+      if (type === BoardsEnum.ESP8266) {
+        connectedBoards.push(await createBoard({
+          id: _id,
+          port: new EtherPortClient({
+            host,
+            port: 3030
+          })
+        }));
+      } else {
+        connectedBoards.push(await createBoard({id: _id, port}));
+      }
+    } catch (e) {
+      console.log(`error when connecting board ${_id}`)
+    }
+  }
+  return connectedBoards;
 }
 
 export const initBoards = async () => {
   const boards = await createBoards();
   const boardsWithPins = [];
   for (const board of boards) {
-    const pins = await initIO(board);
-    boardsWithPins.push({ ...board, pins });
+    try {
+      const pins = await initIO(board);
+      boardsWithPins.push({ ...board, pins });
+    } catch(e) {
+      console.log(e);
+    }
+
   }
   return boardsWithPins;
+
 }
