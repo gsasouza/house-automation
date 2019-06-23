@@ -13,3 +13,4 @@ __generated__/
 .cache/
 build/
 dist/
+lib/

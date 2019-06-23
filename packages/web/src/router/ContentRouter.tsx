@@ -13,8 +13,8 @@ import createLoadable from './createLoadable';
 
 const Dashboard = createLoadable(() => import('../components/dashboard/Dashboard'));
 const RoomList = createLoadable(() => import('../components/rooms/RoomList'));
-const BoardIosList = createLoadable(()=> import('../components/boardIos/BoardIoList'));
-
+const BoardIosList = createLoadable(() => import('../components/boardIos/BoardIoList'));
+const BoardList = createLoadable(() => import('../components/boards/BoardList'))
 const NotFound = () => (
   <div>
     NOT FOUND
@@ -48,6 +48,7 @@ const ContentRouter = () => {
         <Dashboard path={'/'}/>
         <RoomList path={'/rooms'}/>
         <BoardIosList path={'/boardIos'}/>
+        <BoardList path={'/boards'}/>
         <NotFound default />
       </PosedRouter>
     </Content>
