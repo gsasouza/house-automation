@@ -38,6 +38,13 @@ const BoardIoType: GraphQLObjectType = new GraphQLObjectType({
       type: GraphQLBoolean,
       resolve: boardIo => boardIo.state,
     },
+    connected: {
+      type: GraphQLBoolean,
+      resolve: async (boardIo, _, context) => {
+        const board = await BoardLoader.load(context, boardIo.board);
+        return board.connected;
+      },
+    },
     room: {
       type: BoardIoType,
       resolve: (boardIo, _, context) => RoomLoader.load(context, boardIo.room),

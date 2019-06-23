@@ -8,7 +8,7 @@ import {
 } from '@elastic/eui'
 import { navigate } from '@reach/router'
 
-const Sidebar = () => {
+const Sidebar = ({ setNavDrawerRef }) => {
 
   const publicLinks = [
     {
@@ -42,7 +42,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <EuiNavDrawer translations={{ 'euiNavDrawer.sideNavCollapse': 'Fechar Menu'}}>
+    <EuiNavDrawer ref={ref => setNavDrawerRef(ref)}>
       <EuiNavDrawerGroup listItems={publicLinks} />
       <EuiHorizontalRule margin="none" />
       <EuiNavDrawerGroup listItems={adminLinks} />

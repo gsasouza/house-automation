@@ -41,7 +41,7 @@ export default class BoardIo {
 
 export const getLoader = () => new DataLoader(ids => mongooseLoader(BoardIoModel, ids));
 
-const viewerCanSee = () => true;
+const viewerCanSee = (context) => !!context.user;
 
 export const load = async (context: any, id: string): Promise<any> => {
   if (!id) {
@@ -53,7 +53,7 @@ export const load = async (context: any, id: string): Promise<any> => {
   } catch (err) {
     return null;
   }
-  return viewerCanSee() ? new BoardIo(data) : null;
+  return viewerCanSee(context) ? new BoardIo(data) : null;
 };
 
 export const clearCache = ({ dataloaders }: any, id: string) => {
@@ -73,8 +73,23 @@ export const loadBoardIos = async (context: any, args: ConnectionArguments & { s
 };
 
 export const loadBoardIosByRoomCount = async (id: string) => {
-  const where = { room: id }
-  return BoardIoModel.countDocuments(where);
+  const where = { room: id,  }
+  const aggregatePipeline = [
+    { $match: { room: id }},
+    {
+      $lookup:
+        {
+          from: 'boards',
+          localField: 'board',
+          foreignField: '_id',
+          as: 'board'
+        }
+    },
+    { $match: { 'board.connected': true }},
+    { $count: 'total'}
+  ]
+  const result = await BoardIoModel.aggregate(aggregatePipeline);
+  return result[0] ? result[0].total : 0;
 };
 
 export const loadBoardIosByRoom = async (context: any, args: ConnectionArguments & { search?: string }, id: string) => {

@@ -33,6 +33,11 @@ const schema = new mongoose.Schema(
       type: String,
       unique: true,
     },
+    connected: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'

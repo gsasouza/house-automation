@@ -15,12 +15,14 @@ import { createFragmentContainer, graphql } from 'react-relay'
 
 import BoardIoChangeState from './mutation/BoardIoChangeStateMutation';
 
-const BoardIoInput = ({ state, id, pin, name, board }) => {
+const BoardIoInput = ({ state, id, pin, name, board, connected }) => {
+  const label = connected ? (state ? 'Ligado' : 'Desligado') : 'Desconectado';
   return (
     <EuiFormRow label={`${name} - ${board.name} (${pin})`}>
       <EuiSwitch
+        disabled={!connected}
         name={id}
-        label={state ? 'Ligado' : 'Desligado'}
+        label={label}
         checked={state}
         onChange={() => BoardIoChangeState.commit({ id, state: !state }, () => {}, () => {})}
       />
@@ -29,6 +31,7 @@ const BoardIoInput = ({ state, id, pin, name, board }) => {
 }
 
 const RoomDetail = ({ handleCloseFlyout, room }) => {
+  const { boardIosConnected, name } = room;
   return (
     <EuiFlyout
       onClose={handleCloseFlyout}
@@ -39,13 +42,16 @@ const RoomDetail = ({ handleCloseFlyout, room }) => {
     >
       <EuiFlyoutHeader hasBorder>
         <EuiTitle size="m">
-          <h2>{room.name}</h2>
+          <h2>{name}</h2>
         </EuiTitle>
       </EuiFlyoutHeader>
       <EuiFlyoutBody>
         <EuiText>
           <p>
-            Dispositivos
+            {!boardIosConnected.count ?
+              'Nenhum dispositivo conectado neste cômodo :(' :
+              'Dispositivos'
+            }
           </p>
         </EuiText>
         <EuiSpacer size="m"/>
@@ -63,6 +69,7 @@ export default createFragmentContainer(RoomDetail, {
       name
       id
       boardIosConnected(first: 1000) {
+        count
         edges {
           cursor
           node {
@@ -70,6 +77,7 @@ export default createFragmentContainer(RoomDetail, {
             state
             name
             pin
+            connected
             board {
               name
             }

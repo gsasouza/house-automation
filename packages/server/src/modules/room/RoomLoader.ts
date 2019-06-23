@@ -29,7 +29,7 @@ export default class Room {
 
 export const getLoader = () => new DataLoader(ids => mongooseLoader(RoomModel, ids));
 
-const viewerCanSee = () => true;
+const viewerCanSee = (context) => !!context.user;
 
 export const load = async (context: any, id: string): Promise<any> => {
   if (!id) {
@@ -41,7 +41,7 @@ export const load = async (context: any, id: string): Promise<any> => {
   } catch (err) {
     return null;
   }
-  return viewerCanSee() ? new Room(data) : null;
+  return viewerCanSee(context) ? new Room(data) : null;
 };
 
 export const clearCache = ({ dataloaders }: any, id: string) => {

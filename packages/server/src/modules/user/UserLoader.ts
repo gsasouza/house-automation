@@ -29,7 +29,7 @@ export default class User {
 
 export const getLoader = () => new DataLoader(ids => mongooseLoader(UserModel, ids));
 
-const viewerCanSee = () => true;
+const viewerCanSee = (context) => !!context.user;
 
 export const load = async (context: any, id: string): Promise<any> => {
   if (!id) {
@@ -42,7 +42,7 @@ export const load = async (context: any, id: string): Promise<any> => {
   } catch (err) {
     return null;
   }
-  return viewerCanSee() ? new User(data) : null;
+  return viewerCanSee(context) ? new User(data) : null;
 };
 
 export const clearCache = ({ dataloaders }: any, id: string) => {

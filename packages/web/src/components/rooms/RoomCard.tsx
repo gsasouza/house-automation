@@ -26,7 +26,7 @@ const FRIENDLY_NAMES = {
 
 const Wrapper = styled(EuiFlexItem)`
   max-width: 330px;
-  min-width: 300px;
+  min-width: 290px;
 `
 
 const RoomCard = ({ room, isDetailOpen, handleOpenDetail, handleCloseDetail }) => {

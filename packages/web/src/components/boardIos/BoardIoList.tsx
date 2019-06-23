@@ -6,6 +6,7 @@ import {
   EuiPageHeaderSection,
   EuiTitle,
   EuiBasicTable,
+  EuiHealth,
 } from '@elastic/eui';
 import { createRefetchContainer, graphql } from 'react-relay'
 
@@ -33,7 +34,17 @@ const BoardIoList = (props) => {
     {
       field: 'pin',
       name: 'Pino',
-    }
+    },
+    {
+      field: 'connected',
+      name: 'Conectado',
+      dataType: 'boolean',
+      render: connected => {
+        const color = connected ? 'success' : 'danger';
+        const label = connected ? 'Conectado' : 'Desconectado';
+        return <EuiHealth color={color}>{label}</EuiHealth>;
+      },
+    },
   ]
   const { boardIos } = props.query;
   return (
@@ -90,6 +101,7 @@ const fragment = createRefetchContainer(
           edges {
             cursor
             node {
+              connected
               id
               name
               type

@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLString } from 'graphql';
+import {GraphQLBoolean, GraphQLObjectType, GraphQLString} from 'graphql';
 import { globalIdField } from 'graphql-relay';
 import { NodeInterface } from '../../schema/NodeInterface';
 
@@ -29,6 +29,10 @@ const BoardType: GraphQLObjectType = new GraphQLObjectType({
     port: {
       type: GraphQLString,
       resolve: board => board.port,
+    },
+    connected: {
+      type: GraphQLBoolean,
+      resolve: board => board.connected
     },
     createdBy: {
       type: UserType,

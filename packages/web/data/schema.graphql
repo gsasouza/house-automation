@@ -48,6 +48,7 @@ type Board implements Node {
   type: String
   host: String
   port: String
+  connected: Boolean
   createdBy: User
 }
 
@@ -80,6 +81,7 @@ type BoardIo implements Node {
   board: Board
   pin: String
   state: Boolean
+  connected: Boolean
   room: BoardIo
   createdBy: User
 }

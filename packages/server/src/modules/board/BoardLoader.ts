@@ -10,6 +10,7 @@ type BoardType = {
   type: string
   host: string
   port: string
+  connected: boolean
   createdBy: string
 };
 
@@ -21,6 +22,7 @@ export default class Board {
   host: string;
   port: string;
   createdBy: string;
+  connected: boolean;
 
   constructor(data: BoardType) {
     this.id = data.id;
@@ -29,13 +31,14 @@ export default class Board {
     this.type = data.type;
     this.host = data.host;
     this.port = data.port;
+    this.connected = data.connected;
     this.createdBy = data.createdBy;
   }
 }
 
 export const getLoader = () => new DataLoader(ids => mongooseLoader(BoardModel, ids));
 
-const viewerCanSee = () => true;
+const viewerCanSee = (context) => !!context.user;
 
 export const load = async (context: any, id: string): Promise<any> => {
   if (!id) {
@@ -47,7 +50,7 @@ export const load = async (context: any, id: string): Promise<any> => {
   } catch (err) {
     return null;
   }
-  return viewerCanSee() ? new Board(data) : null;
+  return viewerCanSee(context) ? new Board(data) : null;
 };
 
 export const clearCache = ({ dataloaders }: any, id: string) => {
