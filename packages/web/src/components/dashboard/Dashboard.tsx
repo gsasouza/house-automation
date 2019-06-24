@@ -73,6 +73,7 @@ const fragment = createFragmentContainer(Dashboard, {
   query: graphql`
     fragment Dashboard_query on Query {
       me {
+        name
         username
       }
     }
