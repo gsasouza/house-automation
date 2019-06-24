@@ -48,7 +48,7 @@ import BoardMenu from './BoardMenu';
       <EuiPageHeader>
         <EuiPageHeaderSection>
           <EuiTitle size="l">
-            <h1>Dispositivos</h1>
+            <h1>Placas</h1>
           </EuiTitle>
         </EuiPageHeaderSection>
         <EuiPageHeaderSection>
