@@ -15,7 +15,7 @@
 </h2>
 
 
-# It uses graphql subscriptions to keep IO state synced bewtween all clients
+# It uses graphql subscriptions to keep IO state synced between all clients
 <h2 align="center">
 <br>
   <img src="https://i.imgur.com/4w0u41i.gif" alt="Real Time" width=800">
