@@ -15,6 +15,8 @@ const Dashboard = createLoadable(() => import('../components/dashboard/Dashboard
 const RoomList = createLoadable(() => import('../components/rooms/RoomList'));
 const BoardIosList = createLoadable(() => import('../components/boardIos/BoardIoList'));
 const BoardList = createLoadable(() => import('../components/boards/BoardList'))
+const UserList = createLoadable(() => import('../components/users/UserList'))
+
 const NotFound = () => (
   <div>
     NOT FOUND
@@ -49,6 +51,7 @@ const ContentRouter = () => {
         <RoomList path={'/rooms'}/>
         <BoardIosList path={'/boardIos'}/>
         <BoardList path={'/boards'}/>
+        <UserList path={'/users'}/>
         <NotFound default />
       </PosedRouter>
     </Content>

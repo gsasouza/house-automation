@@ -7,9 +7,9 @@ import {
   EuiKeyPadMenuItem,
 } from '@elastic/eui';
 
-import BoardAdd from './BoardAdd'
+import UserAdd from './UserAdd'
 
-const BoardMenu = (props) => {
+const UserMenu = (props) => {
   const [isOpen, setOpen] = React.useState(false);
   const [isOpenModal, setOpenModal] = React.useState(false);
 
@@ -25,18 +25,18 @@ const BoardMenu = (props) => {
         }}
       >
         <EuiKeyPadMenu>
-          <EuiKeyPadMenuItem label="Adicionar Dispositivo" onClick={() => {
+          <EuiKeyPadMenuItem label="Adicionar Usuário" onClick={() => {
             setOpenModal(true)
             setOpen(false)
           }}>
-            <EuiIcon type="managementApp" size="l" />
+            <EuiIcon type="usersRolesApp" size="l" />
           </EuiKeyPadMenuItem>
         </EuiKeyPadMenu>
       </EuiPopover>
-      { isOpenModal && <BoardAdd query={props.query} setOpenModal={setOpenModal}/>}
+      { isOpenModal && <UserAdd query={props.query} setOpenModal={setOpenModal}/>}
     </>
   )
 }
 
-export default BoardMenu;
+export default UserMenu;
 

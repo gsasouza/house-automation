@@ -169,6 +169,7 @@ type Query {
     """The ID of an object"""
     id: ID!
   ): Node
+  me: User
   users(after: String, first: Int, before: String, last: Int, search: String): UserConnection
   rooms(after: String, first: Int, before: String, last: Int, search: String): RoomConnection
   boards(after: String, first: Int, before: String, last: Int, search: String): BoardConnection

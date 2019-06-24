@@ -2,6 +2,7 @@ import { GraphQLObjectType, GraphQLString } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
 import { NodeField } from './NodeInterface';
 
+import UserType from '../modules/user/UserType';
 import UserConnection from '../modules/user/UserConnection';
 import * as UserLoader from '../modules/user/UserLoader';
 import RoomConnection from '../modules/room/RoomConnection'
@@ -17,6 +18,10 @@ export default new GraphQLObjectType({
   description: 'The root of all... queries',
   fields: () => ({
     node: NodeField,
+    me: {
+      type: UserType,
+      resolve: (_, args, context) => context.user,
+    },
     users: {
       type: UserConnection.connectionType,
       args: {
