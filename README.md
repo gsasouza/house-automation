@@ -1,7 +1,23 @@
-# house-automation
-Automate your house using #GraphQL #Relay #Koa #React #PubNub #JohnnyFive #Arduino #ESP8266
+
+# How it works
 <h1 align="center">
 <br>
-  <a href="https://github.com/FotonTech/gigatron"><img src="https://i.imgur.com/1B7yst3.jpg" alt="Gigatron" width=600"></a>
+  <img src="https://i.imgur.com/1B7yst3.jpg" alt="Architecture" width=600">
 <br>
 </h1>
+    
+# Demo
+
+<h2 align="center">
+<br>
+  <img src="https://i.imgur.com/Z3Z073Y.gif" alt="Real Time" width=350">
+<br>
+</h2>
+
+
+# It uses graphql subscriptions to keep IO state synced bewtween all clients
+<h2 align="center">
+<br>
+  <img src="https://i.imgur.com/4w0u41i.gif" alt="Real Time" width=800">
+<br>
+</h2>
