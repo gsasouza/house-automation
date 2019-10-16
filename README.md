@@ -1,4 +1,6 @@
 
+# TypeScript House Automation
+
 # How it works
 <h1 align="center">
 <br>
