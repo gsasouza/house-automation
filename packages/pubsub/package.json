@@ -1,0 +1,13 @@
+{
+  "name": "@gsasouza/pubsub",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "amqplib": "^0.5.5",
+    "@gsasouza/shared": "^1.0.0"
+  },
+  "scripts": {
+    "start": "nodemon --extensions \".es6,.js,.es,.jsx,.mjs,.ts\" src/publisher.ts"
+  }
+}

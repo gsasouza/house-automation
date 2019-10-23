@@ -17,3 +17,4 @@ export const PUBLISH_KEY = process.env.PUBLISH_KEY
 export const SUBSCRIBE_KEY = process.env.SUBSCRIBE_KEY
 export const SECRET_KEY = process.env.SECRET_KEY
 export const LOCAL_PORT = process.env.LOCAL_PORT || 5000;
+export const AMQP_URL = process.env.AMQP_URL || 'teste';
