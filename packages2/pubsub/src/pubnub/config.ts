@@ -20,5 +20,5 @@ export const createPubNubInstance = (credentials: PubNubCredentials) => {
   return pubnub;
 };
 
-export const publishMessage = async (instance, channel, message) =>
+export const publishMessage = async (instance: PubNub, channel, message) =>
   new Promise(resolve => instance.publish({ channel, message }, (status, response) => resolve({ status, response })));

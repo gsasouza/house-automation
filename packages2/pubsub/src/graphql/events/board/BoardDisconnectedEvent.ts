@@ -1,7 +1,7 @@
 import { Device } from '@housejs/shared';
 
+import { EVENTS } from '../../../events';
 import { pubSub } from '../../config';
-import { EVENTS } from '../events';
 
 export default async ({ id }) => {
   const connectedBoardIos = await Device.find({ board: id });

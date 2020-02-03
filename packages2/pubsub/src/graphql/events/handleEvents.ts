@@ -1,5 +1,5 @@
-import { CHANNELS } from '../pubnub/channels';
-import { DeviceChangedState, BoardDisconnect } from './events';
+import { CHANNELS } from '../../pubnub/channels';
+import { DeviceChangedState, BoardDisconnect } from './index';
 
 const handleEvents = async ({ channel, message }) => {
   switch (channel) {

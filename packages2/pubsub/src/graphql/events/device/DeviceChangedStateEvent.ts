@@ -1,7 +1,7 @@
 import { Device } from '@housejs/shared';
 
+import { EVENTS } from '../../../events';
 import { pubSub } from '../../config';
-import { EVENTS } from '../events';
 
 export default async ({ id }) => {
   const device = await Device.findOne({ _id: id });

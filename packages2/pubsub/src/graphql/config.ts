@@ -1,6 +1,6 @@
 import { CHANNELS } from '../pubnub/channels';
 import { createPubNubInstance, PubNubCredentials } from '../pubnub/config';
-import handleEvents from './handleEvents';
+import handleEvents from './events/handleEvents';
 
 import { PubSub } from 'graphql-subscriptions';
 
