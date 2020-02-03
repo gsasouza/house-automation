@@ -4,6 +4,7 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
+    "generate-schema": "babel-node --extensions \".es6,.js,.es,.jsx,.mjs,.ts,.tsx\" ./scripts/generateSchema.ts -i \"[]\" ",
     "graphql": "webpack --watch --progress --config webpack.config.js"
   },
   "dependencies": {

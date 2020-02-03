@@ -7,17 +7,18 @@
     "packages2/*"
   ],
   "scripts": {
-    "interface:start": "yarn workspace @gsasouza/interface start",
+    "interface:start": "yarn workspace @housejs/interface start",
     "lint": "eslint --fix --ext .js,.ts,.tsx",
     "prettier": "prettier",
-    "repl": "yarn workspace @gsasouza/shared repl",
+    "repl": "yarn workspace @housejs/shared repl",
+    "server:build": "yarn workspace @housejs/server build",
+    "server:generate-schema": "yarn workspace @housejs/server generate-schema",
     "server:graphql": "yarn workspace @housejs/server graphql",
-    "server:serve": "yarn workspace @gsasouza/server serve",
-    "server:update-schema": "yarn workspace @gsasouza/server update-schema",
-    "web:build": "yarn workspace @gsasouza/web build",
-    "web:relay": "yarn workspace @gsasouza/web relay",
-    "web:serve": "yarn workspace @gsasouza/web serve",
-    "web:start": "yarn workspace @gsasouza/web start"
+    "server:serve": "yarn workspace @housejs/server serve",
+    "web:build": "yarn workspace @housejs/web build",
+    "web:relay": "yarn workspace @housejs/web relay",
+    "web:serve": "yarn workspace @housejs/web serve",
+    "web:start": "yarn workspace @housejs/web start"
   },
   "lint-staged": {
     "*.yml": [
