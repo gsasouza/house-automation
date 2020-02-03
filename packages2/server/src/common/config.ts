@@ -1,5 +1,7 @@
 import path from 'path';
 
+import env from '../../../../packages/web/src/relay/environment';
+
 import dotenvSafe from 'dotenv-safe';
 import envVar from 'env-var';
 
@@ -22,3 +24,18 @@ export const JWT_SECRET = envVar
   .get('JWT_SECRET')
   .required()
   .asString();
+
+export const PUBNUB_CREDENTIALS = {
+  subscribeKey: envVar
+    .get('SUBSCRIBE_KEY')
+    .required()
+    .asString(),
+  publishKey: envVar
+    .get('SUBSCRIBE_KEY')
+    .required()
+    .asString(),
+  secretKey: envVar
+    .get('SECRET_KEY')
+    .required()
+    .asString(),
+};

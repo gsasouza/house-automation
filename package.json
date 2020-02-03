@@ -7,9 +7,6 @@
     "packages2/*"
   ],
   "scripts": {
-    "bootstrap": "lerna bootstrap --use-workspaces",
-    "build:packages": "lerna exec --parallel -- babel src -d build --extensions \".ts,.tsx\" --ignore **/*.story.js,**/*.spec.js",
-    "heroku-postbuild": "yarn build:packages && yarn bootstrap && yarn web:relay && yarn web:build",
     "interface:start": "yarn workspace @gsasouza/interface start",
     "lint": "eslint --fix --ext .js,.ts,.tsx",
     "prettier": "prettier",

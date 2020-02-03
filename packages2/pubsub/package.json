@@ -1,6 +1,11 @@
 {
   "name": "@housejs/pubsub",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@housejs/shared": "1.0.0",
+    "graphql-subscriptions": "^1.1.0",
+    "pubnub": "^4.27.3"
+  }
 }

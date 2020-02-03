@@ -1,4 +1,5 @@
-// import pubSub, { EVENTS } from '../../../pubsub/pubSub';
+import { graphqlPubSub, EVENTS } from '@housejs/pubsub';
+
 import DeviceConnection from '../DeviceConnection';
 
 import { GraphQLObjectType } from 'graphql';
@@ -19,9 +20,7 @@ const DeviceChangeStatePayloadType = new GraphQLObjectType({
 
 const deviceChangedStateSubscription = {
   type: DeviceChangeStatePayloadType,
-  subscribe: () => {
-    return true;
-  },
+  subscribe: () => graphqlPubSub.asyncIterator(EVENTS.DEVICE.CHANGED),
 };
 
 export default deviceChangedStateSubscription;

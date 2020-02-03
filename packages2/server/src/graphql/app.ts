@@ -1,5 +1,7 @@
+import { subscriptionsSetup } from '@housejs/pubsub';
+
 import { authenticatedMiddleware } from '../common/auth';
-import { GRAPHQL_PORT } from '../common/config';
+import { GRAPHQL_PORT, PUBNUB_CREDENTIALS } from '../common/config';
 import { dataloadersMiddleware } from './loaders';
 import schema from './schema';
 
@@ -12,6 +14,7 @@ import Router from 'koa-router';
 
 const app = new Koa();
 const router = new Router();
+app.context.pubnub = subscriptionsSetup(PUBNUB_CREDENTIALS);
 
 router.get('/', ctx => (ctx.body = 'Hello World'));
 
