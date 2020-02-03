@@ -1,6 +1,11 @@
 {
   "name": "@housejs/shared",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@housejs/babel": "1.0.0",
+    "bcrypt": "^3.0.7",
+    "mongoose": "^5.8.11"
+  }
 }

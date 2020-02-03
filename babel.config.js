@@ -1,6 +1,7 @@
 const { workspaces = [] } = require('./package.json');
 
 module.exports = {
+  babelrcRoots: ['.', ...(workspaces.packages || workspaces)],
   presets: [
     [
       '@babel/preset-env',
@@ -8,16 +9,17 @@ module.exports = {
         targets: {
           node: 'current',
         },
+        useBuiltIns: 'entry',
+        corejs: 3,
       },
     ],
+    '@babel/preset-react',
     '@babel/preset-typescript',
   ],
   plugins: [
-    '@babel/plugin-proposal-object-rest-spread',
-    '@babel/plugin-proposal-class-properties',
+    ['@babel/plugin-proposal-class-properties', { loose: true }],
     '@babel/plugin-proposal-export-default-from',
     '@babel/plugin-proposal-export-namespace-from',
-    '@babel/plugin-transform-async-to-generator',
-    '@babel/plugin-syntax-async-generators',
+    '@babel/plugin-proposal-async-generator-functions',
   ],
 };
