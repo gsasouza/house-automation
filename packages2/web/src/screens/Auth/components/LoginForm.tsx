@@ -1,15 +1,17 @@
 import { Card, CardHeader, TextInput, Checkbox, RoundedButton } from '../../../components';
 
 import { login } from '../../../utils/security';
+import { UserLoginMutationResponse } from './mutations/__generated__/UserLoginMutation.graphql';
 import { UserLoginMutation } from './mutations/UserLoginMutation';
 
 import { useFormik } from 'formik';
 
 import * as React from 'react';
+import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useMutation } from 'relay-hooks';
 import styled from 'styled-components';
 import * as Yup from 'yup';
-import { useMutation } from 'relay-hooks';
-import { UserLoginMutationResponse } from './mutations/__generated__/UserLoginMutation.graphql';
 
 const Wrapper = styled.div`
   margin: auto;
@@ -34,13 +36,25 @@ const initialValues = {
 };
 
 const LoginInnerForm = () => {
-  const { getFieldProps, getFieldMeta, values, setFieldValue, handleSubmit } = useFormik<Values>({
-    initialValues,
-    validationSchema: LoginSchema,
-    onSubmit: () => mutate({ variables: { input: { username: values.username, password: values.password } } }),
-  });
+  const history = useHistory();
+  const { getFieldProps, getFieldMeta, values, setFieldValue, handleSubmit, isSubmitting, isValid } = useFormik<Values>(
+    {
+      initialValues,
+      validationSchema: LoginSchema,
+      onSubmit: () => mutate({ variables: { input: { username: values.username, password: values.password } } }),
+    },
+  );
+
+  const onCompleted = ({ UserLogin }: UserLoginMutationResponse) => {
+    if (!UserLogin || !UserLogin.token)
+      return toast.error('Ocorreu um erro ao tentar entrar. Verique usuário e senha!');
+    login(UserLogin.token, values.remember);
+    toast.info('Login feito com sucesso!');
+    return history.push('/dashboard');
+  };
+
   const [mutate] = useMutation(UserLoginMutation, {
-    onCompleted: ({ UserLogin }: UserLoginMutationResponse) => login(UserLogin && UserLogin.token, values.remember),
+    onCompleted,
   });
 
   return (
@@ -61,7 +75,13 @@ const LoginInnerForm = () => {
           name="remeber"
           label="Lembrar de mim"
         />
-        <RoundedButton color="accent" fullWidth onClick={handleSubmit}>
+        <RoundedButton
+          color="accent"
+          fullWidth
+          onClick={handleSubmit}
+          disabled={isSubmitting || !isValid}
+          isLoading={isSubmitting}
+        >
           Entrar
         </RoundedButton>
       </Card>

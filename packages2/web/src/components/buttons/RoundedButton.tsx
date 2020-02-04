@@ -1,14 +1,17 @@
 import { getLightenDarkenColor, getFontColor } from '../../utils';
 
+import LoadingWave from '../LoadingWave';
+
+import * as React from 'react';
 import { Button } from 'reakit';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface Props {
   color?: string;
   fullWidth?: boolean;
 }
 
-const RoundedButton = styled(Button)<Props>`
+const StyledButton = styled(Button)<Props>`
   font-size: 14px;
   line-height: 1;
   border-radius: 500px;
@@ -28,6 +31,44 @@ const RoundedButton = styled(Button)<Props>`
   &:hover {
     background-color: ${props => getLightenDarkenColor(props.theme.palette[props.color || 'primary'], 30)};
   }
+  &:disabled {
+    background-color: rgb(221, 221, 221);
+  }
 `;
+
+const Container = styled.div<{ fullWidth?: boolean; isLoading?: boo }>`
+  ${props =>
+    props.fullWidth &&
+    css`
+      width: 100%;
+      > button {
+        width: 100%;
+      }
+    `};
+  position: relative;
+  border-radius: 500px;
+  div:first-child {
+    position: absolute;
+    border-radius: 500px;
+    top: 0;
+    left: 0;
+    visibility: ${props => (props.isLoading ? 'visible' : 'hidden')};
+    > svg {
+      border-radius: 500px;
+      height: 48px;
+    }
+  }
+`;
+
+const RoundedButton = ({ children, fullWidth, ...props }) => {
+  return (
+    <Container fullWidth={fullWidth} {...props}>
+      <StyledButton {...props}>
+        <LoadingWave />
+        {children}
+      </StyledButton>
+    </Container>
+  );
+};
 
 export default RoundedButton;

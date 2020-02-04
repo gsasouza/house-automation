@@ -9334,6 +9334,11 @@ react-transition-group@^4:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
+react-wavify@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/react-wavify/-/react-wavify-1.2.3.tgz#1d4dddda6e00be5b19aefbc6ac0e84dd07f718f6"
+  integrity sha512-ouXj3d46sUTf4C2LtwRqAn9xD5flarxErT5zgENs5yrISeH0hxnsnrBLhPNVagDQodZ73k39m4ZF8kkC95ARMQ==
+
 react@^16.12.0:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"

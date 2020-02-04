@@ -1,8 +1,9 @@
 import { isLoggedIn } from '../utils/security';
 
+import LazyComponent from './LazyComponent';
+
 import * as React from 'react';
 import { useHistory, useRouteMatch, Switch, Route } from 'react-router-dom';
-import LazyComponent from './LazyComponent'
 
 const PublicRouter = () => {
   const [isLoading, setLoading] = React.useState(true);
