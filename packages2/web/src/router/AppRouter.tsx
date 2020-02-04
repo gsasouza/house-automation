@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const AppRouter = () => (
   <Router>
-    <AnimatePresence>
+    <AnimatePresence exitBeforeEnter initial={false}>
       <Switch>
         <Route path="/" exact>
           <LazyComponent component={React.lazy(() => import('./PublicRouter'))} />

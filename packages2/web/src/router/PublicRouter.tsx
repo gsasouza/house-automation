@@ -1,8 +1,10 @@
+import LoadingScreen from '../components/loading/LoadingScreen';
 import { isLoggedIn } from '../utils/security';
+
+import LazyComponent from './LazyComponent';
 
 import * as React from 'react';
 import { useHistory, Switch, Route } from 'react-router-dom';
-import LazyComponent from './LazyComponent'
 
 const PublicRouter = () => {
   const [isLoading, setLoading] = React.useState(true);
@@ -15,7 +17,7 @@ const PublicRouter = () => {
     })();
   }, [history]);
 
-  if (isLoading) return <div> Loading ... </div>;
+  if (isLoading) return <LoadingScreen />;
 
   return (
     <Switch>

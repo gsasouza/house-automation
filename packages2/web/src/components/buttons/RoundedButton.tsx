@@ -1,6 +1,6 @@
 import { getLightenDarkenColor, getFontColor } from '../../utils';
 
-import LoadingWave from '../LoadingWave';
+import LoadingWave from '../loading/LoadingWave';
 
 import * as React from 'react';
 import { Button } from 'reakit';
@@ -36,7 +36,7 @@ const StyledButton = styled(Button)<Props>`
   }
 `;
 
-const Container = styled.div<{ fullWidth?: boolean; isLoading?: boo }>`
+const Container = styled.div<{ fullWidth?: boolean; isLoading?: boolean }>`
   ${props =>
     props.fullWidth &&
     css`

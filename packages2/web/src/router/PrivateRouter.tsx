@@ -1,3 +1,4 @@
+import LoadingScreen from '../components/loading/LoadingScreen';
 import { isLoggedIn } from '../utils/security';
 
 import LazyComponent from './LazyComponent';
@@ -17,7 +18,7 @@ const PublicRouter = () => {
     })();
   }, [history]);
 
-  if (isLoading) return <div> Loading ... </div>;
+  if (isLoading) return <LoadingScreen />;
 
   return (
     <Switch>

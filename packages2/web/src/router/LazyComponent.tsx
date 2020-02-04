@@ -1,7 +1,14 @@
+import LoadingScreen from '../components/loading/LoadingScreen';
+
 import React from 'react';
 
-const LazyComponent = ({ component: Component }) => (
-  <React.Suspense fallback={<div>Loading...</div>}>
+interface Props {
+  component: React.ComponentType;
+  loadingComponent?: React.ComponentType;
+}
+
+const LazyComponent = ({ component: Component, loadingComponent: Loading = LoadingScreen }: Props) => (
+  <React.Suspense fallback={<Loading />}>
     <Component />
   </React.Suspense>
 );
