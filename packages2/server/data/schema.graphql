@@ -110,7 +110,7 @@ type DeviceEdge {
 }
 
 type Mutation {
-  UserLogin(input: UserLoginMutationInput!): UserLoginMutationPayload
+  UserLogin(input: UserLoginInput!): UserLoginPayload
   RoomAdd(input: RoomAddInput!): RoomAddPayload
   BoardAdd(input: BoardAddInput!): BoardAddPayload
   DeviceAdd(input: DeviceAddInput!): DeviceAddPayload
@@ -228,13 +228,13 @@ type UserEdge {
   cursor: String!
 }
 
-input UserLoginMutationInput {
+input UserLoginInput {
   username: String!
   password: String!
   clientMutationId: String
 }
 
-type UserLoginMutationPayload {
+type UserLoginPayload {
   token: String
   error: String
   clientMutationId: String

@@ -1356,7 +1356,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "UserLoginMutationInput",
+                      "name": "UserLoginInput",
                       "ofType": null
                     }
                   },
@@ -1365,7 +1365,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "UserLoginMutationPayload",
+                "name": "UserLoginPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -1487,7 +1487,7 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "UserLoginMutationInput",
+          "name": "UserLoginInput",
           "description": null,
           "fields": null,
           "inputFields": [
@@ -1536,7 +1536,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "UserLoginMutationPayload",
+          "name": "UserLoginPayload",
           "description": null,
           "fields": [
             {

@@ -6,7 +6,7 @@ import { GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 
 export default mutationWithClientMutationId({
-  name: 'UserLoginMutation',
+  name: 'UserLogin',
   inputFields: {
     username: {
       type: new GraphQLNonNull(GraphQLString),
@@ -25,7 +25,7 @@ export default mutationWithClientMutationId({
       };
     }
 
-    const correctPassword = user.authenticate(password);
+    const correctPassword = await user.authenticate(password);
 
     if (!correctPassword) {
       return {
