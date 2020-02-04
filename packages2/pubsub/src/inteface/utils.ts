@@ -25,4 +25,18 @@ export const findDevicePinInBoards = (boards: IInterfaceBoard[], device: IDevice
   return devicePin;
 };
 
-export const replyStateChange = (pubnub, device) => publishMessage(pubnub, CHANNELS.LOCAL.DEVICE, { id: device._id });
+export const MESSAGE_TYPES = {
+  BOARD: 'BOARD',
+  DEVICE: 'DEVICE',
+};
+
+export const replyStateChange = (pubnub, { _id }, type) => {
+  switch (type) {
+    case MESSAGE_TYPES.BOARD:
+      return publishMessage(pubnub, CHANNELS.LOCAL.BOARD, { id: _id });
+    case MESSAGE_TYPES.DEVICE:
+      return publishMessage(pubnub, CHANNELS.LOCAL.DEVICE, { id: _id });
+    default:
+      return;
+  }
+};

@@ -2,17 +2,16 @@ import { CHANNELS } from '../pubnub/channels';
 import { createPubNubInstance, PubNubCredentials } from '../pubnub/config';
 import handleEvents from './events/handleEvents';
 
-type SetupArgs = {
-  boards: any;
-} & PubNubCredentials;
+type SetupArgs = PubNubCredentials;
 
-export const interfaceSubscriptionsSetup = async ({ boards, ...credentials }: SetupArgs) => {
+export const addListenerToInterfaceSubscriptions = ({ pubnub, boards }) =>
+  pubnub.addListener({ message: handleEvents({ pubnub, boards }) });
+
+export const interfaceSubscriptionsSetup = (credentials: SetupArgs) => {
   const pubnub = createPubNubInstance(credentials);
-
-  pubnub.addListener({ message: handleEvents(pubnub, boards) });
-
-  await pubnub.subscribe({
+  pubnub.subscribe({
     channels: Object.values(CHANNELS.CLOUD),
-    userVisibleOnly: false,
   });
+
+  return pubnub;
 };

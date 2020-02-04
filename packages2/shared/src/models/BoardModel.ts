@@ -30,6 +30,7 @@ const schema = new mongoose.Schema(
     host: {
       type: String,
       unique: true,
+      trim: true,
     },
     port: {
       type: String,

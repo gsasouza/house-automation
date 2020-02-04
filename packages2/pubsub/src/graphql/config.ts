@@ -8,12 +8,12 @@ export const pubSub = new PubSub();
 
 type SetupArgs = PubNubCredentials;
 
-export const subscriptionsSetup = async (args: SetupArgs) => {
+export const subscriptionsSetup = (args: SetupArgs) => {
   const pubnub = createPubNubInstance(args);
   pubnub.addListener({ message: handleEvents });
-  await pubnub.subscribe({
+
+  pubnub.subscribe({
     channels: Object.values(CHANNELS.LOCAL),
-    userVisibleOnly: false,
   });
   return pubnub;
 };
