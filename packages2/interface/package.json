@@ -2,5 +2,24 @@
   "name": "@housejs/interface",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack --watch --progress --config webpack.config.js"
+  },
+  "dependencies": {
+    "@housejs/babel": "1.0.0",
+    "@housejs/pubsub": "1.0.0",
+    "@housejs/shared": "1.0.0",
+    "core-js": "^3.6.4",
+    "dotenv-safe": "^8.2.0",
+    "env-var": "^5.2.0",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "devDependencies": {
+    "@babel/node": "^7.8.4",
+    "babel-loader": "^8.0.6",
+    "reload-server-webpack-plugin": "^1.0.1",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  }
 }

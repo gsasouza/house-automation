@@ -13,13 +13,13 @@ dotenvSafe.config({
   sample: root('.env.example'),
 });
 
-export const GRAPHQL_PORT = envVar.get('GRAPHQL_PORT', '5001').asPortNumber();
 export const MONGO_URL = envVar
   .get('MONGO_URL')
   .required()
   .asString();
-export const JWT_SECRET = envVar
-  .get('JWT_SECRET')
+
+export const LOCAL_PORT = envVar
+  .get('LOCAL_PORT')
   .required()
   .asString();
 
