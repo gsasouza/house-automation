@@ -1,25 +1,21 @@
-import { IPlace } from './PlaceModel';
-
 import bcrypt from 'bcrypt';
-import mongoose, { Document, Model, Schema } from 'mongoose';
+import mongoose, { Document, Model } from 'mongoose';
 
-export interface IUser extends Document {
+export interface IAdminUser extends Document {
   name: string;
-  username: string;
+  adminUsername: string;
   password: string;
-  role: string[];
-  place: IPlace;
   authenticate: (plainTextPassword: string) => boolean;
   encryptPassword: (password: string | undefined) => Promise<string>;
 }
 
-const userSchema = new mongoose.Schema(
+const adminUserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: true,
     },
-    username: {
+    adminUsername: {
       type: String,
       required: true,
       trim: true,
@@ -29,18 +25,11 @@ const userSchema = new mongoose.Schema(
       hidden: true,
       required: true,
     },
-    role: {
-      type: [String],
-    },
-    place: {
-      type: Schema.Types.ObjectId,
-      ref: 'Place',
-    },
   },
   { timestamps: true },
 );
 
-userSchema.methods = {
+adminUserSchema.methods = {
   authenticate(plainTextPassword: string) {
     return bcrypt.compare(plainTextPassword, this.password);
   },
@@ -49,7 +38,7 @@ userSchema.methods = {
   },
 };
 
-userSchema.pre<IUser>('save', function hashPassword(next) {
+adminUserSchema.pre<IAdminUser>('save', function hashPassword(next) {
   if (!this.isModified('password')) return next();
   if (!this.password) return next();
   this.encryptPassword(this.password)
@@ -60,4 +49,4 @@ userSchema.pre<IUser>('save', function hashPassword(next) {
     .catch((err: Error) => next(err));
 });
 
-export const User: Model<IUser> = mongoose.model('user', userSchema);
+export const AdminUser: Model<IAdminUser> = mongoose.model('adminUser', adminUserSchema);

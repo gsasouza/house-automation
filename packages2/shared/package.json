@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "license": "MIT",
   "main": "src/index.ts",
+  "scripts": {
+    "repl": "babel-node --extensions \".ts\" src/repl/Repl"
+  },
   "dependencies": {
     "@housejs/babel": "1.0.0",
     "bcrypt": "^3.0.7",

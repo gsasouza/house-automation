@@ -1,4 +1,4 @@
-import mongoose, { Document, Model } from 'mongoose';
+import mongoose, { Document, Model, Schema } from 'mongoose';
 
 export enum BoardsEnum {
   RASPBERRY = 'RASPBERRY',
@@ -41,8 +41,12 @@ const schema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    place: {
+      type: Schema.Types.ObjectId,
+      ref: 'Place',
+    },
     createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'User',
     },
   },

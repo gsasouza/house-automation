@@ -1,4 +1,4 @@
-import mongoose, { Document, Model } from 'mongoose';
+import mongoose, {Document, Model, Schema} from 'mongoose';
 
 export enum RoomsEnum {
   KITCHEN = 'KITCHEN',
@@ -24,6 +24,10 @@ const schema = new mongoose.Schema(
       type: String,
       required: true,
       enum: Object.keys(RoomsEnum),
+    },
+    place: {
+      type: Schema.Types.ObjectId,
+      ref: 'Place',
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,

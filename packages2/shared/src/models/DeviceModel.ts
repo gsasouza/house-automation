@@ -1,4 +1,4 @@
-import mongoose, { Document, Model } from 'mongoose';
+import mongoose, {Document, Model, Schema} from 'mongoose';
 
 export enum DeviceEnum {
   'RELAY' = 'RELAY',
@@ -31,6 +31,10 @@ const schema = new mongoose.Schema(
     pin: {
       type: String,
       required: true,
+    },
+    place: {
+      type: Schema.Types.ObjectId,
+      ref: 'Place',
     },
     board: {
       type: mongoose.Schema.Types.ObjectId,
