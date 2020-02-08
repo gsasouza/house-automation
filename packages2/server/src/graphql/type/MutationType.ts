@@ -1,3 +1,4 @@
+import AdminUserMutations from '../modules/admimUser/mutations';
 import BoardMutations from '../modules/board/mutations';
 import DeviceMutations from '../modules/device/mutations';
 import RoomMutations from '../modules/room/mutations';
@@ -12,5 +13,6 @@ export default new GraphQLObjectType({
     ...RoomMutations,
     ...BoardMutations,
     ...DeviceMutations,
+    ...AdminUserMutations,
   }),
 });

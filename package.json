@@ -18,7 +18,11 @@
     "web:build": "yarn workspace @housejs/web build",
     "web:relay": "yarn workspace @housejs/web relay",
     "web:serve": "yarn workspace @housejs/web serve",
-    "web:start": "yarn workspace @housejs/web start"
+    "web:start": "yarn workspace @housejs/web start",
+    "console:build": "yarn workspace @housejs/console build",
+    "console:relay": "yarn workspace @housejs/console relay",
+    "console:serve": "yarn workspace @housejs/console serve",
+    "console:start": "yarn workspace @housejs/console start"
   },
   "lint-staged": {
     "*.yml": [

@@ -3,8 +3,9 @@ import mongoose, { Document, Model } from 'mongoose';
 
 export interface IAdminUser extends Document {
   name: string;
-  adminUsername: string;
+  username: string;
   password: string;
+  email: string;
   authenticate: (plainTextPassword: string) => boolean;
   encryptPassword: (password: string | undefined) => Promise<string>;
 }
@@ -15,7 +16,12 @@ const adminUserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    adminUsername: {
+    username: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    email: {
       type: String,
       required: true,
       trim: true,

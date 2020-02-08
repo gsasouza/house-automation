@@ -1,4 +1,5 @@
-import mongoose, {Document, Model, Schema} from 'mongoose';
+import mongoose, { Document, Model, Schema } from 'mongoose';
+import { IPlace } from './PlaceModel';
 
 export enum RoomsEnum {
   KITCHEN = 'KITCHEN',
@@ -10,6 +11,7 @@ export enum RoomsEnum {
 export interface IRoom extends Document {
   name: string;
   type: RoomsEnum;
+  place: IPlace;
   createdBy: string;
 }
 

@@ -1,4 +1,5 @@
 import mongoose, {Document, Model, Schema} from 'mongoose';
+import {IPlace} from './PlaceModel'
 
 export enum DeviceEnum {
   'RELAY' = 'RELAY',
@@ -7,6 +8,7 @@ export enum DeviceEnum {
 export interface IDevice extends Document {
   name: string;
   type: DeviceEnum;
+  place: IPlace;
   pin: string;
   board: string;
   id: string;

@@ -1,4 +1,5 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
+import {IPlace} from './PlaceModel'
 
 export enum BoardsEnum {
   RASPBERRY = 'RASPBERRY',
@@ -10,6 +11,7 @@ export interface IBoard extends Document {
   name: string;
   type: BoardsEnum;
   host?: string;
+  place: IPlace;
   port?: string;
   connected: boolean;
   createdBy: string;

@@ -6,6 +6,7 @@ import mongoose, { Document, Model, Schema } from 'mongoose';
 export interface IUser extends Document {
   name: string;
   username: string;
+  email: string;
   password: string;
   role: string[];
   place: IPlace;
@@ -20,6 +21,11 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     username: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    email: {
       type: String,
       required: true,
       trim: true,

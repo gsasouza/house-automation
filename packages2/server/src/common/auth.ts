@@ -1,4 +1,4 @@
-import { User, IUser } from '@housejs/shared';
+import {User, IUser, IAdminUser} from '@housejs/shared';
 
 import { JWT_SECRET } from './config';
 
@@ -25,4 +25,4 @@ export const authenticatedMiddleware = async (ctx, next) => {
   await next();
 };
 
-export const generateToken = (user: IUser) => `JWT ${jwt.sign({ id: user._id }, JWT_SECRET)}`;
+export const generateToken = (user: IUser | IAdminUser) => `JWT ${jwt.sign({ id: user._id }, JWT_SECRET)}`;
