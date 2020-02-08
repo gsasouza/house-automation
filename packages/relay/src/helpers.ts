@@ -69,3 +69,7 @@ export const refetch = (relay, variables = {}, callback: () => void = () => null
 
   relay.refetch(refetchVariables, renderVariables, () => callback(), options);
 };
+
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN;
+
+export const getAccessToken = () => localStorage.getItem(ACCESS_TOKEN) || sessionStorage.getItem(ACCESS_TOKEN);

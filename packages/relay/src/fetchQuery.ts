@@ -2,8 +2,7 @@ import { CacheConfig, RequestNode, UploadableMap, Variables } from 'relay-runtim
 
 import fetchWithRetries from './fetchWithRetries';
 
-import { getHeaders, getRequestBody, handleData, isMutation } from './helpers';
-import { getAccessToken } from '../utils/security';
+import { getHeaders, getRequestBody, handleData, isMutation, getAccessToken } from './helpers';
 
 export const PLATFORM = {
   APP: 'APP',

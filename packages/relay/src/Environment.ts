@@ -13,6 +13,7 @@ import {
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 
 const websocketURL = `ws://${process.env.GRAPHQL_URL}/subscriptions` || 'ws://localhost:5001/subscriptions';
+
 const setupSubscription = (config, variables, cacheConfig, observer) => {
   const query = config.text;
   const subscriptionClient = new SubscriptionClient(websocketURL, { reconnect: true });

@@ -1,0 +1,18 @@
+{
+  "name": "@housejs/relay",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "dependencies": {
+    "graphql": "^14.6.0",
+    "react-relay": "^0.0.0-experimental-5f1cb628",
+    "relay-runtime": "^8.0.0",
+    "subscriptions-transport-ws": "^0.9.16"
+  },
+  "devDependencies": {
+    "@types/react-relay": "^7.0.3",
+    "relay-compiler": "^8.0.0",
+    "relay-compiler-language-typescript": "^10.1.4",
+    "relay-devtools": "^1.4.0"
+  }
+}

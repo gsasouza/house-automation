@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { LoadingScreenContent } from '@housejs/ui';
-import { prepareQuery } from '../../relay';
+import { prepareQuery } from '@housejs/relay';
 
 const routes = [
   {
