@@ -1,22 +1,34 @@
+import path from 'path';
 import Repl from 'repl';
 
-import { connect } from '../config/db';
-import { User } from '../models/UserModel';
-import { Board } from '../models/BoardModel';
-import { BoardIO } from '../models/BoardIOModel';
+import { connectDatabase } from '../database';
+import { User, Board, Device, AdminUser, Place } from '../models';
+
+import dotenvSafe from 'dotenv-safe';
+
+const cwd = process.cwd();
+
+const root = path.join.bind(cwd);
+
+dotenvSafe.config({
+  allowEmptyValues: process.env.NODE_ENV !== 'production',
+  path: root('.env'),
+  sample: root('.env.example'),
+});
+
+const MONGO_URL = process.env.MONGO_URL || '';
 
 (async () => {
   try {
-    await connect();
-
-    const repl = Repl.start('house::automation> ');
-
+    await connectDatabase(MONGO_URL);
+    const repl = Repl.start('house::js>> ');
     repl.context.User = User;
     repl.context.Board = Board;
-    repl.context.BoardIO = BoardIO;
-
+    repl.context.Device = Device;
+    repl.context.AdminUser = AdminUser;
+    repl.context.Place = Place;
   } catch (error) {
-    console.error('Unable to connect to database');
+    console.error('Unable to connect to database'); // eslint-disable-line no-console
     process.exit(1);
   }
 })();

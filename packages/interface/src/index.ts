@@ -1,21 +1,19 @@
+import 'core-js';
+
+import { connectDatabase } from '@housejs/shared';
+
 import app from './app';
-import { connectDatabase, LOCAL_PORT, createPubNubInstance } from '@gsasouza/shared';
-import http from 'http';
-
-import { pubNubSetup } from './PubNubSetup'
-import { initBoards } from './BoardSetup';
-
-const server = http.createServer(app.callback());
+import { LOCAL_PORT, MONGO_URL } from './common/config';
+import { boardsSetup } from './board/Setup'
 
 (async () => {
   try {
-    await connectDatabase();
+    await connectDatabase(MONGO_URL);
   } catch (error) {
-    console.log(error);
-    console.error('Unable to connect to database', error);
+    console.error('Could not connect to database', { error }); // eslint-disable-line no-console
     process.exit(1);
   }
-  const pubnub = createPubNubInstance();
-  pubNubSetup(pubnub, await initBoards(pubnub));
-  server.listen(LOCAL_PORT, () => console.log('App running on port 3000'));
+  await boardsSetup();
+  // eslint-disable-next-line no-console
+  app.listen(LOCAL_PORT, () => console.log(`Server started on port ${LOCAL_PORT}`));
 })();

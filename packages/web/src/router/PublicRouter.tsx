@@ -1,36 +1,31 @@
-import * as React from 'react'
-import { navigate } from '@reach/router'
-import styled from 'styled-components';
-import {EuiLoadingSpinner} from "@elastic/eui"
+import LoadingScreen from '../components/loading/LoadingScreen';
+import { isLoggedIn } from '../utils/security';
 
-import { isLoggedIn } from '../helpers/auth'
+import LazyComponent from './LazyComponent';
 
-const LoadingWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-`;
+import * as React from 'react';
+import { useHistory, Switch, Route } from 'react-router-dom';
 
-const PublicRouter = ({ component: Component, ...props }) => {
-  const [isLoading, setLoading] = React.useState(true)
+const PublicRouter = () => {
+  const [isLoading, setLoading] = React.useState(true);
+  const history = useHistory();
 
   React.useEffect(() => {
     (async () => {
-      await isLoggedIn() && navigate('/dashboard')
-      setLoading(false);
-      return null;
+      if (await isLoggedIn()) return history.push('/dashboard');
+      return setLoading(false);
     })();
-  }, [])
+  }, [history]);
 
-  if (isLoading) return (
-    <LoadingWrapper>
-      <EuiLoadingSpinner size={'m'} />
-    </LoadingWrapper>
-  )
+  if (isLoading) return <LoadingScreen />;
 
-  return <Component {...props} />
-}
+  return (
+    <Switch>
+      <Route path="/">
+        <LazyComponent component={React.lazy(() => import('../screens/Auth/Login'))} />
+      </Route>
+    </Switch>
+  );
+};
 
-export default PublicRouter
+export default PublicRouter;

@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "workspaces": [
-    "packages2/*"
+    "packages/*"
   ],
   "scripts": {
     "interface:start": "yarn workspace @housejs/interface start",
