@@ -17,11 +17,11 @@ export async function getUser(token: string) {
 
     switch (type) {
       case USER_TYPES.USER: {
-        const user = await User.findOne({ _id: id });
+        const user = await User.findOne({ _id: id }).lean();
         return { user: { ...user, type } };
       }
       case USER_TYPES.ADMIN_USER: {
-        const user = await AdminUser.findOne({ _id: id });
+        const user = await AdminUser.findOne({ _id: id }).lean();
         return { user: { ...user, type } };
       }
       default:

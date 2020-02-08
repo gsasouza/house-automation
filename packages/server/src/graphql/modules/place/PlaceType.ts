@@ -18,7 +18,7 @@ const PlaceType: GraphQLObjectType = new GraphQLObjectType({
     },
     reference: {
       type: GraphQLString,
-      resolve: place => place.name,
+      resolve: place => place.reference,
     },
   }),
   interfaces: () => [NodeInterface],

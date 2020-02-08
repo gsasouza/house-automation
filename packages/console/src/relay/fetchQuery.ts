@@ -3,6 +3,7 @@ import { CacheConfig, RequestNode, UploadableMap, Variables } from 'relay-runtim
 import fetchWithRetries from './fetchWithRetries';
 
 import { getHeaders, getRequestBody, handleData, isMutation } from './helpers';
+import { getAccessToken } from '../utils/security';
 
 export const PLATFORM = {
   APP: 'APP',
@@ -18,12 +19,11 @@ const fetchQuery = async (
   uploadables: UploadableMap | null,
 ) => {
   const body = getRequestBody(request, variables, uploadables);
-  const token = localStorage.getItem('token');
-
+  const token = getAccessToken();
   const headers = {
     appplatform: PLATFORM.WEB,
     ...getHeaders(uploadables),
-    authorization: token ? `JWT ${token}` : null,
+    authorization: token ? token : null,
   };
 
   try {

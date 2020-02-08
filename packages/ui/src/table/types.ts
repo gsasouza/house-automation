@@ -7,6 +7,22 @@ export type TableColumn = {
   property: string;
 };
 
-export interface TableProps {
+type Edge<T> = {
+  cursor: string;
+  node: T;
+};
+
+export interface TableProps<T> {
   columns: TableColumn[];
+  data: {
+    count: number;
+    pageInfo: {
+      hasNextPage: boolean;
+      hasPreviousPage: boolean;
+      endCursor: string;
+      startCursor: string;
+    };
+    edges: Edge<T>[];
+  };
+  onRowClick?: (node: T) => void;
 }

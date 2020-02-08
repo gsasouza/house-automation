@@ -1,11 +1,11 @@
-import { PrivateWrapper, PrivateScreenLoading, LoadingScreenContent } from '@housejs/ui';
+import { PrivateWrapper, PrivateScreenLoading } from '@housejs/ui';
 
 import { isLoggedIn } from '../utils/security';
-
-import LazyComponent from './LazyComponent';
+import routes from './routes';
+import LazyRouter from './LazyRouter';
 
 import * as React from 'react';
-import { useHistory, useRouteMatch, Switch, Route } from 'react-router-dom';
+import { useHistory, useRouteMatch, Switch } from 'react-router-dom';
 
 const PublicRouter = () => {
   const [isLoading, setLoading] = React.useState(true);
@@ -24,24 +24,9 @@ const PublicRouter = () => {
   return (
     <PrivateWrapper>
       <Switch>
-        <Route path={`${path}/places`} default>
-          <LazyComponent
-            component={React.lazy(() => import('../screens/Places/PlacesList'))}
-            loadingComponent={LoadingScreenContent}
-          />
-        </Route>
-        <Route path={`${path}/users`}>
-          <LazyComponent
-            component={React.lazy(() => import('../screens/Places/PlacesList'))}
-            loadingComponent={LoadingScreenContent}
-          />
-        </Route>
-        <Route path={`{path}/test`}>
-          <LazyComponent
-            component={React.lazy(() => import('../screens/Places/PlacesList'))}
-            loadingComponent={LoadingScreenContent}
-          />
-        </Route>
+        {routes.map(route => (
+          <LazyRouter {...route} path={route.path(path)} key={route.path(path)} />
+        ))}
       </Switch>
     </PrivateWrapper>
   );

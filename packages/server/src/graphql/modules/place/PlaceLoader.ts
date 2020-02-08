@@ -7,6 +7,7 @@ import { connectionFromMongoCursor, mongooseLoader } from '@entria/graphql-mongo
 import DataLoader from 'dataloader';
 import escapeStringRegexp from 'escape-string-regexp';
 import { ConnectionArguments } from 'graphql-relay';
+import { USER_TYPES } from '../../../common/auth';
 
 export { IPlace } from '@housejs/shared';
 
@@ -27,7 +28,7 @@ export default class Place {
 export const getLoader = () =>
   new DataLoader<DataLoaderKey, IPlace>(ids => mongooseLoader(PlaceModel, ids as string[]));
 
-const viewerCanSee = context => !!context.user;
+const viewerCanSee = context => !!context.user && context.user.type === USER_TYPES.ADMIN_USER;
 
 export const load = async (context: GraphQLContext, id: DataLoaderKey): Promise<Place | null> => {
   if (!id) return null;
@@ -50,7 +51,6 @@ interface LoadPlacesArgs extends ConnectionArguments {
 export const loadPlaces = async (context: any, args: LoadPlacesArgs) => {
   const where = args.search ? { name: { $regex: new RegExp(`^${escapeStringRegexp(args.search)}`, 'ig') } } : {};
   const places = PlaceModel.find(where, { _id: 1 }).sort({ createdAt: -1 });
-
   return connectionFromMongoCursor({
     cursor: places,
     context,
