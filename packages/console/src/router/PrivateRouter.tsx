@@ -1,11 +1,10 @@
-import { PrivateWrapper, PrivateScreenLoading } from '@housejs/ui';
+import { PrivateWrapper, PrivateScreenLoading, LazyRouter } from '@housejs/ui';
 
 import { isLoggedIn } from '../utils/security';
 import routes from './routes';
-import LazyRouter from './LazyRouter';
 
 import * as React from 'react';
-import { useHistory, useRouteMatch, Switch } from 'react-router-dom';
+import { useHistory, useRouteMatch, Switch, Redirect } from 'react-router-dom';
 
 const sidebarItems = [{ label: 'Locais', path: '/dashboard/places' }];
 
@@ -29,6 +28,7 @@ const PublicRouter = () => {
         {routes.map(route => (
           <LazyRouter {...route} path={route.path(path)} key={route.path(path)} />
         ))}
+        <Redirect to="/dashboard/places" />
       </Switch>
     </PrivateWrapper>
   );

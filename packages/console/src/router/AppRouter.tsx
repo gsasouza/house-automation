@@ -1,4 +1,4 @@
-import LazyComponent from './LazyComponent';
+import { LazyComponent } from '@housejs/ui';
 
 import { AnimatePresence } from 'framer-motion';
 import * as React from 'react';

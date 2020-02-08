@@ -5,3 +5,4 @@ export * from './loading';
 export * from './content';
 export * from './utils';
 export * from './table';
+export * from './router';

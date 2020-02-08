@@ -1,7 +1,5 @@
-import { LoadingScreen } from '@housejs/ui';
+import { LoadingScreen, LazyComponent } from '@housejs/ui';
 import { isLoggedIn } from '../utils/security';
-
-import LazyComponent from './LazyComponent';
 
 import * as React from 'react';
 import { useHistory, Switch, Route } from 'react-router-dom';
@@ -22,7 +20,7 @@ const PublicRouter = () => {
   return (
     <Switch>
       <Route path="/">
-        <LazyComponent component={React.lazy(() => import('../screens/Auth/Login'))} loadingComponent={LoadingScreen}/>
+        <LazyComponent component={React.lazy(() => import('../screens/Auth/Login'))} loadingComponent={LoadingScreen} />
       </Route>
     </Switch>
   );
