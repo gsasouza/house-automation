@@ -89,13 +89,7 @@ const BorderPresence = styled.div`
   }
 `;
 
-const ITEMS = [
-  { label: 'Locais', path: '/dashboard/places' },
-  { label: 'Users', path: '/dashboard/users' },
-  { label: 'Teste', path: '/dashboard/test' },
-];
-
-const Sidebar = ({ items = ITEMS }) => {
+const Sidebar = ({ items = [] }) => {
   return (
     <Aside>
       <Header>

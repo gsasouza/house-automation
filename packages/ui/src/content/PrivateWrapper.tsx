@@ -23,10 +23,10 @@ const Content = styled.section`
   flex-direction: column;
 `;
 
-const PrivateWrapper = ({ children }) => {
+const PrivateWrapper = ({ children, sidebarItems }) => {
   return (
     <Main>
-      <Sidebar />
+      <Sidebar items={sidebarItems} />
       <Content>{children}</Content>
     </Main>
   );
