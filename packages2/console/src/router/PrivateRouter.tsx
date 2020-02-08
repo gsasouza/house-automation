@@ -1,4 +1,5 @@
-import LoadingScreen from '../components/loading/LoadingScreen';
+import { PrivateWrapper, PrivateScreenLoading, LoadingScreenContent } from '@housejs/ui';
+
 import { isLoggedIn } from '../utils/security';
 
 import LazyComponent from './LazyComponent';
@@ -18,14 +19,22 @@ const PublicRouter = () => {
     })();
   }, [history]);
 
-  if (isLoading) return <LoadingScreen />;
+  if (isLoading) return <PrivateScreenLoading />;
 
   return (
-    <Switch>
-      <Route path={path}>
-        <LazyComponent component={React.lazy(() => import('../components/Screen2'))} />
-      </Route>
-    </Switch>
+    <PrivateWrapper>
+      <Switch>
+        <Route path={`${path}/places`} default>
+          <LazyComponent component={React.lazy(() => import('../screens/Places/PlacesList'))} loadingComponent={LoadingScreenContent}/>
+        </Route>
+        <Route path={`${path}/users`}>
+          <LazyComponent component={React.lazy(() => import('../screens/Places/PlacesList'))} loadingComponent={LoadingScreenContent} />
+        </Route>
+        <Route path={`{path}/test`}>
+          <LazyComponent component={React.lazy(() => import('../screens/Places/PlacesList'))} loadingComponent={LoadingScreenContent} />
+        </Route>
+      </Switch>
+    </PrivateWrapper>
   );
 };
 

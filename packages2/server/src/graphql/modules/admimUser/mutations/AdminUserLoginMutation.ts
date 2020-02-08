@@ -1,6 +1,6 @@
 import { AdminUser } from '@housejs/shared';
 
-import { generateToken } from '../../../../common/auth';
+import {generateToken, USER_TYPES} from '../../../../common/auth';
 
 import { GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
@@ -35,7 +35,7 @@ export default mutationWithClientMutationId({
     }
 
     return {
-      token: generateToken(user),
+      token: generateToken(user, USER_TYPES.ADMIN_USER),
       error: null,
     };
   },

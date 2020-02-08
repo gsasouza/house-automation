@@ -1,3 +1,25 @@
+"""Admin User data"""
+type AdminUser implements Node {
+  """The ID of an object"""
+  id: ID!
+  _id: String
+  name: String
+  username: String
+  email: String
+}
+
+input AdminUserLoginInput {
+  username: String!
+  password: String!
+  clientMutationId: String
+}
+
+type AdminUserLoginPayload {
+  token: String
+  error: String
+  clientMutationId: String
+}
+
 """Board data"""
 type Board implements Node {
   """The ID of an object"""
@@ -109,12 +131,15 @@ type DeviceEdge {
   cursor: String!
 }
 
+union Me = User | AdminUser
+
 type Mutation {
   UserLogin(input: UserLoginInput!): UserLoginPayload
   RoomAdd(input: RoomAddInput!): RoomAddPayload
   BoardAdd(input: BoardAddInput!): BoardAddPayload
   DeviceAdd(input: DeviceAddInput!): DeviceAddPayload
   DeviceChangeState(input: DeviceChangeStateInput!): DeviceChangeStatePayload
+  AdminUserLogin(input: AdminUserLoginInput!): AdminUserLoginPayload
 }
 
 """An object with an ID"""
@@ -145,7 +170,7 @@ type Query {
     """The ID of an object"""
     id: ID!
   ): Node
-  me: User
+  me: Me
   users(after: String, first: Int, before: String, last: Int, search: String): UserConnection
   rooms(after: String, first: Int, before: String, last: Int, search: String): RoomConnection
   boards(after: String, first: Int, before: String, last: Int, search: String): BoardConnection

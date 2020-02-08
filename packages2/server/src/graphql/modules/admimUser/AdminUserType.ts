@@ -4,7 +4,7 @@ import { GraphQLObjectType, GraphQLString } from 'graphql';
 import { globalIdField } from 'graphql-relay';
 
 const AdminUserType: GraphQLObjectType = new GraphQLObjectType({
-  name: 'Admin User',
+  name: 'AdminUser',
   description: 'Admin User data',
   fields: () => ({
     id: globalIdField('AdminUser'),

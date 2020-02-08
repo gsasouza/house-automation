@@ -1,18 +1,32 @@
-import {User, IUser, IAdminUser} from '@housejs/shared';
+import { User, IUser, IAdminUser, AdminUser } from '@housejs/shared';
 
 import { JWT_SECRET } from './config';
 
 import jwt from 'jsonwebtoken';
 
+export const USER_TYPES = {
+  USER: 'USER',
+  ADMIN_USER: 'ADMIN_USER',
+};
+
 export async function getUser(token: string) {
   if (!token) return { user: null };
 
   try {
-    const decodedToken = jwt.verify(token.substring(4), JWT_SECRET);
+    const { type, id } = jwt.verify(token.substring(4), JWT_SECRET);
 
-    const user = await User.findOne({ _id: decodedToken.id });
-
-    return { user };
+    switch (type) {
+      case USER_TYPES.USER: {
+        const user = await User.findOne({ _id: id });
+        return { user: { ...user, type } };
+      }
+      case USER_TYPES.ADMIN_USER: {
+        const user = await AdminUser.findOne({ _id: id });
+        return { user: { ...user, type } };
+      }
+      default:
+        return { user: null };
+    }
   } catch (err) {
     return { user: null };
   }
@@ -25,4 +39,5 @@ export const authenticatedMiddleware = async (ctx, next) => {
   await next();
 };
 
-export const generateToken = (user: IUser | IAdminUser) => `JWT ${jwt.sign({ id: user._id }, JWT_SECRET)}`;
+export const generateToken = (user: IUser | IAdminUser, type: string = USER_TYPES.USER) =>
+  `JWT ${jwt.sign({ id: user._id, type }, JWT_SECRET)}`;

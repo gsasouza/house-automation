@@ -1,4 +1,4 @@
-import LoadingScreen from '../components/loading/LoadingScreen';
+import { LoadingScreen } from '@housejs/ui';
 import { isLoggedIn } from '../utils/security';
 
 import LazyComponent from './LazyComponent';
@@ -22,7 +22,7 @@ const PublicRouter = () => {
   return (
     <Switch>
       <Route path="/">
-        <LazyComponent component={React.lazy(() => import('../screens/Auth/Login'))} />
+        <LazyComponent component={React.lazy(() => import('../screens/Auth/Login'))} loadingComponent={LoadingScreen}/>
       </Route>
     </Switch>
   );

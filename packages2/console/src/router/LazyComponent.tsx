@@ -1,4 +1,4 @@
-import LoadingScreen from '../components/loading/LoadingScreen';
+import { PrivateScreenLoading } from '@housejs/ui';
 
 import React from 'react';
 
@@ -7,7 +7,7 @@ interface Props {
   loadingComponent?: React.ComponentType;
 }
 
-const LazyComponent = ({ component: Component, loadingComponent: Loading = LoadingScreen }: Props) => (
+const LazyComponent = ({ component: Component, loadingComponent: Loading = PrivateScreenLoading }: Props) => (
   <React.Suspense fallback={<Loading />}>
     <Component />
   </React.Suspense>

@@ -1,4 +1,4 @@
-export const ACCESS_TOKEN = 'GSASOUZA_HOUSE_AUTOMATION';
+export const ACCESS_TOKEN = 'GSASOUZA_HOUSE_AUTOMATION_CONSOLE';
 
 export const login = (accessToken, remember) =>
   remember ? localStorage.setItem(ACCESS_TOKEN, accessToken) : sessionStorage.setItem(ACCESS_TOKEN, accessToken);

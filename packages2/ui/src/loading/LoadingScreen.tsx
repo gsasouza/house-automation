@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import * as React from 'react';
 import styled from 'styled-components';
@@ -15,17 +15,17 @@ const Wrapper = styled.main(
 );
 
 const Container = styled(motion.div)`
-  width: 50%;
+  width: 10rem;
   height: 3rem;
-  margin-top: -5rem;
   display: flex;
   justify-content: space-around;
+  margin: auto;
 `;
 
 const Circle = styled(motion.span)`
   display: block;
-  width: 3rem;
-  height: 3rem;
+  width: 1.5rem;
+  height: 1.5rem;
   background-color: ${props => props.theme.palette.secondary};
   border-radius: 50%;
 `;
@@ -60,14 +60,20 @@ const loadingCircleTransition = {
   ease: 'easeInOut',
 };
 
+export const LoadingScreenContent = () => (
+  <AnimatePresence>
+    <Container variants={loadingContainerVariants} initial="start" animate="end" exit={{ opacity: 0 }}>
+      <Circle variants={loadingCircleVariants} transition={loadingCircleTransition} className="loading-circle" />
+      <Circle variants={loadingCircleVariants} transition={loadingCircleTransition} className="loading-circle" />
+      <Circle variants={loadingCircleVariants} transition={loadingCircleTransition} className="loading-circle" />
+    </Container>
+  </AnimatePresence>
+);
+
 const LoadingScreen = () => {
   return (
     <Wrapper>
-      <Container variants={loadingContainerVariants} initial="start" animate="end" exit={{ opacity: 0 }}>
-        <Circle variants={loadingCircleVariants} transition={loadingCircleTransition} />
-        <Circle variants={loadingCircleVariants} transition={loadingCircleTransition} />
-        <Circle variants={loadingCircleVariants} transition={loadingCircleTransition} />
-      </Container>
+      <LoadingScreenContent />
     </Wrapper>
   );
 };

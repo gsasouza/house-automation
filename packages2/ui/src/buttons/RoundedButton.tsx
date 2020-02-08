@@ -1,4 +1,4 @@
-import { getLightenDarkenColor, getFontColor } from '../../utils';
+import { getLightenDarkenColor, getFontColor } from '../utils';
 
 import LoadingWave from '../loading/LoadingWave';
 

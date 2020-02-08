@@ -1,0 +1,21 @@
+{
+  "name": "@housejs/ui",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@housejs/babel": "1.0.0",
+    "framer-motion": "^1.8.3",
+    "react": "^16.12.0",
+    "react-router-dom": "^5.1.2",
+    "react-toastify": "^5.5.0",
+    "react-wavify": "^1.2.3",
+    "reakit": "^1.0.0-beta.14",
+    "styled-components": "^5.0.0",
+    "styled-media-query": "^2.1.2"
+  },
+  "devDependencies": {
+    "@types/react-relay": "^7.0.3",
+    "@types/styled-components": "^4.4.2"
+  }
+}

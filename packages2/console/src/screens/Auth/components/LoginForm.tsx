@@ -1,8 +1,8 @@
-import { Card, CardHeader, TextInput, Checkbox, RoundedButton } from '../../../components';
+import { Card, CardHeader, TextInput, Checkbox, RoundedButton } from '@housejs/ui';
 
 import { login } from '../../../utils/security';
-import { UserLoginMutationResponse } from './mutations/__generated__/UserLoginMutation.graphql';
-import { UserLoginMutation } from './mutations/UserLoginMutation';
+import { AdminUserLoginMutationResponse } from './mutations/__generated__/AdminUserLoginMutation.graphql';
+import { AdminUserLoginMutation } from './mutations/AdminUserLoginMutation';
 
 import { useFormik } from 'formik';
 
@@ -45,15 +45,15 @@ const LoginInnerForm = () => {
     },
   );
 
-  const onCompleted = ({ UserLogin }: UserLoginMutationResponse) => {
-    if (!UserLogin || !UserLogin.token)
+  const onCompleted = ({ AdminUserLogin }: AdminUserLoginMutationResponse) => {
+    if (!AdminUserLogin || !AdminUserLogin.token)
       return toast.error('Ocorreu um erro ao tentar entrar. Verique usuário e senha!');
-    login(UserLogin.token, values.remember);
+    login(AdminUserLogin.token, values.remember);
     toast.info('Login feito com sucesso!');
     return history.push('/dashboard');
   };
 
-  const [mutate] = useMutation(UserLoginMutation, {
+  const [mutate] = useMutation(AdminUserLoginMutation, {
     onCompleted,
   });
 

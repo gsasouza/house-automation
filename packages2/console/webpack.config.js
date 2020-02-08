@@ -5,7 +5,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 const dev = process.env.NODE_ENV !== 'production';
-
+const PORT = process.env.PORT || '7002';
 const cwd = process.cwd();
 
 const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
@@ -21,7 +21,7 @@ module.exports = {
   context: cwd,
   devServer: {
     host: 'localhost',
-    port: '7000',
+    port: PORT,
     hot: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
