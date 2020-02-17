@@ -1,16 +1,20 @@
-import mongoose, { Document, Model } from 'mongoose'
+import mongoose, { Document, Model, Schema } from 'mongoose';
+import {IPlace} from './PlaceModel'
 
 export enum BoardsEnum {
   RASPBERRY = 'RASPBERRY',
   ARDUINO = 'ARDUINO',
-  ESP8266 = 'ESP8266'
+  ESP8266 = 'ESP8266',
 }
 
 export interface IBoard extends Document {
-  name: string
-  type: BoardsEnum
-  host?: string
-  port?: boolean
+  name: string;
+  type: BoardsEnum;
+  host?: string;
+  place: IPlace;
+  port?: string;
+  connected: boolean;
+  createdBy: string;
 }
 
 const schema = new mongoose.Schema(
@@ -18,7 +22,7 @@ const schema = new mongoose.Schema(
     name: {
       type: String,
       unique: true,
-      required: true
+      required: true,
     },
     type: {
       type: String,
@@ -28,6 +32,7 @@ const schema = new mongoose.Schema(
     host: {
       type: String,
       unique: true,
+      trim: true,
     },
     port: {
       type: String,
@@ -36,13 +41,17 @@ const schema = new mongoose.Schema(
     connected: {
       type: Boolean,
       required: true,
-      default: false
+      default: false,
+    },
+    place: {
+      type: Schema.Types.ObjectId,
+      ref: 'Place',
     },
     createdBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    }
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
   },
-  { timestamps: true }
-)
-export const Board: Model<IBoard> = mongoose.model('board', schema)
+  { timestamps: true },
+);
+export const Board: Model<IBoard> = mongoose.model('board', schema);

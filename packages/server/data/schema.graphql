@@ -1,241 +1,303 @@
-input AddBoardInput {
-  name: String!
-  type: String!
-  port: String
-  host: String
-  clientMutationId: String
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
 }
 
-input AddBoardIoInput {
-  name: String!
-  type: String!
-  pin: Int!
-  board: ID!
-  room: ID!
-  clientMutationId: String
-}
-
-type AddBoardIoPayload {
-  boardIoEdge: BoardIoEdge
-  error: String
-  clientMutationId: String
-}
-
-type AddBoardPayload {
-  boardEdge: BoardEdge
-  error: String
-  clientMutationId: String
-}
-
-input AddRoomInput {
-  name: String!
-  type: String!
-  clientMutationId: String
-}
-
-type AddRoomPayload {
-  roomEdge: RoomEdge
-  error: String
-  clientMutationId: String
-}
-
-"""Board data"""
-type Board implements Node {
-  """The ID of an object"""
-  id: ID!
-  _id: String
-  name: String
-  type: String
-  host: String
-  port: String
-  connected: Boolean
-  createdBy: User
-}
-
-"""A connection to a list of items."""
-type BoardConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [BoardEdge]
-  count: Int
-}
-
-"""An edge in a connection."""
-type BoardEdge {
-  """The item at the end of the edge"""
-  node: Board
-
-  """A cursor for use in pagination"""
-  cursor: String!
-}
-
-"""BoardIo data"""
-type BoardIo implements Node {
-  """The ID of an object"""
-  id: ID!
-  _id: String
-  name: String
-  type: String
-  board: Board
-  pin: String
-  state: Boolean
-  connected: Boolean
-  room: BoardIo
-  createdBy: User
-}
-
-type BoardIoChangedPayload {
-  boardIoEdge: BoardIoEdge
-}
-
-input BoardIoChangeStateInput {
-  id: ID!
-  state: Boolean!
-  clientMutationId: String
-}
-
-type BoardIoChangeStatePayload {
-  boardIoEdge: BoardIoEdge
-  error: String
-  clientMutationId: String
-}
-
-"""A connection to a list of items."""
-type BoardIoConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [BoardIoEdge]
-  count: Int
-}
-
-"""An edge in a connection."""
-type BoardIoEdge {
-  """The item at the end of the edge"""
-  node: BoardIo
-
-  """A cursor for use in pagination"""
-  cursor: String!
-}
-
-input LoginInput {
-  username: String!
-  password: String!
-  clientMutationId: String
-}
-
-type LoginPayload {
-  token: String
-  error: String
-  clientMutationId: String
-}
-
-type Mutation {
-  Login(input: LoginInput!): LoginPayload
-  AddRoom(input: AddRoomInput!): AddRoomPayload
-  AddBoard(input: AddBoardInput!): AddBoardPayload
-  AddBoardIo(input: AddBoardIoInput!): AddBoardIoPayload
-  BoardIoChangeState(input: BoardIoChangeStateInput!): BoardIoChangeStatePayload
-}
-
-"""An object with an ID"""
+"An object with an ID"
 interface Node {
-  """The id of the object."""
+  "The id of the object."
   id: ID!
 }
 
-"""Information about pagination in a connection."""
-type PageInfo {
-  """When paginating forwards, are there more items?"""
-  hasNextPage: Boolean!
+union Me = AdminUser | User
 
-  """When paginating backwards, are there more items?"""
-  hasPreviousPage: Boolean!
-
-  """When paginating backwards, the cursor to continue."""
-  startCursor: String
-
-  """When paginating forwards, the cursor to continue."""
-  endCursor: String
-}
-
-"""The root of all... queries"""
-type Query {
-  """Fetches an object given its ID"""
-  node(
-    """The ID of an object"""
-    id: ID!
-  ): Node
-  me: User
-  users(after: String, first: Int, before: String, last: Int, search: String): UserConnection
-  rooms(after: String, first: Int, before: String, last: Int, search: String): RoomConnection
-  boards(after: String, first: Int, before: String, last: Int, search: String): BoardConnection
-  boardIos(after: String, first: Int, before: String, last: Int, search: String): BoardIoConnection
-}
-
-"""Room data"""
-type Room implements Node {
-  """The ID of an object"""
-  id: ID!
+"Admin User data"
+type AdminUser implements Node {
   _id: String
-  name: String
-  type: String
-  createdBy: User
-  boardIosConnectedCount: Int
-  boardIosConnected(after: String, first: Int, before: String, last: Int, search: String): BoardIoConnection
-}
-
-"""A connection to a list of items."""
-type RoomConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [RoomEdge]
-  count: Int
-}
-
-"""An edge in a connection."""
-type RoomEdge {
-  """The item at the end of the edge"""
-  node: Room
-
-  """A cursor for use in pagination"""
-  cursor: String!
-}
-
-type Subscription {
-  BoardIoChanged: BoardIoChangedPayload
-}
-
-"""User data"""
-type User implements Node {
-  """The ID of an object"""
+  email: String
+  "The ID of an object"
   id: ID!
-  _id: String
   name: String
-  isAdmin: Boolean
   username: String
 }
 
-"""A connection to a list of items."""
-type UserConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [UserEdge]
-  count: Int
+type AdminUserLoginPayload {
+  clientMutationId: String
+  error: String
+  token: String
 }
 
-"""An edge in a connection."""
-type UserEdge {
-  """The item at the end of the edge"""
-  node: User
+"Board data"
+type Board implements Node {
+  _id: String
+  connected: Boolean
+  createdBy: User
+  host: String
+  "The ID of an object"
+  id: ID!
+  name: String
+  port: String
+  type: String
+}
 
-  """A cursor for use in pagination"""
+type BoardAddPayload {
+  boardEdge: BoardEdge
+  clientMutationId: String
+  error: String
+}
+
+"A connection to a list of items."
+type BoardConnection {
+  count: Int
+  "A list of edges."
+  edges: [BoardEdge]
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+}
+
+"An edge in a connection."
+type BoardEdge {
+  "A cursor for use in pagination"
   cursor: String!
+  "The item at the end of the edge"
+  node: Board
+}
+
+"Device data"
+type Device implements Node {
+  _id: String
+  board: Board
+  connected: Boolean
+  createdBy: User
+  "The ID of an object"
+  id: ID!
+  name: String
+  pin: String
+  room: Device
+  state: Boolean
+  type: String
+}
+
+type DeviceAddPayload {
+  clientMutationId: String
+  deviceEdge: DeviceEdge
+  error: String
+}
+
+type DeviceChangeStatePayload {
+  clientMutationId: String
+  deviceEdge: DeviceEdge
+  error: String
+}
+
+type DeviceChangedStatePayload {
+  deviceEdge: DeviceEdge
+}
+
+"A connection to a list of items."
+type DeviceConnection {
+  count: Int
+  "A list of edges."
+  edges: [DeviceEdge]
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+}
+
+"An edge in a connection."
+type DeviceEdge {
+  "A cursor for use in pagination"
+  cursor: String!
+  "The item at the end of the edge"
+  node: Device
+}
+
+type Mutation {
+  AdminUserLogin(input: AdminUserLoginInput!): AdminUserLoginPayload
+  BoardAdd(input: BoardAddInput!): BoardAddPayload
+  DeviceAdd(input: DeviceAddInput!): DeviceAddPayload
+  DeviceChangeState(input: DeviceChangeStateInput!): DeviceChangeStatePayload
+  PlaceAdd(input: PlaceAddInput!): PlaceAddPayload
+  RoomAdd(input: RoomAddInput!): RoomAddPayload
+  UserLogin(input: UserLoginInput!): UserLoginPayload
+}
+
+"Information about pagination in a connection."
+type PageInfo {
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
+  "When paginating forwards, are there more items?"
+  hasNextPage: Boolean!
+  "When paginating backwards, are there more items?"
+  hasPreviousPage: Boolean!
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
+}
+
+"Place data"
+type Place implements Node {
+  _id: String
+  "The ID of an object"
+  id: ID!
+  name: String
+  reference: String
+}
+
+type PlaceAddPayload {
+  clientMutationId: String
+  error: String
+  placeEdge: PlaceEdge
+}
+
+"A connection to a list of items."
+type PlaceConnection {
+  count: Int
+  "A list of edges."
+  edges: [PlaceEdge]
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+}
+
+"An edge in a connection."
+type PlaceEdge {
+  "A cursor for use in pagination"
+  cursor: String!
+  "The item at the end of the edge"
+  node: Place
+}
+
+"The root of all... queries"
+type Query {
+  boards(after: String, before: String, first: Int, last: Int, search: String): BoardConnection
+  devices(after: String, before: String, first: Int, last: Int, search: String): DeviceConnection
+  me: Me
+  "Fetches an object given its ID"
+  node(
+    #The ID of an object
+    id: ID!
+  ): Node
+  places(after: String, before: String, first: Int, last: Int, search: String): PlaceConnection
+  rooms(after: String, before: String, first: Int, last: Int, search: String): RoomConnection
+  users(after: String, before: String, first: Int, last: Int, search: String): UserConnection
+}
+
+"Room data"
+type Room implements Node {
+  _id: String
+  boardIosConnected(after: String, before: String, first: Int, last: Int, search: String): DeviceConnection
+  boardIosConnectedCount: Int
+  createdBy: User
+  "The ID of an object"
+  id: ID!
+  name: String
+  type: String
+}
+
+type RoomAddPayload {
+  clientMutationId: String
+  error: String
+  roomEdge: RoomEdge
+}
+
+"A connection to a list of items."
+type RoomConnection {
+  count: Int
+  "A list of edges."
+  edges: [RoomEdge]
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+}
+
+"An edge in a connection."
+type RoomEdge {
+  "A cursor for use in pagination"
+  cursor: String!
+  "The item at the end of the edge"
+  node: Room
+}
+
+type Subscription {
+  DeviceChangedState: DeviceChangedStatePayload
+}
+
+"User data"
+type User implements Node {
+  _id: String
+  "The ID of an object"
+  id: ID!
+  isAdmin: Boolean
+  name: String
+  username: String
+}
+
+"A connection to a list of items."
+type UserConnection {
+  count: Int
+  "A list of edges."
+  edges: [UserEdge]
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+}
+
+"An edge in a connection."
+type UserEdge {
+  "A cursor for use in pagination"
+  cursor: String!
+  "The item at the end of the edge"
+  node: User
+}
+
+type UserLoginPayload {
+  clientMutationId: String
+  error: String
+  token: String
+}
+
+input AdminUserLoginInput {
+  clientMutationId: String
+  password: String!
+  username: String!
+}
+
+input BoardAddInput {
+  clientMutationId: String
+  host: String
+  name: String!
+  port: String
+  type: String!
+}
+
+input DeviceAddInput {
+  board: ID!
+  clientMutationId: String
+  name: String!
+  pin: Int!
+  room: ID!
+  type: String!
+}
+
+input DeviceChangeStateInput {
+  clientMutationId: String
+  id: ID!
+  state: Boolean!
+}
+
+input PlaceAddInput {
+  clientMutationId: String
+  name: String!
+  reference: String!
+}
+
+input RoomAddInput {
+  clientMutationId: String
+  name: String!
+  type: String!
+}
+
+input UserLoginInput {
+  clientMutationId: String
+  password: String!
+  username: String!
 }

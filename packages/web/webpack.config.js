@@ -1,7 +1,8 @@
 const path = require('path');
-const webpack = require('webpack');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
+
 const Dotenv = require('dotenv-webpack');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 const dev = process.env.NODE_ENV !== 'production';
 
@@ -20,25 +21,19 @@ module.exports = {
   context: cwd,
   devServer: {
     host: 'localhost',
-    port: '3000',
+    port: '7000',
     hot: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
     historyApiFallback: true,
   },
-  entry: ['react-hot-loader/patch', './src/App.tsx'],
+  entry: ['./src/index.tsx'],
   module: {
     rules: [
       {
         test: /\.(tsx|ts)$/,
         loader: 'babel-loader',
-      },
-
-      {
-        enforce: 'pre',
-        test: /\.js$/,
-        loader: 'source-map-loader',
       },
       {
         test: /\.css$/,
@@ -48,7 +43,6 @@ module.exports = {
         test: /\.(jpeg|jpg|png|gif|svg)$/i,
         loader: 'url-loader',
       },
-
     ],
   },
   resolve: {
@@ -63,8 +57,8 @@ module.exports = {
   mode: dev ? 'development' : 'production',
   plugins: dev
     ? [new Dotenv({ systemvars: true }), HTMLWebpackPluginConfig, new webpack.HotModuleReplacementPlugin()]
-    : [new Dotenv({ systemvars: true }), HTMLWebpackPluginConfig, DefinePluginConfig, ],
+    : [new Dotenv({ systemvars: true }), HTMLWebpackPluginConfig, DefinePluginConfig],
   node: {
-    '*': 'empty'
-  }
+    '*': 'empty',
+  },
 };

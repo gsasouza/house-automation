@@ -1,18 +1,28 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "jsx": "react",
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "pretty": true,
-    "sourceMap": true,
+    "target": "esnext",                          /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */
+    "module": "esnext",                     /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
     "moduleResolution": "node",
-    "target": "es6",
-    "lib": ["es7", "dom"]
+    "lib": [                                 /* Specify library files to be included in the compilation. */
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ],
+    "jsx": "react",                     /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
+    "outDir": "./distTs",                        /* Redirect output structure to the directory. */
+    "noEmit": true,                        /* Do not emit outputs. */
+    "strict": true,                           /* Enable all strict type-checking options. */
+    "noImplicitAny": false,                 /* Raise error on expressions and declarations with an implied 'any' type. */
+    "noUnusedLocals": true,                /* Report errors on unused locals. */
+    "noUnusedParameters": false,           /* Report errors on unused parameters. */
+    "noImplicitReturns": true,             /* Report error when not all code paths in function return a value. */     /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
+    "baseUrl": "./",                       /* Base directory to resolve non-absolute module names. */
+    "paths": {
+      "*": ["@types/*"]
+    },                           /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
+    "resolveJsonModule": true,
+    "esModuleInterop": true,                   /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
+    "skipLibCheck": true
   },
-  "include": ["packages"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "build"]
 }

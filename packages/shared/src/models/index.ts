@@ -1,4 +1,6 @@
-export { BoardIo } from './BoardIOModel';
-export { Board } from './BoardModel';
-export { User } from './UserModel';
-export { Room } from './RoomModel';
+export { Board, IBoard, BoardsEnum } from './BoardModel';
+export { User, IUser } from './UserModel';
+export { Room, IRoom, RoomsEnum } from './RoomModel';
+export { Device, IDevice, DeviceEnum } from './DeviceModel';
+export { AdminUser, IAdminUser } from './AdminUser';
+export { Place, IPlace } from './PlaceModel';
