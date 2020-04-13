@@ -1,7 +1,7 @@
-import { IPlace } from './PlaceModel';
+import { IWorkspace } from './WorkspaceModel';
 
-import bcrypt from 'bcrypt';
 import mongoose, { Document, Model, Schema } from 'mongoose';
+import { hashPassword, authenticate, encryptPassword } from './utils';
 
 export interface IUser extends Document {
   name: string;
@@ -9,7 +9,7 @@ export interface IUser extends Document {
   email: string;
   password: string;
   role: string[];
-  place: IPlace;
+  workspace: IWorkspace;
   authenticate: (plainTextPassword: string) => boolean;
   encryptPassword: (password: string | undefined) => Promise<string>;
 }
@@ -38,32 +38,19 @@ const userSchema = new mongoose.Schema(
     role: {
       type: [String],
     },
-    place: {
+    workspace: {
       type: Schema.Types.ObjectId,
-      ref: 'Place',
+      ref: 'Workspace',
     },
   },
   { timestamps: true },
 );
 
 userSchema.methods = {
-  authenticate(plainTextPassword: string) {
-    return bcrypt.compare(plainTextPassword, this.password);
-  },
-  encryptPassword(password: string) {
-    return bcrypt.hash(password, 8);
-  },
+  authenticate,
+  encryptPassword,
 };
 
-userSchema.pre<IUser>('save', function hashPassword(next) {
-  if (!this.isModified('password')) return next();
-  if (!this.password) return next();
-  this.encryptPassword(this.password)
-    .then((hash: string) => {
-      this.password = hash;
-      next();
-    })
-    .catch((err: Error) => next(err));
-});
+userSchema.pre<IUser>('save', hashPassword);
 
 export const User: Model<IUser> = mongoose.model('user', userSchema);

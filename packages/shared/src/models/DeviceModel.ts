@@ -1,6 +1,8 @@
-import { IPlace } from './PlaceModel';
+import { IWorkspace } from './WorkspaceModel';
 
 import mongoose, { Document, Model, Schema } from 'mongoose';
+import { IRoom } from './RoomModel';
+import { IBoard } from './BoardModel';
 
 export enum DeviceEnum {
   'RELAY' = 'RELAY',
@@ -9,14 +11,12 @@ export enum DeviceEnum {
 export interface IDevice extends Document {
   name: string;
   type: DeviceEnum;
-  place: IPlace;
   pin: string;
-  board: string;
-  id: string;
-  _id: string;
-  state: boolean;
-  room: string;
   createdBy: string;
+  state: boolean;
+  workspace: IWorkspace;
+  room: IRoom;
+  board: IBoard;
 }
 
 const schema = new mongoose.Schema(
@@ -35,9 +35,9 @@ const schema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    place: {
+    workspace: {
       type: Schema.Types.ObjectId,
-      ref: 'Place',
+      ref: 'Workspace',
     },
     board: {
       type: mongoose.Schema.Types.ObjectId,

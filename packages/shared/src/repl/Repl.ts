@@ -2,7 +2,7 @@ import path from 'path';
 import Repl from 'repl';
 
 import { connectDatabase } from '../database';
-import { User, Board, Device, AdminUser, Place } from '../models';
+import { User, Board, Device, AdminUserModel, Room, Workspace } from '../models';
 
 import dotenvSafe from 'dotenv-safe';
 
@@ -25,8 +25,9 @@ const MONGO_URL = process.env.MONGO_URL || '';
     repl.context.User = User;
     repl.context.Board = Board;
     repl.context.Device = Device;
-    repl.context.AdminUser = AdminUser;
-    repl.context.Place = Place;
+    repl.context.AdminUser = AdminUserModel;
+    repl.context.Workspace = Workspace;
+    repl.context.Room = Room;
   } catch (error) {
     console.error('Unable to connect to database'); // eslint-disable-line no-console
     process.exit(1);

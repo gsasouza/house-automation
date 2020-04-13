@@ -1,5 +1,5 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import {IPlace} from './PlaceModel'
+import { IWorkspace } from './WorkspaceModel';
 
 export enum BoardsEnum {
   RASPBERRY = 'RASPBERRY',
@@ -11,10 +11,10 @@ export interface IBoard extends Document {
   name: string;
   type: BoardsEnum;
   host?: string;
-  place: IPlace;
   port?: string;
   connected: boolean;
   createdBy: string;
+  workspace: IWorkspace;
 }
 
 const schema = new mongoose.Schema(
@@ -43,9 +43,9 @@ const schema = new mongoose.Schema(
       required: true,
       default: false,
     },
-    place: {
+    workspace: {
       type: Schema.Types.ObjectId,
-      ref: 'Place',
+      ref: 'Workspace',
     },
     createdBy: {
       type: Schema.Types.ObjectId,

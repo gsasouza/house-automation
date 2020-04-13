@@ -1,8 +1,11 @@
 import mongoose, { Document, Model } from 'mongoose';
 
-export interface IPlace extends Document {
+import { IAdminUser } from './AdminUserModel';
+
+export interface IWorkspace extends Document {
   name: string;
   reference: string;
+  createdBy: IAdminUser;
 }
 
 const schema = new mongoose.Schema(
@@ -21,4 +24,4 @@ const schema = new mongoose.Schema(
   { timestamps: true },
 );
 
-export const Place: Model<IPlace> = mongoose.model('place', schema);
+export const Workspace: Model<IWorkspace> = mongoose.model('place', schema);

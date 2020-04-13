@@ -1,5 +1,6 @@
-import bcrypt from 'bcrypt';
 import mongoose, { Document, Model } from 'mongoose';
+
+import { hashPassword, authenticate, encryptPassword } from './utils';
 
 export interface IAdminUser extends Document {
   name: string;
@@ -36,23 +37,10 @@ const adminUserSchema = new mongoose.Schema(
 );
 
 adminUserSchema.methods = {
-  authenticate(plainTextPassword: string) {
-    return bcrypt.compare(plainTextPassword, this.password);
-  },
-  encryptPassword(password: string) {
-    return bcrypt.hash(password, 8);
-  },
+  authenticate,
+  encryptPassword,
 };
 
-adminUserSchema.pre<IAdminUser>('save', function hashPassword(next) {
-  if (!this.isModified('password')) return next();
-  if (!this.password) return next();
-  this.encryptPassword(this.password)
-    .then((hash: string) => {
-      this.password = hash;
-      next();
-    })
-    .catch((err: Error) => next(err));
-});
+adminUserSchema.pre<IAdminUser>('save', hashPassword);
 
-export const AdminUser: Model<IAdminUser> = mongoose.model('adminUser', adminUserSchema);
+export const AdminUserModel: Model<IAdminUser> = mongoose.model('adminUser', adminUserSchema);

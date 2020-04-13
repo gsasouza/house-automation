@@ -1,6 +1,6 @@
-import { AdminUser } from '@housejs/shared';
+import { AdminUserModel } from '@housejs/shared';
 
-import {generateToken, USER_TYPES} from '../../../../common/auth';
+import { generateToken, USER_TYPES } from '../../../../common/auth';
 
 import { GraphQLString, GraphQLNonNull } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
@@ -16,7 +16,7 @@ export default mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: async ({ username, password }) => {
-    const user = await AdminUser.findOne({ username: username.toLowerCase() });
+    const user = await AdminUserModel.findOne({ username: username.toLowerCase() });
 
     if (!user) {
       return {

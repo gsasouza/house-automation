@@ -1,5 +1,5 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import { IPlace } from './PlaceModel';
+import { IWorkspace } from './WorkspaceModel';
 
 export enum RoomsEnum {
   KITCHEN = 'KITCHEN',
@@ -11,7 +11,7 @@ export enum RoomsEnum {
 export interface IRoom extends Document {
   name: string;
   type: RoomsEnum;
-  place: IPlace;
+  workspace: IWorkspace;
   createdBy: string;
 }
 
@@ -27,9 +27,9 @@ const schema = new mongoose.Schema(
       required: true,
       enum: Object.keys(RoomsEnum),
     },
-    place: {
+    workspace: {
       type: Schema.Types.ObjectId,
-      ref: 'Place',
+      ref: 'Workspace',
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
