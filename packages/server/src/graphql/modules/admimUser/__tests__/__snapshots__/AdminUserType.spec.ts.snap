@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Server: AdminUserType Should query a list of users 1`] = `
+Object {
+  "adminUsers": Object {
+    "edges": Array [
+      Object {
+        "node": Object {
+          "name": "AdminUser#3",
+        },
+      },
+      Object {
+        "node": Object {
+          "name": "AdminUser#2",
+        },
+      },
+      Object {
+        "node": Object {
+          "name": "AdminUser#1",
+        },
+      },
+      Object {
+        "node": Object {
+          "name": "AdminUser#1",
+        },
+      },
+    ],
+  },
+}
+`;
+
+exports[`Server: AdminUserType Should search a list of users 1`] = `
+Object {
+  "adminUsers": Object {
+    "edges": Array [
+      Object {
+        "node": Object {
+          "name": "search 2",
+        },
+      },
+      Object {
+        "node": Object {
+          "name": "search 1",
+        },
+      },
+    ],
+  },
+}
+`;

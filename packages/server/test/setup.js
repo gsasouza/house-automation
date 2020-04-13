@@ -8,6 +8,7 @@ module.exports = () => {
 
   // normalize timezone to UTC
   process.env.TZ = 'UTC';
+  process.env.NODE_ENV = 'test';
 
   // fix dotenv-safe loading of example by setting the cwd
   process.chdir(path.resolve(path.join(__dirname, '..')));

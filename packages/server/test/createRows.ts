@@ -8,5 +8,6 @@ export const createAdminUser = (payload: Partial<IAdminUser> = {}) => {
     username: `admin_user#${count}`,
     password: 'password',
     email: `admin_user#${count}@domain.com`,
+    ...payload,
   }).save();
 };

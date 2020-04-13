@@ -1,7 +1,9 @@
+import { GraphQLObjectType, GraphQLString, GraphQLUnionType } from 'graphql';
+import { connectionArgs } from 'graphql-relay';
+
 import { NodeField } from '../interface/NodeInterface';
 import { PlaceLoader } from '../loaders';
-import AdminUser from '../modules/admimUser/AdminUserLoader';
-import AdminUserType from '../modules/admimUser/AdminUserType';
+
 import BoardConnection from '../modules/board/BoardConnection';
 import * as BoardLoader from '../modules/board/BoardLoader';
 import DeviceConnection from '../modules/device/DeviceConnection';
@@ -9,12 +11,14 @@ import * as DeviceLoader from '../modules/device/DeviceLoader';
 import PlaceConnection from '../modules/place/PlaceConnection';
 import RoomConnection from '../modules/room/RoomConnection';
 import * as RoomLoader from '../modules/room/RoomLoader';
+
 import UserConnection from '../modules/user/UserConnection';
 import User, * as UserLoader from '../modules/user/UserLoader';
 import UserType from '../modules/user/UserType';
 
-import { GraphQLObjectType, GraphQLString, GraphQLUnionType } from 'graphql';
-import { connectionArgs } from 'graphql-relay';
+import AdminUserConnection from '../modules/admimUser/AdminUserConnection';
+import AdminUser, * as AdminUserLoader from '../modules/admimUser/AdminUserLoader';
+import AdminUserType from '../modules/admimUser/AdminUserType';
 
 const MeType = new GraphQLUnionType({
   name: 'Me',
@@ -48,6 +52,16 @@ export default new GraphQLObjectType({
         },
       },
       resolve: (_, args, context) => UserLoader.loadUsers(context, args),
+    },
+    adminUsers: {
+      type: AdminUserConnection.connectionType,
+      args: {
+        ...connectionArgs,
+        search: {
+          type: GraphQLString,
+        },
+      },
+      resolve: (_, args, context) => AdminUserLoader.loadAdminUsers(context, args),
     },
     rooms: {
       type: RoomConnection.connectionType,

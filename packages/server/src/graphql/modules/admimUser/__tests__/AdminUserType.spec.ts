@@ -58,4 +58,55 @@ describe('Server: AdminUserType', () => {
     `,
     );
   });
+
+  it('Should query a list of users', async () => {
+    await createAdminUser();
+    await createAdminUser();
+    await createAdminUser();
+    await createAdminUser();
+
+    // language=GraphQL
+    const query = `
+      query Q {
+        adminUsers (first: 10) {
+          edges {
+            node {
+              name
+            }
+          }
+        }
+      }
+    `;
+
+    const context = await getContext({ user: true });
+    const result = await graphql(schema, query, {}, context, {});
+
+    expect(result.data).toMatchSnapshot();
+  });
+
+  it('Should search a list of users', async () => {
+    await createAdminUser();
+    await createAdminUser();
+    await createAdminUser({ name: 'search 1' });
+    await createAdminUser({ name: 'search 2' });
+
+    // language=GraphQL
+    const query = `
+      query Q ($search: String!) {
+        adminUsers (search: $search) {
+          edges {
+            node {
+              name
+            }
+          }
+        }
+      }
+    `;
+
+    const variables = { search: 'search' };
+    const context = await getContext({ user: true });
+    const result = await graphql(schema, query, {}, context, variables);
+
+    expect(result.data).toMatchSnapshot();
+  });
 });

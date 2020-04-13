@@ -8,6 +8,25 @@ type AdminUser implements Node {
   email: String
 }
 
+"""A connection to a list of items."""
+type AdminUserConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AdminUserEdge]
+  count: Int
+}
+
+"""An edge in a connection."""
+type AdminUserEdge {
+  """The item at the end of the edge"""
+  node: AdminUser
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
 input AdminUserLoginInput {
   username: String!
   password: String!
@@ -213,6 +232,7 @@ type Query {
   ): Node
   me: Me
   users(after: String, first: Int, before: String, last: Int, search: String): UserConnection
+  adminUsers(after: String, first: Int, before: String, last: Int, search: String): AdminUserConnection
   rooms(after: String, first: Int, before: String, last: Int, search: String): RoomConnection
   boards(after: String, first: Int, before: String, last: Int, search: String): BoardConnection
   devices(after: String, first: Int, before: String, last: Int, search: String): DeviceConnection
