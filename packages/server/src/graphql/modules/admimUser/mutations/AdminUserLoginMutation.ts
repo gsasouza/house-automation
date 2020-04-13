@@ -17,7 +17,6 @@ export default mutationWithClientMutationId({
   },
   mutateAndGetPayload: async ({ username, password }) => {
     const user = await AdminUserModel.findOne({ username: username.toLowerCase() });
-
     if (!user) {
       return {
         token: null,
@@ -26,7 +25,6 @@ export default mutationWithClientMutationId({
     }
 
     const correctPassword = await user.authenticate(password);
-
     if (!correctPassword) {
       return {
         token: null,

@@ -13,7 +13,6 @@ module.exports = {
   resetModules: false,
   reporters: ['default'],
   transform: {
-    // '^.+\\.(js|jsx|ts|tsx)?$': require.resolve('babel-jest'),
     '^.+\\.(js|jsx|ts|tsx)?$': '<rootDir>/test/babel-transformer',
   },
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(js|jsx|ts|tsx)?$',

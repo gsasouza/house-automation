@@ -2,8 +2,6 @@
 const MMS = require('mongodb-memory-server');
 const NodeEnvironment = require('jest-environment-node');
 
-const { Counters } = require('../helpers');
-
 const { default: MongodbMemoryServer } = MMS;
 
 class MongoDbEnvironment extends NodeEnvironment {
@@ -30,13 +28,16 @@ class MongoDbEnvironment extends NodeEnvironment {
     await this.mongod.start();
     this.global.__MONGO_URL__ = await this.mongod.getUri();
     this.global.__MONGO_DB_NAME__ = await this.mongod.getDbName();
-    this.global.__COUNTERS__ = {
+    this.global.__COUNTERS__ = this.global.__COUNTERS__ = {
       values: {},
+      getValue(type) {
+        return this.values[type] || 1;
+      },
       increase(type) {
         if (this.values[type]) return (this.values = { ...this.values, [type]: this.values[type] + 1 });
         return (this.values = {
           ...this.values,
-          [type]: 0,
+          [type]: 1,
         });
       },
       clear() {

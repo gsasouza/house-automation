@@ -1,13 +1,10 @@
 {
   "compilerOptions": {
-  "rootDir": "src",
+    "rootDir": ".",
     "composite": true,
-    "noEmit": true,
-},
-  "exclude": [
-  "test",
-  "package.json"
-],
+    "noEmit": true
+  },
+  "exclude": ["package.json"],
   "extends": "../../tsconfig.json",
-  "include": ["src", "test", "**/*ts"]
+  "include": ["src", "test"]
 }
