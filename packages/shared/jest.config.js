@@ -4,7 +4,6 @@ module.exports = {
   rootDir: './',
   name: pkg.name,
   displayName: pkg.name.toUpperCase(),
-  testEnvironment: '<rootDir>/test/environment/mongodb.js',
   testPathIgnorePatterns: ['/node_modules/', './dist'],
   coverageReporters: ['lcov', 'html'],
   setupFilesAfterEnv: ['<rootDir>/test/setupTestFramework.js'],

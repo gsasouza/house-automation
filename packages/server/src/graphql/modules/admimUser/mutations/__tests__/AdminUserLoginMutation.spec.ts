@@ -15,7 +15,7 @@ beforeEach(clearDbAndRestartCounters);
 
 afterAll(disconnectMongoose);
 
-describe('Server: AdminUser', () => {
+describe('Server: AdminUserMutations', () => {
   it('Should properly login an admin user', async () => {
     const password = 'password';
     const adminUser = await createAdminUser({ password });

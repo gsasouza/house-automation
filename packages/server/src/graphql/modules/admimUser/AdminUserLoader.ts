@@ -1,4 +1,4 @@
-import { AdminUser as AdminUserModel, IAdminUser } from '@housejs/shared';
+import { AdminUserModel, IAdminUser } from '@housejs/shared';
 
 import { GraphQLContext, Types } from '../../../common/types';
 import { DataLoaderKey } from '../../loaders';
@@ -36,6 +36,7 @@ export const load = async (context: GraphQLContext, id: DataLoaderKey): Promise<
   try {
     const data = await context.dataloaders.AdminUserLoader.load(id);
     if (!data) return null;
+
     return viewerCanSee(context) ? new AdminUser(data) : null;
   } catch (err) {
     return null;

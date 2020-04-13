@@ -11,10 +11,14 @@ import UserType from '../modules/user/UserConnection';
 import User, * as UserLoader from '../modules/user/UserLoader';
 
 import { nodeDefinitions, fromGlobalId } from 'graphql-relay';
+import { AdminUserLoader } from '../loaders';
+import AdminUser from '../modules/admimUser/AdminUserLoader';
+import AdminUserType from '../modules/admimUser/AdminUserType';
 
 const { nodeField, nodesField, nodeInterface } = nodeDefinitions(
   async (globalId, context: GraphQLContext) => {
     const { id, type } = fromGlobalId(globalId);
+    if (type === 'AdminUser') return await AdminUserLoader.load(context, id);
     if (type === 'User') return await UserLoader.load(context, id);
     if (type === 'Room') return await RoomLoader.load(context, id);
     if (type === 'Board') return await BoardLoader.load(context, id);
@@ -23,6 +27,9 @@ const { nodeField, nodesField, nodeInterface } = nodeDefinitions(
     return null;
   },
   obj => {
+    if (obj instanceof AdminUser) {
+      return AdminUserType;
+    }
     if (obj instanceof User) {
       return UserType;
     }
