@@ -20,7 +20,7 @@ export const createBoard = (config: {}): Promise<BoardType> => new Promise(
   }
 );
 
-export const createBoards = async (pubnub): Promise<Array<BoardType>> => {
+export const createBoards = async (pubnub: any): Promise<Array<BoardType>> => {
   const boards = await Board.find({});
   const connectedBoards = [];
   for (const board of boards) {
@@ -37,7 +37,6 @@ export const createBoards = async (pubnub): Promise<Array<BoardType>> => {
       }
       connectedBoard.on('exit', disconnectCallback)
       connectedBoard.on('close', disconnectCallback)
-      connectedBoard.on('message', message => console.log(`Message on board ${_id}: `, message));
       connectedBoards.push(connectedBoard);
       await Board.findOneAndUpdate({ _id }, { connected: true });
     } catch (e) {
