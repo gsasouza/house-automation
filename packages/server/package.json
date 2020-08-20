@@ -16,7 +16,7 @@
     "@entria/graphql-mongoose-loader": "^3.0.3",
     "@gsasouza/shared": "^1.0.0",
     "babel-preset-gsasouza": "^1.0.0",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "dataloader": "^1.4.0",
     "dotenv-safe": "^6.1.0",
     "graphql": "^14.3.1",
