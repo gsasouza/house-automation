@@ -30,17 +30,29 @@
 ## Infrastructure (Kafka, Zookeeper, MongoDB)
 - Run `docker-compose up -d` to start the infrastructure
 
-## Local Server
-- Run `cd local-server` to enter the local server folder
-- Run `yarn` to install dependencies
-- Run `yarn dev` to start the server
-- 
 ## Remote Server
 - Run `cd remote-server` to enter the local server folder
 - Run `yarn` to install dependencies
 - Run `yarn dev` to start the server
 
+### Create first user
+- Run `yarn repl` to start the repl
+- Inside repl, run `User.create({ username: "USERNAME", password: "PASSWORD", isAdmin: true, name: "NAME"})`
+
+## Local Server
+- Run `cd local-server` to enter the local server folder
+- Run `yarn` to install dependencies
+- Run `cp .env.sample .env` to create the environment file, and fill any missing values
+- Run `yarn dev` to start the server
+
+## Remote Server
+- Run `cd remote-server` to enter the local server folder
+- Run `yarn` to install dependencies
+- Run `cp .env.sample .env` to create the environment file, and fill any missing values
+- Run `yarn dev` to start the server
+
 ## Client
 - Run `cd client` to enter the local server folder
 - Run `yarn` to install dependencies
+- Run `cp .env.sample .env` to create the environment file, and fill any missing values
 - Run `yarn dev` to start the server

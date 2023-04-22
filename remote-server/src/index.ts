@@ -12,6 +12,8 @@ import { getDataLoaders } from "./loaders/dataloadersMiddleware";
 import { authenticatedMiddleware, getUser } from "./auth";
 import { connect } from "./config/db";
 
+const PORT = process.env.PORT;
+
 const app = express();
 app.use(authenticatedMiddleware);
 const httpServer = createServer(app);
@@ -55,8 +57,8 @@ const server = new ApolloServer({
     })
   }));
 
-  httpServer.listen(4000, () => {
-    console.log(`🚀  Server is now running on http://localhost:4000/graphql`);
+  httpServer.listen(PORT, () => {
+    console.log(`🚀  Server is now running on http://localhost:${PORT}/graphql`);
   });
 
 })()
