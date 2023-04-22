@@ -1,0 +1,306 @@
+"""The root of all... queries"""
+type Query {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+  me: User
+  users(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+    search: String
+  ): UserConnection
+  rooms(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+    search: String
+  ): RoomConnection
+  boards(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+    search: String
+  ): BoardConnection
+  boardIos(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+    search: String
+  ): BoardIoConnection
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""User data"""
+type User implements Node {
+  """The ID of an object"""
+  id: ID!
+  _id: String
+  name: String
+  isAdmin: Boolean
+  username: String
+}
+
+"""A connection to a list of items."""
+type UserConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UserEdge]
+  count: Int
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+"""An edge in a connection."""
+type UserEdge {
+  """The item at the end of the edge"""
+  node: User
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""A connection to a list of items."""
+type RoomConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [RoomEdge]
+  count: Int
+}
+
+"""An edge in a connection."""
+type RoomEdge {
+  """The item at the end of the edge"""
+  node: Room
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""Room data"""
+type Room implements Node {
+  """The ID of an object"""
+  id: ID!
+  _id: String
+  name: String
+  type: String
+  createdBy: User
+  boardIosConnectedCount: Int
+  boardIosConnected(
+    """Returns the items in the list that come after the specified cursor."""
+    after: String
+
+    """Returns the first n items from the list."""
+    first: Int
+
+    """Returns the items in the list that come before the specified cursor."""
+    before: String
+
+    """Returns the last n items from the list."""
+    last: Int
+    search: String
+  ): BoardIoConnection
+}
+
+"""A connection to a list of items."""
+type BoardIoConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [BoardIoEdge]
+  count: Int
+}
+
+"""An edge in a connection."""
+type BoardIoEdge {
+  """The item at the end of the edge"""
+  node: BoardIo
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""BoardIo data"""
+type BoardIo implements Node {
+  """The ID of an object"""
+  id: ID!
+  _id: String
+  name: String
+  type: String
+  board: Board
+  pin: String
+  state: Boolean
+  connected: Boolean
+  room: BoardIo
+  createdBy: User
+}
+
+"""Board data"""
+type Board implements Node {
+  """The ID of an object"""
+  id: ID!
+  _id: String
+  name: String
+  type: String
+  host: String
+  port: String
+  connected: Boolean
+  createdBy: User
+}
+
+"""A connection to a list of items."""
+type BoardConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [BoardEdge]
+  count: Int
+}
+
+"""An edge in a connection."""
+type BoardEdge {
+  """The item at the end of the edge"""
+  node: Board
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+type Mutation {
+  Login(input: LoginInput!): LoginPayload
+  AddRoom(input: AddRoomInput!): AddRoomPayload
+  AddBoard(input: AddBoardInput!): AddBoardPayload
+  AddBoardIo(input: AddBoardIoInput!): AddBoardIoPayload
+  BoardIoChangeState(input: BoardIoChangeStateInput!): BoardIoChangeStatePayload
+}
+
+type LoginPayload {
+  token: String
+  error: String
+  clientMutationId: String
+}
+
+input LoginInput {
+  username: String!
+  password: String!
+  clientMutationId: String
+}
+
+type AddRoomPayload {
+  roomEdge: RoomEdge
+  error: String
+  clientMutationId: String
+}
+
+input AddRoomInput {
+  name: String!
+  type: String!
+  clientMutationId: String
+}
+
+type AddBoardPayload {
+  boardEdge: BoardEdge
+  error: String
+  clientMutationId: String
+}
+
+input AddBoardInput {
+  name: String!
+  type: String!
+  port: String
+  host: String
+  clientMutationId: String
+}
+
+type AddBoardIoPayload {
+  boardIoEdge: BoardIoEdge
+  error: String
+  clientMutationId: String
+}
+
+input AddBoardIoInput {
+  name: String!
+  type: String!
+  pin: Int!
+  board: ID!
+  room: ID!
+  clientMutationId: String
+}
+
+type BoardIoChangeStatePayload {
+  boardIoEdge: BoardIoEdge
+  error: String
+  clientMutationId: String
+}
+
+input BoardIoChangeStateInput {
+  id: ID!
+  state: Boolean!
+  clientMutationId: String
+}
+
+type Subscription {
+  BoardIoChanged: BoardIoChangedPayload
+}
+
+type BoardIoChangedPayload {
+  boardIoEdge: BoardIoEdge
+}
