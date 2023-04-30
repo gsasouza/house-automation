@@ -12,6 +12,13 @@ const port = process.env.PORT;
 
 new EventService();
 
+// const board = JSON.parse(message.value.toString())
+// console.log(board)
+// await boardService.createBoard(board.host);
+// for (const pin of board.pins) {
+//   boardService.addPin(board.host, pin.pinAddress, pin.type)
+// }
+
 app.use(bodyParser.json())
 
 app.get('/', (req: Request, res: Response) => {

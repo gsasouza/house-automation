@@ -39,6 +39,7 @@ const etherport_client_1 = require("etherport-client");
 const PinService_1 = require("./PinService");
 const KafkaSerive_1 = require("./KafkaSerive");
 const events_1 = require("../consts/events");
+const ACCOUNT = process.env.ACCOUNT;
 class BoardService {
     constructor() {
         this.boards = {};
@@ -57,17 +58,17 @@ class BoardService {
             boardConfig.pins.changePinState(pinAddress, state);
         };
         this.disconnectCallback = (board) => () => __awaiter(this, void 0, void 0, function* () {
-            const { board: { id } } = this.removeBoard(board);
+            this.removeBoard(board);
             // send message to remote server to update board status
-            yield KafkaSerive_1.kafkaService.publish({ event: events_1.EVENTS.BOARD.CONNECTED, id, connected: false });
+            yield KafkaSerive_1.kafkaService.publish({ event: events_1.EVENTS.BOARD.CONNECTED, id: board, connected: false });
         });
         this.createBoard = (id, host, port) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const createdBoard = yield new Promise((resolve, reject) => {
                     const board = new five.Board({ id, port: new etherport_client_1.EtherPortClient({ host, port }), repl: false });
                     board.on('ready', () => {
-                        board.on('exit', this.disconnectCallback(host));
-                        board.on('close', this.disconnectCallback(host));
+                        board.on('exit', this.disconnectCallback(id));
+                        board.on('close', this.disconnectCallback(id));
                         resolve(board);
                     });
                     board.on('error', (e) => reject('Error on init board'));
@@ -81,6 +82,7 @@ class BoardService {
                 console.error(e);
             }
         });
+        KafkaSerive_1.kafkaService.publish({ event: events_1.EVENTS.BOARD.INIT, user: ACCOUNT });
     }
     removeBoard(board) {
         const boardConfig = this.boards[board];

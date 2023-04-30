@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.publish = exports.EVENTS = exports.kafka = void 0;
+exports.publishBatch = exports.publish = exports.EVENTS = exports.kafka = void 0;
 const graphql_subscriptions_1 = require("graphql-subscriptions");
 const kafkajs_1 = require("kafkajs");
 const pubSub = new graphql_subscriptions_1.PubSub();
@@ -38,13 +38,15 @@ exports.EVENTS = {
     }
 };
 const publish = (user, message) => __awaiter(void 0, void 0, void 0, function* () {
+    return (0, exports.publishBatch)(user, [{ value: JSON.stringify(message) }]);
+});
+exports.publish = publish;
+const publishBatch = (user, messages) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield producer.connect();
         const response = yield producer.send({
             topic: user,
-            messages: [
-                { value: JSON.stringify(message) },
-            ],
+            messages,
         });
         console.log(response);
         yield producer.disconnect();
@@ -53,5 +55,5 @@ const publish = (user, message) => __awaiter(void 0, void 0, void 0, function* (
         console.log(e);
     }
 });
-exports.publish = publish;
+exports.publishBatch = publishBatch;
 exports.default = pubSub;

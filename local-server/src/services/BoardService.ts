@@ -8,10 +8,13 @@ import { EVENTS } from "../consts/events";
 
 type BoardWithPins = { board: Board, pins: PinService }
 
+const ACCOUNT = process.env.ACCOUNT as string;
+
 class BoardService {
   private boards: Record<string, BoardWithPins | undefined> = {}
 
   constructor() {
+    kafkaService.publish({ event: EVENTS.BOARD.INIT, user: ACCOUNT })
   }
 
   addPin = (board: string, pinAddress: number, type: string, mode: number) => {
@@ -35,18 +38,19 @@ class BoardService {
   }
 
   disconnectCallback = (board: string) => async () => {
-    const { board: { id } } = this.removeBoard(board)
+    this.removeBoard(board)
     // send message to remote server to update board status
-    await kafkaService.publish({ event: EVENTS.BOARD.CONNECTED, id, connected: false })
+    await kafkaService.publish({ event: EVENTS.BOARD.CONNECTED, id: board, connected: false })
   }
 
   createBoard = async (id: string, host: string, port: string): Promise<void> => {
     try {
+      if (this.boards[id]) return console.error('Placa já conectada');
       const createdBoard: BoardType = await new Promise((resolve, reject) => {
         const board = new five.Board({ id, port: new EtherPortClient({ host, port }), repl: false });
         board.on('ready', () => {
-          board.on('exit', this.disconnectCallback(host))
-          board.on('close', this.disconnectCallback(host))
+          board.on('exit', this.disconnectCallback(id))
+          board.on('close', this.disconnectCallback(id))
           resolve(board)
         })
         board.on('error', (e) => reject('Error on init board'))

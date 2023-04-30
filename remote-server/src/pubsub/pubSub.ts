@@ -1,5 +1,5 @@
 import { PubSub } from 'graphql-subscriptions';
-import { Kafka } from "kafkajs";
+import { Kafka, Message, ProducerRecord } from "kafkajs";
 
 const pubSub = new PubSub();
 
@@ -31,15 +31,17 @@ export const EVENTS = {
 };
 
 export const publish = async (user: string, message: Record<string, unknown>) => {
+  return publishBatch(user, [{ value: JSON.stringify(message) }]);
+}
+
+export const publishBatch = async (user: string, messages: Message[]) => {
 
   try {
     await producer.connect()
+
     const response = await producer.send({
       topic: user,
-      messages: [
-        { value: JSON.stringify(message) },
-      ],
-
+      messages,
     });
 
     console.log(response)

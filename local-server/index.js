@@ -12,6 +12,12 @@ const EventService_1 = require("./src/services/EventService");
 const app = (0, express_1.default)();
 const port = process.env.PORT;
 new EventService_1.EventService();
+// const board = JSON.parse(message.value.toString())
+// console.log(board)
+// await boardService.createBoard(board.host);
+// for (const pin of board.pins) {
+//   boardService.addPin(board.host, pin.pinAddress, pin.type)
+// }
 app.use(body_parser_1.default.json());
 app.get('/', (req, res) => {
     res.send('Express + TypeScript Server');

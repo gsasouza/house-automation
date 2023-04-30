@@ -13,6 +13,7 @@ exports.consume = void 0;
 const pubSub_1 = require("./pubSub");
 const BoardIOModel_1 = require("../modules/boardIo/BoardIOModel");
 const BoardModel_1 = require("../modules/board/BoardModel");
+const UserModel_1 = require("../modules/user/UserModel");
 const consumer = pubSub_1.kafka.consumer({ groupId: 'remote-server' });
 const onMessage = ({ topic, partition, message: rawMessage }) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
@@ -23,6 +24,40 @@ const onMessage = ({ topic, partition, message: rawMessage }) => __awaiter(void 
         case pubSub_1.EVENTS.BOARD.CONNECTED: {
             const { id, connected } = message;
             yield BoardModel_1.Board.updateOne({ _id: id }, { connected });
+            break;
+        }
+        case pubSub_1.EVENTS.BOARD.INIT: {
+            const { user: username } = message;
+            const user = yield UserModel_1.User.findOne({ username });
+            console.log(user, username);
+            const board = yield BoardModel_1.Board.findOne({ createdBy: user._id });
+            if (!board)
+                return;
+            const boardIos = yield BoardIOModel_1.BoardIo.find({ board: board._id });
+            console.log(boardIos);
+            const orderId = new Date().getTime();
+            yield (0, pubSub_1.publishBatch)(username, [
+                {
+                    key: orderId.toString(),
+                    value: JSON.stringify({
+                        event: pubSub_1.EVENTS.BOARD.ADD,
+                        id: board._id,
+                        type: board.type,
+                        port: board.port,
+                        host: board.host,
+                    })
+                },
+                ...boardIos.map((boardIo, index) => ({
+                    key: (orderId + index).toString(),
+                    value: JSON.stringify({
+                        event: pubSub_1.EVENTS.BOARD_IO.ADD,
+                        id: boardIo._id,
+                        type: boardIo.type,
+                        pin: boardIo.pin,
+                        board: board._id
+                    })
+                }))
+            ]);
             break;
         }
         case pubSub_1.EVENTS.BOARD_IO.CHANGED:
