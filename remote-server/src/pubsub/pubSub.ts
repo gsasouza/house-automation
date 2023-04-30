@@ -3,7 +3,7 @@ import { Kafka } from "kafkajs";
 
 const pubSub = new PubSub();
 
-const kafka = new Kafka({
+export const kafka = new Kafka({
   clientId: 'kafka-producer',
   brokers: ['localhost:9092'],
 });
@@ -19,13 +19,17 @@ export const EVENTS = {
     ADD: 'BOARD_IO_ADD',
     REMOVE: 'BOARD_IO_REMOVE',
     CHANGED: 'BOARD_IO_CHANGED',
+    CONNECTED: 'BOARD_CONNECTED',
   },
   BOARD: {
     ADD: 'BOARD_ADD',
     REMOVE: 'BOARD_REMOVE',
     CHANGED: 'BOARD_CHANGED',
+    CONNECTED: 'BOARD_CONNECTED',
+    INIT: 'BOARD_INIT',
   }
 };
+
 export const publish = async (user: string, message: Record<string, unknown>) => {
 
   try {

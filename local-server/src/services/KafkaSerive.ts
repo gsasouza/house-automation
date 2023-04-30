@@ -21,4 +21,23 @@ export class KafkaService {
       eachMessage: onMessage,
     })
   }
+
+  public publish = async (message: Record<string, unknown>) => {
+    try {
+      await this.producer.connect()
+
+      await this.producer.send({
+        topic: 'remote-server',
+        messages: [
+          { value: JSON.stringify(message) },
+        ],
+      });
+
+      await this.producer.disconnect();
+    } catch (e) {
+      console.log(e)
+    }
+  }
 }
+
+export const kafkaService = new KafkaService();

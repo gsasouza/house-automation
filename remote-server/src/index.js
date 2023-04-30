@@ -27,6 +27,7 @@ const schema_1 = __importDefault(require("./schema/schema"));
 const dataloadersMiddleware_1 = require("./loaders/dataloadersMiddleware");
 const auth_1 = require("./auth");
 const db_1 = require("./config/db");
+const consumer_1 = require("./pubsub/consumer");
 const PORT = process.env.PORT;
 const app = (0, express_1.default)();
 app.use(auth_1.authenticatedMiddleware);
@@ -63,6 +64,7 @@ const server = new server_1.ApolloServer({
         process.exit(1);
     }
     yield server.start();
+    yield (0, consumer_1.consume)();
     app.use('/graphql', (0, cors_1.default)(), body_parser_1.default.json(), (0, express4_1.expressMiddleware)(server, {
         context: ({ req }) => __awaiter(void 0, void 0, void 0, function* () {
             return ({

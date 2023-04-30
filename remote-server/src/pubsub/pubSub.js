@@ -9,15 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.publish = exports.EVENTS = void 0;
+exports.publish = exports.EVENTS = exports.kafka = void 0;
 const graphql_subscriptions_1 = require("graphql-subscriptions");
 const kafkajs_1 = require("kafkajs");
 const pubSub = new graphql_subscriptions_1.PubSub();
-const kafka = new kafkajs_1.Kafka({
+exports.kafka = new kafkajs_1.Kafka({
     clientId: 'kafka-producer',
     brokers: ['localhost:9092'],
 });
-const producer = kafka.producer({
+const producer = exports.kafka.producer({
     retry: { retries: 8, initialRetryTime: 1, maxRetryTime: 30000, },
     connectionTimeout: 10000,
     authenticationTimeout: 10000,
@@ -27,11 +27,14 @@ exports.EVENTS = {
         ADD: 'BOARD_IO_ADD',
         REMOVE: 'BOARD_IO_REMOVE',
         CHANGED: 'BOARD_IO_CHANGED',
+        CONNECTED: 'BOARD_CONNECTED',
     },
     BOARD: {
         ADD: 'BOARD_ADD',
         REMOVE: 'BOARD_REMOVE',
         CHANGED: 'BOARD_CHANGED',
+        CONNECTED: 'BOARD_CONNECTED',
+        INIT: 'BOARD_INIT',
     }
 };
 const publish = (user, message) => __awaiter(void 0, void 0, void 0, function* () {

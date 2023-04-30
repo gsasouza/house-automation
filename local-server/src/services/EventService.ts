@@ -1,24 +1,13 @@
 import { EachMessageHandler } from "kafkajs";
-import { KafkaService } from "./KafkaSerive";
+import { kafkaService } from "./KafkaSerive";
 import { boardService } from "./BoardService";
+import { EVENTS } from "../consts/events";
 
-export const EVENTS = {
-  BOARD_IO: {
-    ADD: 'BOARD_IO_ADD',
-    REMOVE: 'BOARD_IO_REMOVE',
-    CHANGED: 'BOARD_IO_CHANGED',
-  },
-  BOARD: {
-    ADD: 'BOARD_ADD',
-    REMOVE: 'BOARD_REMOVE',
-    CHANGED: 'BOARD_CHANGED',
-  }
-};
 
 export class EventService {
 
   constructor() {
-    new KafkaService().consume(this.onMessage);
+    kafkaService.consume(this.onMessage);
   }
 
   onMessage: EachMessageHandler = async ({topic, partition, message: rawMessage}) => {

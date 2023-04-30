@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.KafkaService = void 0;
+exports.kafkaService = exports.KafkaService = void 0;
 const kafkajs_1 = require("kafkajs");
 const ACCOUNT = process.env.ACCOUNT;
 class KafkaService {
@@ -22,9 +22,25 @@ class KafkaService {
                 eachMessage: onMessage,
             });
         });
+        this.publish = (message) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield this.producer.connect();
+                yield this.producer.send({
+                    topic: 'remote-server',
+                    messages: [
+                        { value: JSON.stringify(message) },
+                    ],
+                });
+                yield this.producer.disconnect();
+            }
+            catch (e) {
+                console.log(e);
+            }
+        });
         const kafka = new kafkajs_1.Kafka({ clientId: ACCOUNT, brokers: ['localhost:9092'] });
         this.consumer = kafka.consumer({ groupId: ACCOUNT });
         this.producer = kafka.producer();
     }
 }
 exports.KafkaService = KafkaService;
+exports.kafkaService = new KafkaService();

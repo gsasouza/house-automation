@@ -37,6 +37,8 @@ const five = __importStar(require("johnny-five"));
 //@ts-ignore
 const etherport_client_1 = require("etherport-client");
 const PinService_1 = require("./PinService");
+const KafkaSerive_1 = require("./KafkaSerive");
+const events_1 = require("../consts/events");
 class BoardService {
     constructor() {
         this.boards = {};
@@ -45,7 +47,8 @@ class BoardService {
             if (!boardConfig)
                 return console.error('Placa não encontrada');
             boardConfig.board.pinMode(pinAddress, five.Pin.OUTPUT);
-            return boardConfig.pins.createPin(boardConfig.board, pinAddress);
+            boardConfig.pins.createPin(boardConfig.board, pinAddress);
+            return KafkaSerive_1.kafkaService.publish({ event: events_1.EVENTS.BOARD_IO.CONNECTED, board: boardConfig.board.id, pin: pinAddress, connected: true });
         };
         this.changePinState = (board, pinAddress, state) => {
             const boardConfig = this.boards[board];
@@ -54,8 +57,9 @@ class BoardService {
             boardConfig.pins.changePinState(pinAddress, state);
         };
         this.disconnectCallback = (board) => () => __awaiter(this, void 0, void 0, function* () {
-            this.removeBoard(board);
+            const { board: { id } } = this.removeBoard(board);
             // send message to remote server to update board status
+            yield KafkaSerive_1.kafkaService.publish({ event: events_1.EVENTS.BOARD.CONNECTED, id, connected: false });
         });
         this.createBoard = (id, host, port) => __awaiter(this, void 0, void 0, function* () {
             try {
@@ -70,6 +74,7 @@ class BoardService {
                 });
                 // Call remote server to update board status
                 this.boards = Object.assign(Object.assign({}, this.boards), { [id]: { board: createdBoard, pins: new PinService_1.PinService() } });
+                yield KafkaSerive_1.kafkaService.publish({ event: events_1.EVENTS.BOARD.CONNECTED, id, connected: true });
                 console.log('ready');
             }
             catch (e) {
@@ -78,7 +83,9 @@ class BoardService {
         });
     }
     removeBoard(board) {
+        const boardConfig = this.boards[board];
         this.boards = Object.assign(Object.assign({}, this.boards), { [board]: undefined });
+        return boardConfig;
     }
 }
 exports.boardService = new BoardService();

@@ -15,6 +15,7 @@ import schema from "./schema/schema";
 import { getDataLoaders } from "./loaders/dataloadersMiddleware";
 import { authenticatedMiddleware, getUser } from "./auth";
 import { connect } from "./config/db";
+import { consume } from "./pubsub/consumer";
 
 const PORT = process.env.PORT;
 
@@ -53,6 +54,8 @@ const server = new ApolloServer({
   }
 
   await server.start();
+
+  await consume();
 
   app.use('/graphql', cors<cors.CorsRequest>(), bodyParser.json(), expressMiddleware(server, {
     context: async ({ req }) => ({
