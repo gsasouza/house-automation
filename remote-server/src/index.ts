@@ -7,6 +7,10 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import { expressMiddleware } from '@apollo/server/express4';
 import { useServer } from 'graphql-ws/lib/use/ws';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 import schema from "./schema/schema";
 import { getDataLoaders } from "./loaders/dataloadersMiddleware";
 import { authenticatedMiddleware, getUser } from "./auth";

@@ -8,10 +8,8 @@ export class PinService {
     }
 
     changePinState(pinAddress: string, state: boolean) {
-        // const pin = this.pins[pinAddress];
         const pin = new five.Pin(pinAddress);
         if (pin) {
-            // console.log('heree', state, pin)
             if (state) {
                 pin.high();
             } else {
@@ -27,7 +25,7 @@ export class PinService {
     }
 
     disconnectCallback = (host: string) => async () => {
-        this.removePin(host);
+        // this.removePin(host);
         // send message to remote server to update board status
     };
 }

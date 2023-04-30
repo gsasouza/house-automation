@@ -34,7 +34,7 @@ export default mutationWithClientMutationId({
         };
       }
 
-      await publish(user, { event: EVENTS.BOARD_IO.CHANGED, id: boardIo._id, state })
+      await publish(user.username, { event: EVENTS.BOARD_IO.CHANGED, board: boardIo.board, pin: boardIo.pin, state })
 
       return {
         id: boardIo._id,

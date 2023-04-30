@@ -34,34 +34,33 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.boardService = void 0;
 const five = __importStar(require("johnny-five"));
+//@ts-ignore
 const etherport_client_1 = require("etherport-client");
-const pinService_1 = require("./pinService");
+const PinService_1 = require("./PinService");
 class BoardService {
     constructor() {
         this.boards = {};
-        this.addPin = (host, pinAddress, mode) => {
-            const boardConfig = this.boards[host];
+        this.addPin = (board, pinAddress, type, mode) => {
+            const boardConfig = this.boards[board];
             if (!boardConfig)
                 return console.error('Placa não encontrada');
             boardConfig.board.pinMode(pinAddress, five.Pin.OUTPUT);
             return boardConfig.pins.createPin(boardConfig.board, pinAddress);
         };
-        this.changePinState = (host, pinAddress, state) => {
-            const boardConfig = this.boards[host];
+        this.changePinState = (board, pinAddress, state) => {
+            const boardConfig = this.boards[board];
             if (!boardConfig)
                 return console.error('Placa não encontrada');
             boardConfig.pins.changePinState(pinAddress, state);
         };
-        this.disconnectCallback = (host) => () => __awaiter(this, void 0, void 0, function* () {
-            this.removeBoard(host);
+        this.disconnectCallback = (board) => () => __awaiter(this, void 0, void 0, function* () {
+            this.removeBoard(board);
             // send message to remote server to update board status
         });
-        this.createBoard = (host) => __awaiter(this, void 0, void 0, function* () {
-            console.log(host);
+        this.createBoard = (id, host, port) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const createdBoard = yield new Promise((resolve, reject) => {
-                    const port = new etherport_client_1.EtherPortClient({ host, port: 3030 });
-                    const board = new five.Board({ id: host, port, repl: false });
+                    const board = new five.Board({ id, port: new etherport_client_1.EtherPortClient({ host, port }), repl: false });
                     board.on('ready', () => {
                         board.on('exit', this.disconnectCallback(host));
                         board.on('close', this.disconnectCallback(host));
@@ -70,7 +69,7 @@ class BoardService {
                     board.on('error', (e) => reject('Error on init board'));
                 });
                 // Call remote server to update board status
-                this.boards = Object.assign(Object.assign({}, this.boards), { [host]: { board: createdBoard, pins: new pinService_1.PinService() } });
+                this.boards = Object.assign(Object.assign({}, this.boards), { [id]: { board: createdBoard, pins: new PinService_1.PinService() } });
                 console.log('ready');
             }
             catch (e) {
@@ -78,8 +77,8 @@ class BoardService {
             }
         });
     }
-    removeBoard(host) {
-        this.boards = Object.assign(Object.assign({}, this.boards), { [host]: undefined });
+    removeBoard(board) {
+        this.boards = Object.assign(Object.assign({}, this.boards), { [board]: undefined });
     }
 }
 exports.boardService = new BoardService();

@@ -57,7 +57,7 @@ exports.default = (0, graphql_relay_1.mutationWithClientMutationId)({
             type: graphql_1.GraphQLString,
         },
     },
-    mutateAndGetPayload: ({ name, type, port, host }, context) => __awaiter(void 0, void 0, void 0, function* () {
+    mutateAndGetPayload: ({ name, type, port = 3030, host }, context) => __awaiter(void 0, void 0, void 0, function* () {
         const { user } = context;
         const board = yield BoardModel_1.Board.findOne({ name });
         if (!user) {
@@ -80,8 +80,11 @@ exports.default = (0, graphql_relay_1.mutationWithClientMutationId)({
                 host,
                 createdBy: user.id
             });
-            yield (0, pubSub_1.publish)(user, {
-                event: pubSub_1.EVENTS.BOARD_IO.CHANGED, id: board._id, type,
+            console.log('publishing', board._id, type, host);
+            yield (0, pubSub_1.publish)(user.username, {
+                event: pubSub_1.EVENTS.BOARD.ADD,
+                id: board._id,
+                type,
                 port,
                 host,
             });

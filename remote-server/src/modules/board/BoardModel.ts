@@ -1,4 +1,4 @@
-import mongoose, { Document, Model } from 'mongoose'
+import mongoose, { Document, Model, Schema } from 'mongoose'
 
 export enum BoardsEnum {
   RASPBERRY = 'RASPBERRY',
@@ -13,7 +13,7 @@ export interface IBoard extends Document {
   port?: boolean
 }
 
-const schema = new mongoose.Schema(
+const schema = new Schema<IBoard>(
   {
     name: {
       type: String,

@@ -1,4 +1,4 @@
-import mongoose, { Document, Model } from 'mongoose'
+import mongoose, { Document, Model, Schema } from 'mongoose'
 
 export enum BoardIoEnum {
   'RELAY' = 'RELAY',
@@ -11,7 +11,7 @@ export interface IBoardIo extends Document {
   board: string,
 }
 
-const schema = new mongoose.Schema(
+const schema = new Schema<IBoardIo>(
   {
     name: {
       type: String,

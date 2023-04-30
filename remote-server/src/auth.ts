@@ -12,8 +12,6 @@ export async function getUser(token: string) {
 
     const user = await User.findOne({ _id: decodedToken.id });
 
-    console.log(user)
-
     return {
       user,
     };

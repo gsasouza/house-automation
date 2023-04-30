@@ -38,15 +38,13 @@ class PinService {
     constructor() {
         this.pins = {};
         this.disconnectCallback = (host) => () => __awaiter(this, void 0, void 0, function* () {
-            this.removePin(host);
+            // this.removePin(host);
             // send message to remote server to update board status
         });
     }
     changePinState(pinAddress, state) {
-        // const pin = this.pins[pinAddress];
         const pin = new five.Pin(pinAddress);
         if (pin) {
-            // console.log('heree', state, pin)
             if (state) {
                 pin.high();
             }

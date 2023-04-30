@@ -21,10 +21,13 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
 const express4_1 = require("@apollo/server/express4");
 const ws_2 = require("graphql-ws/lib/use/ws");
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const schema_1 = __importDefault(require("./schema/schema"));
 const dataloadersMiddleware_1 = require("./loaders/dataloadersMiddleware");
 const auth_1 = require("./auth");
 const db_1 = require("./config/db");
+const PORT = process.env.PORT;
 const app = (0, express_1.default)();
 app.use(auth_1.authenticatedMiddleware);
 const httpServer = (0, http_1.createServer)(app);
@@ -68,7 +71,7 @@ const server = new server_1.ApolloServer({
             });
         })
     }));
-    httpServer.listen(4000, () => {
-        console.log(`🚀  Server is now running on http://localhost:4000/graphql`);
+    httpServer.listen(PORT, () => {
+        console.log(`🚀  Server is now running on http://localhost:${PORT}/graphql`);
     });
 }))();

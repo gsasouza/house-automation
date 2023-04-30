@@ -22,6 +22,7 @@
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dataloader": "^1.4.0",
+    "dotenv": "^16.0.3",
     "dotenv-safe": "^6.1.0",
     "graphql": "^16.6.0",
     "graphql-playground-middleware-koa": "^1.6.12",

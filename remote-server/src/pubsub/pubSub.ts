@@ -1,6 +1,4 @@
 import { PubSub } from 'graphql-subscriptions';
-import BoardIoChangedEvent from './BoardIoChangedEvent';
-import BoardDisconnectedEvent from './BoardDisconnectedEvent'
 import { Kafka } from "kafkajs";
 
 const pubSub = new PubSub();
@@ -10,8 +8,11 @@ const kafka = new Kafka({
   brokers: ['localhost:9092'],
 });
 
-
-const producer = kafka.producer();
+const producer = kafka.producer({
+  retry: { retries: 8, initialRetryTime: 1, maxRetryTime: 30000, },
+  connectionTimeout: 10000,
+  authenticationTimeout: 10000,
+});
 
 export const EVENTS = {
   BOARD_IO: {
@@ -19,36 +20,31 @@ export const EVENTS = {
     REMOVE: 'BOARD_IO_REMOVE',
     CHANGED: 'BOARD_IO_CHANGED',
   },
+  BOARD: {
+    ADD: 'BOARD_ADD',
+    REMOVE: 'BOARD_REMOVE',
+    CHANGED: 'BOARD_CHANGED',
+  }
 };
-
 export const publish = async (user: string, message: Record<string, unknown>) => {
-  await producer.connect()
 
-  await producer.send({
-    topic: `${user}`,
-    messages: [
-      { value: JSON.stringify(message) },
-    ],
-  });
+  try {
+    await producer.connect()
+    const response = await producer.send({
+      topic: user,
+      messages: [
+        { value: JSON.stringify(message) },
+      ],
 
-  await producer.disconnect();
-}
+    });
 
-export const pubNubSetup = () => {
-  // const pubnub = createPubNubInstance();
-  // pubnub.addListener({
-  //   message: async ({ channel, message }) => {
-  //     switch (channel) {
-  //       case 'local:board_io': return BoardIoChangedEvent(message)
-  //       case 'local:board': return BoardDisconnectedEvent(message);
-  //     }
-  //
-  //   },
-  // });
-  // pubnub.subscribe({
-  //   channels: ['local:board_io', 'local:board']
-  // });
-  // return pubnub
+    console.log(response)
+
+    await producer.disconnect();
+  } catch (e) {
+    console.log(e)
+  }
+
 }
 
 export default pubSub

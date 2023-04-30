@@ -1,4 +1,4 @@
-import mongoose, { Document, Model } from 'mongoose'
+import mongoose, { Document, Model, Schema } from 'mongoose'
 
 export enum RoomsEnum {
   KITCHEN = 'KITCHEN',
@@ -13,7 +13,7 @@ export interface IRoom extends Document {
   createdBy: string
 }
 
-const schema = new mongoose.Schema(
+const schema = new Schema<IRoom>(
   {
     name: {
       type: String,

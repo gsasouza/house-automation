@@ -24,7 +24,7 @@ export default mutationWithClientMutationId({
       type: new GraphQLNonNull(GraphQLID),
     },
   },
-  mutateAndGetPayload: async ({ name, type, pin, board, room }, context ) => {
+  mutateAndGetPayload: async ({ name, type, pin, board, room }, context) => {
     const { user } = context;
     const boardIo = await BoardIo.findOne({ name });
 
@@ -52,7 +52,7 @@ export default mutationWithClientMutationId({
         createdBy: user.id
       });
 
-      await publish(user, { event: EVENTS.BOARD_IO.CHANGED, id: boardIo._id, type, pin, board  })
+      await publish(user.username, { event: EVENTS.BOARD_IO.ADD, id: boardIo._id, type, pin, board: fromGlobalId(board).id })
 
       return {
         id: boardIo._id,

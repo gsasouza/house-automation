@@ -24,7 +24,6 @@ function getUser(token) {
         try {
             const decodedToken = jsonwebtoken_1.default.verify(token.substring(4), exports.JWT_SECRET);
             const user = yield UserModel_1.User.findOne({ _id: decodedToken.id });
-            console.log(user);
             return {
                 user,
             };

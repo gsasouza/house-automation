@@ -67,7 +67,7 @@ exports.default = (0, graphql_relay_1.mutationWithClientMutationId)({
                     error: 'BOARD_IO_NOT_FOUND',
                 };
             }
-            yield (0, pubSub_1.publish)(user, { event: pubSub_1.EVENTS.BOARD_IO.CHANGED, id: boardIo._id, state });
+            yield (0, pubSub_1.publish)(user.username, { event: pubSub_1.EVENTS.BOARD_IO.CHANGED, board: boardIo.board, pin: boardIo.pin, state });
             return {
                 id: boardIo._id,
                 state,

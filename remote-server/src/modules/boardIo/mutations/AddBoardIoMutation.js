@@ -84,7 +84,7 @@ exports.default = (0, graphql_relay_1.mutationWithClientMutationId)({
                 room: (0, graphql_relay_1.fromGlobalId)(room).id,
                 createdBy: user.id
             });
-            yield (0, pubSub_1.publish)(user, { event: pubSub_1.EVENTS.BOARD_IO.CHANGED, id: boardIo._id, type, pin, board });
+            yield (0, pubSub_1.publish)(user.username, { event: pubSub_1.EVENTS.BOARD_IO.ADD, id: boardIo._id, type, pin, board: (0, graphql_relay_1.fromGlobalId)(board).id });
             return {
                 id: boardIo._id,
                 error: null,

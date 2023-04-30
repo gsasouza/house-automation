@@ -15,7 +15,8 @@ import { createFragmentContainer, graphql } from 'react-relay'
 
 import BoardIoChangeState from './mutation/BoardIoChangeStateMutation';
 
-const BoardIoInput = ({ state, id, pin, name, board, connected }) => {
+const BoardIoInput = ({ state, id, pin, name, board }) => {
+  const connected = true;
   const label = connected ? (state ? 'Ligado' : 'Desligado') : 'Desconectado';
   return (
     <EuiFormRow label={`${name} - ${board.name} (${pin})`}>

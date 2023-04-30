@@ -21,7 +21,7 @@ export default mutationWithClientMutationId({
       type: GraphQLString,
     },
   },
-  mutateAndGetPayload: async ({ name, type, port, host }, context) => {
+  mutateAndGetPayload: async ({ name, type, port = 3030, host }, context) => {
     const { user } = context;
     const board = await Board.findOne({ name });
 
@@ -47,9 +47,11 @@ export default mutationWithClientMutationId({
         host,
         createdBy: user.id
       });
-
-      await publish(user, {
-        event: EVENTS.BOARD_IO.CHANGED, id: board._id, type,
+      console.log('publishing', board._id, type, host);
+      await publish(user.username, {
+        event: EVENTS.BOARD.ADD,
+        id: board._id,
+        type,
         port,
         host,
       })
