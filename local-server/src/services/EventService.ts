@@ -22,10 +22,14 @@ export class EventService {
       }
       case EVENTS.BOARD_IO.REMOVE:
         break;
-      case EVENTS.BOARD_IO.CHANGED:
+      case EVENTS.BOARD_IO.CHANGED: {
+
         const { board, state, pin } = message as ChangedPinMessage;
-        await boardService.changePinState(board, pin, state)
+        boardService.changePinState(board, pin, state)
+        console.log('here')
+        await kafkaService.publish({ event: EVENTS.BOARD_IO.CHANGED, board, state, pin })
         break;
+      }
       case EVENTS.BOARD.ADD: {
         const { id, host, port } = message as AddBoardMessage;
         await boardService.createBoard(id, host, port);

@@ -26,12 +26,14 @@ export class KafkaService {
     try {
       await this.producer.connect()
 
-      await this.producer.send({
+      const response = await this.producer.send({
         topic: 'remote-server',
         messages: [
           { value: JSON.stringify(message) },
         ],
       });
+
+      console.log(response)
 
       await this.producer.disconnect();
     } catch (e) {

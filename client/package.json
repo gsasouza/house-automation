@@ -7,7 +7,6 @@
     "start": "webpack serve --mode development",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "relay": "relay-compiler",
-    "dev": "cross-env NODE_ENV=development wp --config ./webpack.config.js",
     "graphql:download-schema": "apollo client:download-schema"
   },
   "dependencies": {
