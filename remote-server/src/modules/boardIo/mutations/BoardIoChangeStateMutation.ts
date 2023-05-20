@@ -4,6 +4,7 @@ import { BoardIo } from '../BoardIOModel';
 import * as BoardIoLoader from '../BoardIoLoader'
 import BoardIoConnection from '../BoardIoConnection'
 import { EVENTS, publish } from "../../../pubsub/pubSub";
+import BoardIoChangedEvent from "../../../pubsub/BoardIoChangedEvent";
 
 export default mutationWithClientMutationId({
   name: 'BoardIoChangeState',

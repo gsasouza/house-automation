@@ -4,6 +4,7 @@ import { BoardIo } from "../modules/boardIo/BoardIOModel";
 import { Board } from "../modules/board/BoardModel";
 import { User } from "../modules/user/UserModel";
 import { fromGlobalId } from "graphql-relay";
+import BoardIoChangedEvent from "./BoardIoChangedEvent";
 
 const consumer = kafka.consumer({ groupId: 'remote-server' });
 
@@ -53,8 +54,12 @@ const onMessage: EachMessageHandler = async ({ topic, partition, message: rawMes
       break;
     }
 
-    case EVENTS.BOARD_IO.CHANGED:
+    case EVENTS.BOARD_IO.CHANGED: {
+      const { pin, board, state } = message as ChangedBoardIOMessage;
+      await BoardIo.updateOne({ board, pin }, { state });
+      await BoardIoChangedEvent({ pin, board })
       break;
+    }
     case EVENTS.BOARD_IO.CONNECTED: {
       const { pin, board, connected } = message as ConnectedBoardIOMessage;
       await BoardIo.updateOne({ board, pin }, { connected });
@@ -88,3 +93,11 @@ type ConnectedBoardIOMessage = {
   board: string;
   connected: boolean;
 }
+
+type ChangedBoardIOMessage = {
+  event: string;
+  pin: string;
+  board: string;
+  state: boolean;
+}
+

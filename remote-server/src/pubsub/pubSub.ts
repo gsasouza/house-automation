@@ -44,7 +44,7 @@ export const publishBatch = async (user: string, messages: Message[]) => {
       messages,
     });
 
-    console.log(response)
+    // console.log(response)
 
     await producer.disconnect();
   } catch (e) {

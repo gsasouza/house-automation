@@ -44,11 +44,11 @@ export const load = async (context: any, id: string): Promise<any> => {
   if (!id) {
     return null;
   }
-  const loader = context.dataloaders ? context.dataloaders.BoardLoader : getLoader();
+  const loader = context && context.dataloaders ? context.dataloaders.BoardLoader : getLoader();
   try {
     const data = await loader.load(id);
     //Bypass if its an event
-    return viewerCanSee(context.dataloaders ? context : { user: true }) ? new Board(data) : null;
+    return viewerCanSee(context && context.dataloaders ? context : { user: true }) ? new Board(data) : null;
 
   } catch (err) {
     console.log(err);

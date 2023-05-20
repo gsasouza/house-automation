@@ -1,6 +1,6 @@
 import { nodeDefinitions, fromGlobalId } from 'graphql-relay';
 
-import UserType from '../modules/user/UserConnection';
+import UserType from '../modules/user/UserType';
 import * as UserLoader from '../modules/user/UserLoader';
 import RoomType from '../modules/room/RoomType'
 import * as RoomLoader from '../modules/room/RoomLoader'
@@ -23,12 +23,13 @@ const { nodeField, nodeInterface } = nodeDefinitions(
       return await BoardLoader.load(context, id);
     }
     if (type === 'BoardIo') {
+      console.log('heere')
       return await BoardIoLoader.load(context, id);
     }
   },
   obj => {
     if (obj instanceof UserLoader.default) {
-      return UserType.connectionType;
+      return UserType;
     }
     if (obj instanceof BoardLoader.default) {
       return BoardType;

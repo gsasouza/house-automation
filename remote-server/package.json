@@ -8,7 +8,7 @@
     "test": "jest",
     "serve": "node build/index",
     "build": "npx tsc",
-    "start": "node dist/index.js",
+    "start": "node dist/src/index.js",
     "repl": "ts-node src/repl/Repl.ts",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/src/index.js\""
   },

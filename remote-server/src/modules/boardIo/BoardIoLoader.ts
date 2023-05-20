@@ -39,7 +39,7 @@ export default class BoardIo {
   }
 }
 
-export const getLoader = () => new DataLoader(ids => mongooseLoader(BoardIoModel, ids));
+export const getLoader = () => new DataLoader<string>(ids => mongooseLoader(BoardIoModel, ids));
 
 const viewerCanSee = (context) => !!context.user;
 
@@ -48,9 +48,11 @@ export const load = async (context: any, id: string): Promise<any> => {
     return null;
   }
   let data;
+  const loader = context.dataloaders ? context.dataloaders.BoardIoLoader : getLoader();
   try {
-    data = await context.dataloaders.BoardIoLoader.load(id);
+    data = await loader.load(id);
   } catch (err) {
+    console.log({ err})
     return null;
   }
   return viewerCanSee(context) ? new BoardIo(data) : null;
