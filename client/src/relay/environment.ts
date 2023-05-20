@@ -3,8 +3,8 @@ import { getAccessToken } from '../helpers/auth';
 // @ts-ignore
 import { createClient } from 'graphql-ws';
 //@TODO fix this
-const GRAPHQL_URL = import.meta.env.GRAPHQL_URL || 'http://localhost:4000/graphql'
-const SUBSCRIPTION_URL = import.meta.env.SUBSCRIPTION_URL || 'wss://house-automation-api.herokuapp.com/subscriptions'
+const GRAPHQL_URL = process.env.GRAPHQL_URL || 'http://localhost:4000/graphql'
+const SUBSCRIPTION_URL = process.env.SUBSCRIPTION_URL || 'ws://localhost:4000/subscriptions'
 
 const wsClient = createClient({
   url: SUBSCRIPTION_URL,

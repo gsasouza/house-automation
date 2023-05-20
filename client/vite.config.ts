@@ -38,4 +38,13 @@ function reactVirtualized(): PluginOption {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), reactVirtualized(), relay],
+  optimizeDeps: {
+    include: ['@elastic/eui'],
+  },
+  build: {
+    rollupOptions: {
+
+    }
+  }
+
 })

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
-import '@elastic/eui/dist/eui_theme_light.css';
+
 import { EuiContext } from '@elastic/eui'
 
 const GlobalStyle = createGlobalStyle`
