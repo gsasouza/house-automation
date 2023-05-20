@@ -1,120 +1,57 @@
-const { resolve } = require('path');
-
-const webpack = require('webpack');
-const { WebpackPluginServe: Serve } = require('webpack-plugin-serve');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
-const isDev = process.env.NODE_ENV === 'development';
-const outputPath = resolve(__dirname, 'dist');
-
-const entry = isDev ? ['./src/App.tsx', 'webpack-plugin-serve/client'] : './src/App.tsx';
-
-const plugins = [
-  new HtmlWebpackPlugin({ template: './public/index.html' }),
-  new webpack.DefinePlugin({
-    'process.env': {
-      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-    },
-  }),
-];
-
-if (isDev) {
-  plugins.push(
-    new Serve({
-      hmr: true,
-      historyFallback: true,
-      static: [outputPath],
-      port: 5050
-    }),
-  );
-} else {
-  plugins.push(new MiniCssExtractPlugin());
-}
+const webpack = require('webpack')
+const Dotenv = require('dotenv-webpack');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry,
-  mode: process.env.NODE_ENV,
-  devtool: 'eval-cheap-source-map',
-  resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+  entry: "./src/App.tsx",
+  output: {
+    filename: "main.js",
+    path: path.resolve(__dirname, "build"),
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, "public", "index.html"),
+    }),
+    new Dotenv({ systemvars: true }),
+  ],
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "build"),
+    },
+    port: 5050,
   },
   module: {
+    // exclude node_modules
     rules: [
       {
-        test: /\.(ts|tsx|js|jsx)$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: ["babel-loader"],
       },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.woff(\?.*)?$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            name: 'fonts/[name].[ext]',
-            mimetype: 'application/font-woff',
-          },
-        },
+        test: /\.(jpeg|jpg|png|gif|svg)$/i,
+        loader: 'url-loader',
       },
       {
-        test: /\.woff2(\?.*)?$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            name: 'fonts/[name].[ext]',
-            mimetype: 'application/font-woff2',
-          },
-        },
-      },
-      {
-        test: /\.(otf)(\?.*)?$/,
-        use: {
-          loader: 'file-loader',
-          options: {
-            name: 'fonts/[name].[ext]',
-          },
-        },
-      },
-      {
-        test: /\.ttf(\?.*)?$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            name: 'fonts/[name].[ext]',
-            mimetype: 'application/octet-stream',
-          },
-        },
-      },
-      {
-        test: /\.svg(\?.*)?$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            name: 'images/[name].[ext]',
-            mimetype: 'image/svg+xml',
-          },
-        },
-      },
-      {
-        test: /\.(png|jpg)(\?.*)?$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            name: 'images/[name].[ext]',
-          },
-        },
-      },
+        test: /\.(ts|tsx)$/,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true
+            }
+          }
+        ],
+      }
     ],
   },
-  output: {
-    path: outputPath,
-    publicPath: '/',
-    filename: !isDev ? 'bundle.[contenthash].js' : 'bundle.js',
+  // pass all js files through Babel
+  resolve: {
+    extensions: ["*", ".js", ".jsx", ".ts", ".tsx"],
   },
-  plugins,
-  watch: isDev,
 };

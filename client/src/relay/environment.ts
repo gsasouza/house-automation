@@ -2,7 +2,7 @@ import { Environment, Network, RecordSource, Store, Observable, GraphQLResponse,
 import { getAccessToken } from '../helpers/auth';
 // @ts-ignore
 import { createClient } from 'graphql-ws';
-//@TODO fix this
+
 const GRAPHQL_URL = process.env.GRAPHQL_URL || 'http://localhost:4000/graphql'
 const SUBSCRIPTION_URL = process.env.SUBSCRIPTION_URL || 'ws://localhost:4000/subscriptions'
 

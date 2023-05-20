@@ -1,5 +1,5 @@
 import { PubSub } from 'graphql-subscriptions';
-import { Kafka, Message, ProducerRecord } from "kafkajs";
+import { Kafka, Message } from "kafkajs";
 
 const pubSub = new PubSub();
 

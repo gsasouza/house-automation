@@ -11,7 +11,7 @@ const onMessage: EachMessageHandler = async ({ topic, partition, message: rawMes
 
   const message = JSON.parse(rawMessage.value?.toString() ?? '')
   const { event } = message;
-  console.log(message)
+
   switch (event) {
     case EVENTS.BOARD.CONNECTED: {
       const { id, connected } = message as ConnectedBoardMessage;
@@ -22,11 +22,11 @@ const onMessage: EachMessageHandler = async ({ topic, partition, message: rawMes
     case EVENTS.BOARD.INIT: {
       const { user: username } = message as InitBoardMessage;
       const user = await User.findOne({ username });
-      console.log(user, username)
+
       const board = await Board.findOne({ createdBy: user._id });
       if (!board) return;
       const boardIos = await BoardIo.find({ board: board._id });
-      console.log(boardIos)
+
       const orderId = new Date().getTime();
       await publishBatch(username, [
         {

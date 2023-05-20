@@ -1,7 +1,7 @@
 [
-  "src/App.tsx",
   "src/components/auth/Auth.tsx",
   "src/components/auth/LoginForm.tsx",
+  "src/components/auth/LoginScreen.tsx",
   "src/components/auth/mutation/LoginMutation.ts",
   "src/components/boardIos/BoardIoAdd.tsx",
   "src/components/boardIos/BoardIoList.tsx",
