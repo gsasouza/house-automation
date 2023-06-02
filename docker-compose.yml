@@ -30,6 +30,7 @@ services:
       - kafdrop
     networks:
       - broker-kafka
+      - public
       - mongo-compose-network
       
   client:
