@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "TSC_COMPILE_ON_ERROR=true webpack --mode production",
     "start": "webpack serve --mode development",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "relay": "relay-compiler",
