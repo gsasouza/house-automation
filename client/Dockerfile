@@ -13,8 +13,8 @@ RUN yarn
 
 # Etapa final para o  client-dev
 FROM dependencies AS client-dev
-CMD [ "yarn", "dev"]
+CMD [ "yarn", "relay"]
 # Etapa final para o  client-prod
 FROM dependencies AS client-prod
 RUN yarn build
-CMD [ "yarn", "start"]
+CMD [ "yarn", "relay"]

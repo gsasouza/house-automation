@@ -55,7 +55,7 @@
 - Run `cd client` to enter the local server folder
 - Run `yarn` to install dependencies
 - Run `cp .env.sample .env` to create the environment file, and fill any missing values
-- Run `yarn dev` to start the server
+- Run `yarn relay` to start the server
 
 # How to run (production)
 - Replace all `yarn dev` scrips by `yarn build & yarn start`
