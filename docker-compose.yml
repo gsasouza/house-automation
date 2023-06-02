@@ -16,7 +16,8 @@ services:
       context: ./remote-server
       target: remote-server-dev
       # target: remote-server-prod #uncomment this line to build for production 
-
+    ports:
+      - 4000:4000
     env_file:
       - ./remote-server/.env
     deploy:
@@ -37,6 +38,8 @@ services:
       context: ./client
       target: client-dev
       # target: client-prod
+    ports:
+      - 5050:5050
     env_file:
       - ./client/.env
     deploy:
