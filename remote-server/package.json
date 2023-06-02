@@ -9,7 +9,7 @@
     "serve": "node build/index",
     "build": "npx tsc",
     "start": "node dist/src/index.js",
-    "repl": "ts-node src/repl/Repl.ts",
+    "repl": "node dist/src/repl/Repl.js",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/src/index.js\""
   },
   "dependencies": {
