@@ -37,6 +37,7 @@ const LoginForm = () => {
       setSubmitting(false);
     }
     const onError = (error) => {
+      console.log('here')
       setStatus(error);
       setSubmitting(false);
     }

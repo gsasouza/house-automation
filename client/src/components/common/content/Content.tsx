@@ -54,7 +54,7 @@ const Content = () => {
   const [isLoading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
-    !isLoggedIn() && navigate('/login')
+    !isLoggedIn() && navigate('/')
     setLoading(false);
   }, [])
 

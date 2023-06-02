@@ -83,7 +83,7 @@ function DashboardContent() {
   };
 
   React.useEffect(() => {
-    !isLoggedIn() && navigate('/login')
+    !isLoggedIn() && navigate('/')
     setLoading(false);
   }, [])
 
