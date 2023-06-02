@@ -1,5 +1,27 @@
 version: '3'
 services:
+  remote-server:
+    container_name: remote-server
+    build:
+      context: ./remote-server
+      target: remote-server-dev
+
+    env_file:
+      - ./remote-server/.env
+    ports:
+      - 4000:4000
+    command: yarn dev
+    deploy:
+      mode: replicated
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+    depends_on:
+      - kafdrop
+    networks:
+      - broker-kafka
+      - mongo-compose-network
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     networks:
@@ -44,8 +66,8 @@ services:
       - "27017:27017"
     volumes:
       - dbdata:/data/db
-#    networks:
-#      - mongo-compose-network
+  #  networks:
+  #    - mongo-compose-network
 
 volumes:
   dbdata:
