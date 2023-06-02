@@ -23,6 +23,7 @@ module.exports = {
       index: path.join(__dirname, "public", "index.html")
     },
     port: 5050,
+    allowedHosts: "all",
   },
   module: {
     // exclude node_modules
