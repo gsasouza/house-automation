@@ -7,7 +7,7 @@
     "update-schema": "ts-node ./scripts/updateSchema.ts",
     "test": "jest",
     "serve": "node build/index",
-    "build": "npx tsc",
+    "build": "TSC_COMPILE_ON_ERROR=true npx tsc",
     "start": "node dist/src/index.js",
     "repl": "node dist/src/repl/Repl.js",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/src/index.js\""

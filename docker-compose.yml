@@ -1,5 +1,57 @@
 version: '3'
 services:
+  nginx:
+    container_name: nginx
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - public
+      - mongo-compose-network
+  remote-server: 
+    container_name: remote-server
+    build:
+      context: ./remote-server
+      target: remote-server-dev
+      # target: remote-server-prod #uncomment this line to build for production 
+
+    env_file:
+      - ./remote-server/.env
+    deploy:
+      mode: replicated
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+    depends_on:
+      - kafdrop
+    networks:
+      - broker-kafka
+      - mongo-compose-network
+      
+  client:
+    container_name: client
+    build:
+      context: ./client
+      target: client-dev
+      # target: client-prod
+    env_file:
+      - ./client/.env
+    deploy:
+      mode: replicated
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+    depends_on:
+      - kafdrop
+    networks:
+      - broker-kafka
+      - public
+      - mongo-compose-network
+
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     networks:
@@ -44,8 +96,8 @@ services:
       - "27017:27017"
     volumes:
       - dbdata:/data/db
-#    networks:
-#      - mongo-compose-network
+  #  networks:
+  #    - mongo-compose-network
 
 volumes:
   dbdata:
@@ -54,4 +106,6 @@ networks:
   broker-kafka:
     driver: bridge
   mongo-compose-network:
+    driver: bridge
+  public:
     driver: bridge
