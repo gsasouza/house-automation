@@ -95,7 +95,7 @@ services:
       KAFKA_BROKERCONNECT: kafka:29092
 
   mongo:
-    image: mongo
+    image: mongo:4.4.6
 #    environment:
 #      MONGO_INITDB_ROOT_USERNAME: root
 #      MONGO_INITDB_ROOT_PASSWORD: MongoDB!
