@@ -7,7 +7,13 @@ RUN apk add --no-cache bash g++ make py3-pip chromium yarn
 COPY --chown=node:node package*.json ./
 COPY . .
  
-RUN yarn 
+
+
+RUN yarn  && \
+    yarn build && \
+echo "User.create({ username: "USERNAME", password: "PASSWORD", isAdmin: true, name: "NAME"})" | yarn repl 
+
+
 
 
 # Etapa final para o  remote-server-dev

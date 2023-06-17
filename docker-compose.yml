@@ -5,6 +5,8 @@ services:
     image: nginx
     ports:
       - 80:80
+      - 9017:9017
+      - 9117:9117
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     networks:
@@ -72,6 +74,7 @@ services:
       - zookeeper
     ports:
       - 9092:9092
+      - 9217:9092
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181

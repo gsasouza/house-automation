@@ -11,6 +11,10 @@
 
 # How to run (development)
 
+## Docker setup
+- Install docker and docker-compose
+- run `docker-compose up -d` to start the project
+
 ## Infrastructure (Kafka, Zookeeper, MongoDB)
 - Run `docker-compose up -d` to start the infrastructure
 
@@ -59,6 +63,7 @@
 
 # How to run (production)
 - Replace all `yarn dev` scrips by `yarn build & yarn start`
+- Replace env in remote to use designated .env file 
 
 # How it works
 <h1 align="center">
