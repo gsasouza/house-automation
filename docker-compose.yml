@@ -7,6 +7,9 @@ services:
       - 3000:3000
       - 9017:9017
       - 9117:9117
+    depends_on:
+      - client
+      - remote-server
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
 
