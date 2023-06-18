@@ -8,7 +8,16 @@ export class KafkaService {
 
   constructor() {
 
-    const kafka = new Kafka({ clientId: ACCOUNT, brokers: [process.env.ENDPOINT|| 'localhost:9092'] })
+    const kafka = new Kafka({
+      clientId: ACCOUNT, brokers: ['pkc-ldjyd.southamerica-east1.gcp.confluent.cloud:9092'],
+      requestTimeout: 45000,
+      ssl: true,
+      sasl: {
+        mechanism: 'plain',
+        username: 'C4FHFR72R5VESF6F',
+        password: 'l0UwjHKaHCu8mZkS8+S5mf0itepSNjaLfB+z98G5OjDXfFVCQZJTVeg/LbuKmAH3',
+      },
+    })
     this.consumer = kafka.consumer({ groupId: ACCOUNT })
     this.producer = kafka.producer();
   }

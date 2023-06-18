@@ -6,6 +6,7 @@ import { Board } from "../modules/board/BoardModel";
 import { User } from "../modules/user/UserModel";
 import BoardIoChangedEvent from "./BoardIoChangedEvent";
 
+
 const consumer = kafka.consumer({ groupId: 'remote-server' });
 
 const onMessage: EachMessageHandler = async ({ message: rawMessage }: any) => {

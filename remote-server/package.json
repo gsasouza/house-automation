@@ -38,6 +38,7 @@
     "koa-morgan": "^1.0.1",
     "koa-router": "^7.4.0",
     "mongoose": "^7.0.4",
+    "node-rdkafka": "^2.16.1",
     "pubnub": "^4.24.3",
     "subscriptions-transport-ws": "^0.9.16",
     "ts-node": "^10.9.1",

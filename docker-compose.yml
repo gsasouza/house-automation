@@ -4,20 +4,17 @@ services:
     container_name: nginx
     image: nginx
     ports:
-      - 80:80
+      - 3000:3000
       - 9017:9017
       - 9117:9117
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-    networks:
-      - public
-      - mongo-compose-network
+
   remote-server: 
     container_name: remote-server
     build:
       context: ./remote-server
-      target: remote-server-dev
-      # target: remote-server-prod #uncomment this line to build for production 
+      target: remote-server-prod
     ports:
       - 4000:4000
     env_file:
@@ -29,20 +26,16 @@ services:
           cpus: '0.5'
           memory: 512M
     depends_on:
-      - kafdrop
-    networks:
-      - broker-kafka
-      - public
-      - mongo-compose-network
-      
+      - mongo
   client:
     container_name: client
     build:
       context: ./client
-      target: client-dev
-      # target: client-prod
+      target: client-prod
     ports:
       - 5050:5050
+    links:
+      - remote-server # name we use for nodeJS server
     env_file:
       - ./client/.env
     deploy:
@@ -52,50 +45,10 @@ services:
           cpus: '0.5'
           memory: 512M
     depends_on:
-      - kafdrop
-    networks:
-      - broker-kafka
-      - public
-      - mongo-compose-network
-
-  zookeeper:
-    image: confluentinc/cp-zookeeper:latest
-    networks:
-      - broker-kafka
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-
-  kafka:
-    image: confluentinc/cp-kafka:latest
-    networks:
-      - broker-kafka
-    depends_on:
-      - zookeeper
-    ports:
-      - 9092:9092
-      - 9217:9092
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-
-  kafdrop:
-    image: obsidiandynamics/kafdrop:latest
-    networks:
-      - broker-kafka
-    depends_on:
-      - kafka
-    ports:
-      - 19000:9000
-    environment:
-      KAFKA_BROKERCONNECT: kafka:29092
+      - remote-server
 
   mongo:
-    image: mongo:4.4.6
+    image: mongo:6-jammy
 #    environment:
 #      MONGO_INITDB_ROOT_USERNAME: root
 #      MONGO_INITDB_ROOT_PASSWORD: MongoDB!
@@ -103,16 +56,6 @@ services:
       - "27017:27017"
     volumes:
       - dbdata:/data/db
-  #  networks:
-  #    - mongo-compose-network
 
 volumes:
   dbdata:
-
-networks:
-  broker-kafka:
-    driver: bridge
-  mongo-compose-network:
-    driver: bridge
-  public:
-    driver: bridge

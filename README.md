@@ -27,7 +27,7 @@
 ### Create first user
 - Run `yarn build & yarn repl` to start the repl
 - Inside repl, run `User.create({ username: "USERNAME", password: "PASSWORD", isAdmin: true, name: "NAME"})`
-
+  
 ### Create kafka topic for this user
 - Check container name for kafka using `docker ps`
 - Run `docker exec CONTAINER_NAME kafka-topics --create --bootstrap-server localhost:29092 --partitions 1 --replication-factor 1 --topic USERNAME`
