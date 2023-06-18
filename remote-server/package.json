@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "update-schema": "ts-node ./scripts/updateSchema.ts",
+    "create-user": "ts-node ./scripts/createUser.ts",
     "test": "jest",
     "serve": "node build/index",
     "build": "TSC_COMPILE_ON_ERROR=true npx tsc",
