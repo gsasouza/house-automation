@@ -38,7 +38,7 @@ const RoomCard = ({ room, isDetailOpen, handleOpenDetail, handleCloseDetail }) =
           image={IMAGES[room.type]}
           betaBadgeLabel={FRIENDLY_NAMES[room.type]}
           title={room.name}
-          description={`Dispositivos Conectados: ${room.boardIosConnectedCount}`}
+          description={`Dispositivos Conectados: ${room.boardIosConnectedCount ?? 0}`}
           onClick={handleOpenDetail}
         />
       </Wrapper>

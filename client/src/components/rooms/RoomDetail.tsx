@@ -25,14 +25,20 @@ const BoardIoInput = ({ state, id, pin, name, board, connected }) => {
         name={id}
         label={label}
         checked={state}
-        onChange={() => BoardIoChangeState.commit({ id, state: !state }, () => {}, () => {})}
+        onChange={() => BoardIoChangeState.commit({ id, state: !state }, () => {
+        }, () => {
+        })}
       />
     </EuiFormRow>
   )
 }
 
 const RoomDetail = ({ handleCloseFlyout, room }) => {
+
+  if (!room) return null;
+
   const { boardIosConnected, name } = room;
+
   return (
     <EuiFlyout
       onClose={handleCloseFlyout}
@@ -49,7 +55,7 @@ const RoomDetail = ({ handleCloseFlyout, room }) => {
       <EuiFlyoutBody>
         <EuiText>
           <p>
-            {!boardIosConnected.count ?
+            {!boardIosConnected?.count ?
               'Nenhum dispositivo conectado neste cômodo :(' :
               'Dispositivos'
             }
@@ -57,7 +63,7 @@ const RoomDetail = ({ handleCloseFlyout, room }) => {
         </EuiText>
         <EuiSpacer size="m"/>
         <EuiForm>
-        {room.boardIosConnected.edges.map(({ node }, index) => <BoardIoInput key={index} {...node}/>)}
+          {(room.boardIosConnected?.edges ?? []).map(({ node }, index) => <BoardIoInput key={index} {...node}/>)}
         </EuiForm>
       </EuiFlyoutBody>
     </EuiFlyout>
@@ -66,26 +72,26 @@ const RoomDetail = ({ handleCloseFlyout, room }) => {
 
 export default createFragmentContainer(RoomDetail, {
   room: graphql`
-    fragment RoomDetail_room on Room {
-      name
-      id
-      boardIosConnected(first: 1000) {
-        count
-        edges {
-          cursor
-          node {
-            id
-            state
-            name
-            pin
-            connected
-            board {
-              name
-            }
+      fragment RoomDetail_room on Room {
+          name
+          id
+          boardIosConnected(first: 1000) {
+              count
+              edges {
+                  cursor
+                  node {
+                      id
+                      state
+                      name
+                      pin
+                      connected
+                      board {
+                          name
+                      }
+                  }
+              }
+
           }
-        }
-       
       }
-    }
   `
 })

@@ -27,10 +27,6 @@ const BoardAddSchema = Yup.object().shape({
 const BoardAdd = ({ setOpenModal, handleSubmit, values, errors, handleChange, setFieldValue, query }) => {
   const typeOptions = [
     {
-      value: 'ARDUINO',
-      inputDisplay: 'Arduino',
-    },
-    {
       value: 'ESP8266',
       inputDisplay: 'ESP8266',
     }

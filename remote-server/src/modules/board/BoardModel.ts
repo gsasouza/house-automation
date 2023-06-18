@@ -27,11 +27,9 @@ const schema = new Schema<any>(
     },
     host: {
       type: String,
-      unique: true,
     },
     port: {
       type: String,
-      unique: true,
     },
     connected: {
       type: Boolean,
