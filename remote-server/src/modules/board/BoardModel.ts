@@ -13,7 +13,7 @@ export interface IBoard extends Document {
   port?: boolean
 }
 
-const schema = new Schema<IBoard>(
+const schema = new Schema<any>(
   {
     name: {
       type: String,
@@ -45,4 +45,4 @@ const schema = new Schema<IBoard>(
   },
   { timestamps: true }
 )
-export const Board: Model<IBoard> = mongoose.model('board', schema)
+export const Board: Model<any> = mongoose.model('board', schema)

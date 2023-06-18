@@ -36,9 +36,9 @@ export default class Board {
   }
 }
 
-export const getLoader = () => new DataLoader(ids => mongooseLoader(BoardModel, ids));
+export const getLoader = () => new DataLoader(ids => mongooseLoader(BoardModel, ids as any));
 
-const viewerCanSee = (context) => !!context.user;
+const viewerCanSee = (context: any) => !!context.user;
 
 export const load = async (context: any, id: string): Promise<any> => {
   if (!id) {
@@ -68,6 +68,6 @@ export const loadBoards = async (context: any, args: ConnectionArguments & { sea
     cursor: boards,
     context,
     args,
-    loader: load,
+    loader: load as any,
   });
 };

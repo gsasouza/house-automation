@@ -20,7 +20,7 @@ export default new GraphQLObjectType({
     node: NodeField,
     me: {
       type: UserType,
-      resolve: (_, args, context) => {
+      resolve: (_, args, context: any) => {
         return context.user
       },
     },

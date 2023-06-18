@@ -13,7 +13,7 @@ export interface IRoom extends Document {
   createdBy: string
 }
 
-const schema = new Schema<IRoom>(
+const schema = new Schema<any>(
   {
     name: {
       type: String,
@@ -33,4 +33,4 @@ const schema = new Schema<IRoom>(
   },
   { timestamps: true }
 )
-export const Room: Model<IRoom> = mongoose.model('room', schema)
+export const Room: Model<any> = mongoose.model('room', schema)

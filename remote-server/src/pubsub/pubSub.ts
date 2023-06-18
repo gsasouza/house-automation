@@ -9,9 +9,7 @@ export const kafka = new Kafka({
 });
 
 const producer = kafka.producer({
-  retry: { retries: 8, initialRetryTime: 1, maxRetryTime: 30000, },
-  connectionTimeout: 10000,
-  authenticationTimeout: 10000,
+  retry: { retries: 8, initialRetryTime: 1, maxRetryTime: 30000 },
 });
 
 export const EVENTS = {

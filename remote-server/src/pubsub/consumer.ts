@@ -1,14 +1,14 @@
+// @ts-ignore
 import { EachMessageHandler } from "kafkajs";
-import { EVENTS, kafka, publish, publishBatch } from "./pubSub";
+import { EVENTS, kafka,  publishBatch } from "./pubSub";
 import { BoardIo } from "../modules/boardIo/BoardIOModel";
 import { Board } from "../modules/board/BoardModel";
 import { User } from "../modules/user/UserModel";
-import { fromGlobalId } from "graphql-relay";
 import BoardIoChangedEvent from "./BoardIoChangedEvent";
 
 const consumer = kafka.consumer({ groupId: 'remote-server' });
 
-const onMessage: EachMessageHandler = async ({ topic, partition, message: rawMessage }) => {
+const onMessage: EachMessageHandler = async ({ message: rawMessage }: any) => {
 
   const message = JSON.parse(rawMessage.value?.toString() ?? '')
   const { event } = message;
@@ -22,7 +22,7 @@ const onMessage: EachMessageHandler = async ({ topic, partition, message: rawMes
 
     case EVENTS.BOARD.INIT: {
       const { user: username } = message as InitBoardMessage;
-      const user = await User.findOne({ username });
+      const user = await User.findOne({ username }) as any;
 
       const board = await Board.findOne({ createdBy: user._id });
       if (!board) return;

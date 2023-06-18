@@ -39,9 +39,9 @@ export default class BoardIo {
   }
 }
 
-export const getLoader = () => new DataLoader<string>(ids => mongooseLoader(BoardIoModel, ids));
+export const getLoader = () => new DataLoader(ids => mongooseLoader(BoardIoModel, ids as any));
 
-const viewerCanSee = (context) => !!context.user;
+const viewerCanSee = (context: any) => !!context.user;
 
 export const load = async (context: any, id: string): Promise<any> => {
   if (!id) {
@@ -70,7 +70,7 @@ export const loadBoardIos = async (context: any, args: ConnectionArguments & { s
     cursor: boardIos,
     context,
     args,
-    loader: load,
+    loader: load as any,
   });
 };
 
@@ -102,6 +102,6 @@ export const loadBoardIosByRoom = async (context: any, args: ConnectionArguments
     cursor: boardIos,
     context,
     args,
-    loader: load,
+    loader: load as any,
   });
 };

@@ -34,6 +34,7 @@ const server = new ApolloServer({
   schema,
   plugins: [
     ApolloServerPluginDrainHttpServer({
+      // @ts-ignore
       httpServer, async serverWillStart() {
         return {
           async drainServer() {
@@ -60,7 +61,7 @@ const server = new ApolloServer({
   app.use('/graphql', cors<cors.CorsRequest>(), bodyParser.json(), expressMiddleware(server, {
     context: async ({ req }) => ({
       dataloaders: getDataLoaders(),
-      user: (await getUser(req.headers.authorization)).user
+      user: (await getUser(req.headers.authorization as any)).user
     })
   }));
 

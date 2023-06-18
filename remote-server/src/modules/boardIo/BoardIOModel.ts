@@ -11,7 +11,7 @@ export interface IBoardIo extends Document {
   board: string,
 }
 
-const schema = new Schema<IBoardIo>(
+const schema = new Schema<any>(
   {
     name: {
       type: String,
@@ -30,7 +30,7 @@ const schema = new Schema<IBoardIo>(
     board: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Board'
-    },
+    } as any,
     room: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Room'
@@ -46,4 +46,4 @@ const schema = new Schema<IBoardIo>(
   },
   { timestamps: true }
 )
-export const BoardIo: Model<IBoardIo> = mongoose.model('boardIo', schema)
+export const BoardIo: Model<any> = mongoose.model('boardIo', schema)

@@ -27,9 +27,9 @@ export default class Room {
   }
 }
 
-export const getLoader = () => new DataLoader<string>(ids => mongooseLoader(RoomModel, ids));
+export const getLoader = () => new DataLoader(ids => mongooseLoader(RoomModel, ids as any));
 
-const viewerCanSee = (context) => !!context.user;
+const viewerCanSee = (context: any) => !!context.user;
 
 export const load = async (context: any, id: string): Promise<any> => {
   if (!id) {
@@ -56,6 +56,6 @@ export const loadRooms = async (context: any, args: ConnectionArguments & { sear
     cursor: rooms,
     context,
     args,
-    loader: load,
+    loader: load as any,
   });
 };

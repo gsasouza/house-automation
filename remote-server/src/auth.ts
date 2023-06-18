@@ -22,7 +22,7 @@ export async function getUser(token: string) {
 
 export const authenticatedMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   const { authorization } = req.headers
-  const { user } = await getUser(authorization);
+  const { user } = await getUser(authorization as any);
   req.context = {
     ...req.context,
     user

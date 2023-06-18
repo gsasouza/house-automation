@@ -27,7 +27,7 @@ const { nodeField, nodeInterface } = nodeDefinitions(
       return await BoardIoLoader.load(context, id);
     }
   },
-  obj => {
+  (obj): any => {
     if (obj instanceof UserLoader.default) {
       return UserType;
     }
