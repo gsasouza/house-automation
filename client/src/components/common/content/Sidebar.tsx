@@ -25,11 +25,6 @@ const Sidebar = ({ setNavDrawerRef }) => {
 
   const adminLinks = [
     {
-      label: 'Usuários',
-      onClick: () => navigate('/dashboard/users'),
-      iconType: 'usersRolesApp',
-    },
-    {
       label: 'Placas',
       onClick: () => navigate('/dashboard/boards'),
       iconType: 'managementApp',
